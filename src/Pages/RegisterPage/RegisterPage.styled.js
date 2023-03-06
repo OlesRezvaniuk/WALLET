@@ -8,7 +8,8 @@ import BgImg from 'Image/Auth/Frame.svg';
 export const PageContainer = styled.div`
   padding: 0px 0px;
   position: relative;
-
+  max-width: 1280px;
+  margin: auto;
   @media screen and (min-width: 597px) {
     background-image: url(${BgImg}), url(${EllipseTopT}), url(${EllipseBottomT});
     background-repeat: no-repeat;

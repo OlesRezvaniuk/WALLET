@@ -35,6 +35,11 @@ export const FormInputItem = styled.li`
   display: flex;
   width: 100%;
   margin: auto;
+  padding: 0px 10px;
+  fill: #e0e0e0;
+  color: #e0e0e0;
+  cursor: pointer;
+  position: relative;
 `;
 
 export const FormInput = styled.input`
@@ -42,7 +47,29 @@ export const FormInput = styled.input`
   backgroundcolor: transparent;
   border: none;
   outline: none;
+  fill: inherit;
+  color: inherit;
 `;
 
-export const EmailImg = styled(EmailPrimal)``;
-export const PasswordImg = styled(PasswordPrimal)``;
+export const EmailImg = styled(EmailPrimal)`
+  width: 24px;
+  height: 24px;
+  margin-right: 20px;
+  fill: inherit;
+  color: inherit;
+  * {
+    fill: inherit;
+    color: inherit;
+  }
+`;
+export const PasswordImg = styled(PasswordPrimal)`
+  width: 24px;
+  height: 24px;
+  margin-right: 20px;
+  fill: inherit;
+  color: inherit;
+  * {
+    fill: inherit;
+    color: inherit;
+  }
+`;

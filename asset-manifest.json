@@ -1,13 +1,23 @@
 {
   "files": {
-    "main.css": "/WALLET/static/css/main.7acaea2f.css",
-    "main.js": "/WALLET/static/js/main.07d3183d.js",
+    "main.css": "/WALLET/static/css/main.4b0ea215.css",
+    "main.js": "/WALLET/static/js/main.a0c78a94.js",
+    "static/media/Group.svg": "/WALLET/static/media/Group.64ca2e4c6bf81d519acb6f918e3899e7.svg",
+    "static/media/Frame.svg": "/WALLET/static/media/Frame.5717978088f0bcb942943cdd8713b9c8.svg",
+    "static/media/logo.svg": "/WALLET/static/media/logo.85b113bd6ea207f2151e55747371dad1.svg",
     "index.html": "/WALLET/index.html",
-    "main.7acaea2f.css.map": "/WALLET/static/css/main.7acaea2f.css.map",
-    "main.07d3183d.js.map": "/WALLET/static/js/main.07d3183d.js.map"
+    "static/media/baseline-lock-24px 1.svg": "/WALLET/static/media/baseline-lock-24px 1.c96371cdb3eea2cb640f281b8d4c901e.svg",
+    "static/media/baseline-account_box-24px 1.svg": "/WALLET/static/media/baseline-account_box-24px 1.af348b4c46b5fcf5f0f458df636fcfe8.svg",
+    "static/media/baseline-email-24px 1.svg": "/WALLET/static/media/baseline-email-24px 1.baae6b24ed64ad75323ee71140687e36.svg",
+    "static/media/Ellipse1T.svg": "/WALLET/static/media/Ellipse1T.a36288d5d3c3363f769bb1b334cd06ee.svg",
+    "static/media/Ellipse1d.svg": "/WALLET/static/media/Ellipse1d.dee322133bc32763d7238dd126f8f023.svg",
+    "static/media/Ellipse2.svg": "/WALLET/static/media/Ellipse2.07ef13244b203e866dcdec6e7633ee44.svg",
+    "static/media/Ellipse2d.svg": "/WALLET/static/media/Ellipse2d.c8fb29d72ce4f8a3be02a89d77f20c28.svg",
+    "main.4b0ea215.css.map": "/WALLET/static/css/main.4b0ea215.css.map",
+    "main.a0c78a94.js.map": "/WALLET/static/js/main.a0c78a94.js.map"
   },
   "entrypoints": [
-    "static/css/main.7acaea2f.css",
-    "static/js/main.07d3183d.js"
+    "static/css/main.4b0ea215.css",
+    "static/js/main.a0c78a94.js"
   ]
 }

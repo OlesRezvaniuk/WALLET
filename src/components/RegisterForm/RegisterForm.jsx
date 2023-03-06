@@ -11,8 +11,11 @@ import {
   LinkStyled,
   FormBtn,
 } from './RegisterForm.styled';
+import { useDispatch } from 'react-redux';
 
 export const RegisterForm = () => {
+  const dispatch = useDispatch();
+
   return (
     <FormContainer>
       <LogoImg />
@@ -44,7 +47,9 @@ export const RegisterForm = () => {
           </FormInputItem>
         </FormInputList>
         <LinkStyled to="/Login">Sing In</LinkStyled>
-        <FormBtn type="button">Log in</FormBtn>
+        <FormBtn onClick={() => {}} type="button">
+          Log in
+        </FormBtn>
       </form>
     </FormContainer>
   );

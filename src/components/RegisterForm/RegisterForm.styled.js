@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as LogoPrimal } from '../../Image/Auth/logo.svg';
 import { ReactComponent as EmailPrimal } from '../../Image/Auth/baseline-email-24px 1.svg';
 import { ReactComponent as PasswordPrimal } from '../../Image/Auth/baseline-lock-24px 1.svg';
+import { ReactComponent as AcountPrimal } from '../../Image/Auth/baseline-account_box-24px 1.svg';
 
 export const FormContainer = styled.div`
   position: relative;
@@ -69,6 +70,16 @@ export const EmailImg = styled(EmailPrimal)`
   }
 `;
 export const PasswordImg = styled(PasswordPrimal)`
+  width: 24px;
+  height: 24px;
+  fill: inherit;
+  color: inherit;
+  * {
+    fill: inherit;
+    color: inherit;
+  }
+`;
+export const AcountImg = styled(AcountPrimal)`
   width: 24px;
   height: 24px;
   fill: inherit;

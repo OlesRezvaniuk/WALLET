@@ -1,9 +1,10 @@
 import { LoginForm } from 'components/LoginForm/LoginForm';
-import { PageContainer } from './LoginPage.styled';
+import { PageContainer, Blur } from './LoginPage.styled';
 
 export const LoginPage = () => {
   return (
-    <PageContainer>
+    <PageContainer id="loginPage">
+      <Blur />
       <LoginForm />
     </PageContainer>
   );

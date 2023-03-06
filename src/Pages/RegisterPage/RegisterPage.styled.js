@@ -3,7 +3,7 @@ import EllipseTopT from 'Image/Auth/Ellipse2.svg';
 import EllipseTopD from 'Image/Auth/Ellipse2d.svg';
 import EllipseBottomT from 'Image/Auth/Ellipse1T.svg';
 import EllipseBottomD from 'Image/Auth/Ellipse1d.svg';
-import BgImg from 'Image/Auth/Group.svg';
+import BgImg from 'Image/Auth/Frame.svg';
 
 export const PageContainer = styled.div`
   padding: 0px 0px;

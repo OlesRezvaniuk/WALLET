@@ -11,7 +11,14 @@ import {
   LinkStyled,
   FormBtn,
 } from './RegisterForm.styled';
+import { registerUserOperation } from 'redux/auth/authOperations';
 import { useDispatch } from 'react-redux';
+
+const data = {
+  username: 'oles3',
+  email: 'oles3@gmail.com',
+  password: 'qwerty',
+};
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -46,9 +53,15 @@ export const RegisterForm = () => {
             </FormLabel>
           </FormInputItem>
         </FormInputList>
-        <LinkStyled to="/Login">Sing In</LinkStyled>
-        <FormBtn onClick={() => {}} type="button">
-          Log in
+        <LinkStyled to="/">Sing In</LinkStyled>
+        <FormBtn
+          onClick={() => {
+            dispatch(registerUserOperation(data));
+            console.log('hi');
+          }}
+          type="button"
+        >
+          Register
         </FormBtn>
       </form>
     </FormContainer>

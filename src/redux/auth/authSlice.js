@@ -3,10 +3,8 @@ import { StatusForAll } from 'services/status';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  username: '',
-  email: '',
-  password: '',
-  status: StatusForAll.init,
+  user: {},
+  token: null,
 };
 
 const authSlice = createSlice({
@@ -18,15 +16,12 @@ const authSlice = createSlice({
     },
     [registerUserOperation.fulfilled](state, action) {
       state.status = StatusForAll.success;
-      state.username = action.payload.name;
-      state.email = action.payload._id;
-      state.password = action.payload.token;
+      state.token = action.payload.token;
+      state.user = action.payload.user;
     },
     [registerUserOperation.rejected](state) {
       state.status = StatusForAll.error;
-      state.name = '';
-      state._id = '';
-      state.token = '';
+      state.user = {};
     },
   },
 });

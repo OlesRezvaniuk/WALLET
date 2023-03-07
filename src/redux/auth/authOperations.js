@@ -26,3 +26,18 @@ export const registerUserOperation = createAsyncThunk(
     }
   }
 );
+
+export const loginUserOperation = createAsyncThunk(
+  '/api/auth/sign-in',
+  async (body, thunkAPI) => {
+    try {
+      const response = await axios.post(
+        'https://wallet.goit.ua/api/auth/sign-in',
+        body
+      );
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

@@ -10,8 +10,20 @@ import {
   LinkStyled,
   FormBtn,
 } from './LoginForm.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUserOperation } from 'redux/auth/authOperations';
+import { authSelector } from 'redux/auth/authSelector';
+
+const data = {
+  email: 'oles3@gmail.com',
+  password: 'qwerty',
+};
 
 export const LoginForm = () => {
+  const dispatch = useDispatch();
+  const user = useSelector(authSelector);
+  console.log(user.auth.token);
+
   return (
     <FormContainer>
       <LogoImg />
@@ -31,7 +43,15 @@ export const LoginForm = () => {
           </FormInputItem>
         </FormInputList>
         <LinkStyled to="/Register">Register</LinkStyled>
-        <FormBtn type="button">Log in</FormBtn>
+        <FormBtn
+          onClick={() => {
+            dispatch(loginUserOperation(data));
+            console.log('click');
+          }}
+          type="button"
+        >
+          Log in
+        </FormBtn>
       </form>
     </FormContainer>
   );

@@ -41,3 +41,17 @@ export const loginUserOperation = createAsyncThunk(
     }
   }
 );
+
+export const logoutUserOperation = createAsyncThunk(
+  '/api/auth/sign-out',
+  async (_, thunkAPI) => {
+    try {
+      const response = await axios.delete(
+        'https://wallet.goit.ua/api/auth/sign-out'
+      );
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

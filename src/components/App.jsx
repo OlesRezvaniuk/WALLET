@@ -2,12 +2,13 @@ import { Routes, Route } from 'react-router-dom';
 import { LoginPage } from 'Pages/LoginPage/LoginPage';
 import { RegisterPage } from 'Pages/RegisterPage/RegisterPage';
 import { PrivateRoute, PublicRoute } from 'routes/routes';
+import { Layout } from './Layout/Layout';
 
 export const App = () => {
   return (
     <Routes>
       <Route
-        path="/"
+        path="/Login"
         element={
           <PublicRoute>
             <LoginPage />
@@ -23,13 +24,16 @@ export const App = () => {
         }
       />
       <Route
-        path="/home"
+        path="/"
         element={
           <PrivateRoute>
-            <>Home page</>
+            <Layout />
           </PrivateRoute>
         }
-      />
+      >
+        <Route index element={<>Home Page</>} />
+        <Route path="/Statistics" element={<>Statistics Page</>} />
+      </Route>
     </Routes>
   );
 };

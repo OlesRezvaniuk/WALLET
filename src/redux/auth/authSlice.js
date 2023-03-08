@@ -1,40 +1,35 @@
-import { loginUserOperation, registerUserOperation } from './authOperations';
+import {
+  loginUserOperation,
+  registerUserOperation,
+  logoutUserOperation,
+} from './authOperations';
 import { StatusForAll } from 'services/status';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  user: {},
+  user: null,
   token: null,
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  extraReducers: {
-    [registerUserOperation.pending](state) {
-      state.status = StatusForAll.loading;
-    },
-    [registerUserOperation.fulfilled](state, action) {
+  extraReducers: builder => {
+    builder.addCase(registerUserOperation.fulfilled, (state, { payload }) => {
       state.status = StatusForAll.success;
-      state.token = action.payload.token;
-      state.user = action.payload.user;
-    },
-    [registerUserOperation.rejected](state) {
-      state.status = StatusForAll.error;
-      state.user = {};
-    },
-    [loginUserOperation.pending](state) {
-      state.status = StatusForAll.loading;
-    },
-    [loginUserOperation.fulfilled](state, action) {
+      state.token = payload.token;
+      state.user = payload.user;
+    });
+    builder.addCase(loginUserOperation.fulfilled, (state, { payload }) => {
       state.status = StatusForAll.success;
-      state.token = action.payload.token;
-      state.user = action.payload.user;
-    },
-    [loginUserOperation.rejected](state) {
-      state.status = StatusForAll.error;
-      state.user = {};
-    },
+      state.token = payload.token;
+      state.user = payload.user;
+    });
+    builder.addCase(logoutUserOperation.fulfilled, state => {
+      state.status = StatusForAll.success;
+      // state.token = null;
+      // state.user = null;
+    });
   },
 });
 

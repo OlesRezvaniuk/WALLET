@@ -8,12 +8,20 @@ import {
 } from './Layout.styled';
 import { authSelector } from 'redux/auth/authSelector';
 import { useSelector, useDispatch } from 'react-redux';
+import { logoutUserOperation } from 'redux/auth/authOperations';
+import { loginUserOperation } from 'redux/auth/authOperations';
+
+const data = {
+  email: 'oles3@gmail.com',
+  password: 'qwerty',
+};
 
 export const Layout = () => {
   const user = useSelector(authSelector);
-  console.log(user.auth.user.username);
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
+    dispatch(logoutUserOperation(data));
     console.log('handle loyout');
   };
 
@@ -21,7 +29,12 @@ export const Layout = () => {
     <>
       <>
         <LayoutBox>
-          <LogoImg />
+          <LogoImg
+            onClick={() => {
+              dispatch(loginUserOperation(data));
+              console.log('login');
+            }}
+          />
           <UserName>{user.auth.user.username}</UserName>
           <LogoutButton onClick={handleLogout}>
             <ExitIcon />

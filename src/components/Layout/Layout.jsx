@@ -20,11 +20,11 @@ export const Layout = () => {
   const user = useSelector(authSelector);
   const dispatch = useDispatch();
 
-  console.log(user.auth.token);
+  const token = user.auth.token;
+  console.log(token);
 
   const handleLogout = () => {
-    dispatch(logoutUserOperation(user.auth.token));
-    console.log('handle loyout');
+    dispatch(logoutUserOperation(token));
   };
 
   return (

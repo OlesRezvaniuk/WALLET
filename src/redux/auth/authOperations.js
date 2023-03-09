@@ -56,3 +56,17 @@ export const logoutUserOperation = createAsyncThunk(
     }
   }
 );
+
+export const currentUserOperation = createAsyncThunk(
+  '/api/users/current',
+  async (_, thunkAPI) => {
+    try {
+      const response = await axios.get(
+        'https://wallet.goit.ua/api/users/current'
+      );
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

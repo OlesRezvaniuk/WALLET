@@ -27,8 +27,6 @@ const authSlice = createSlice({
     });
     builder.addCase(logoutUserOperation.fulfilled, state => {
       state.status = StatusForAll.success;
-      // state.token = null;
-      // state.user = null;
     });
   },
 });

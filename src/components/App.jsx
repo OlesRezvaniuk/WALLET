@@ -16,6 +16,7 @@ export const App = () => {
     if (user.auth.isLogin) {
       dispatch(currentUserOperation());
     }
+    // eslint-disable-next-line
   }, []);
 
   return (

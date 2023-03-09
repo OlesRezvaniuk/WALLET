@@ -20,8 +20,10 @@ export const Layout = () => {
   const user = useSelector(authSelector);
   const dispatch = useDispatch();
 
+  console.log(user.auth.token);
+
   const handleLogout = () => {
-    dispatch(logoutUserOperation(data));
+    dispatch(logoutUserOperation(user.auth.token));
     console.log('handle loyout');
   };
 

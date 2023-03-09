@@ -35,6 +35,7 @@ export const loginUserOperation = createAsyncThunk(
         'https://wallet.goit.ua/api/auth/sign-in',
         body
       );
+      token.set(response.data.token);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -44,7 +45,7 @@ export const loginUserOperation = createAsyncThunk(
 
 export const logoutUserOperation = createAsyncThunk(
   '/api/auth/sign-out',
-  async (data, thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
       const response = await axios.delete(
         'https://wallet.goit.ua/api/auth/sign-out'

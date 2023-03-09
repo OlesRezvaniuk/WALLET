@@ -21,7 +21,6 @@ export const Layout = () => {
   const dispatch = useDispatch();
 
   const token = user.auth.token;
-  console.log(token);
 
   const handleLogout = () => {
     dispatch(logoutUserOperation(token));
@@ -34,7 +33,6 @@ export const Layout = () => {
           <LogoImg
             onClick={() => {
               dispatch(loginUserOperation(data));
-              console.log('login');
             }}
           />
           <UserName>{user.auth.user.username}</UserName>

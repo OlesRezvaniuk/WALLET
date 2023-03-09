@@ -3,8 +3,21 @@ import { LoginPage } from 'Pages/LoginPage/LoginPage';
 import { RegisterPage } from 'Pages/RegisterPage/RegisterPage';
 import { PrivateRoute, PublicRoute } from 'routes/routes';
 import { Layout } from './Layout/Layout';
+import { useDispatch, useSelector } from 'react-redux';
+import { currentUserOperation } from 'redux/auth/authOperations';
+import { useEffect } from 'react';
+import { authSelector } from 'redux/auth/authSelector';
 
 export const App = () => {
+  const dispatch = useDispatch();
+  const user = useSelector(authSelector);
+
+  useEffect(() => {
+    if (user.auth.isLogin) {
+      dispatch(currentUserOperation());
+    }
+  }, []);
+
   return (
     <Routes>
       <Route

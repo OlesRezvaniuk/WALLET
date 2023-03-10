@@ -71,7 +71,8 @@ export const RegisterForm = () => {
     validationUsername({ username, setUsername, e });
   };
 
-  const handleRegistration = () => {
+  const handleRegistration = e => {
+    e.preventDefault();
     if (
       user.username !== null &&
       user.email !== null &&
@@ -84,7 +85,7 @@ export const RegisterForm = () => {
   return (
     <FormContainer>
       <LogoImg />
-      <form>
+      <form onSubmit={handleRegistration}>
         <FormInputList>
           <FormInputItem>
             <FormLabel>
@@ -116,14 +117,7 @@ export const RegisterForm = () => {
                 value={password.value}
                 onBlur={handlePassword}
               />
-              <button
-                onClick={e => {
-                  e.preventDefault();
-                  setPassword({ ...password, hidden: !password.hidden });
-                }}
-              >
-                {password.hidden ? 'show' : 'hide'}
-              </button>
+              <button type="submit">{password.hidden ? 'show' : 'hide'}</button>
             </FormLabel>
           </FormInputItem>
           <FormInputItem>

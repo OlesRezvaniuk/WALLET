@@ -24,7 +24,12 @@ export const LoginForm = () => {
   return (
     <FormContainer>
       <LogoImg />
-      <form>
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          dispatch(loginUserOperation(data));
+        }}
+      >
         <FormInputList>
           <FormInputItem>
             <FormLabel>
@@ -40,14 +45,7 @@ export const LoginForm = () => {
           </FormInputItem>
         </FormInputList>
         <LinkStyled to="/Register">Register</LinkStyled>
-        <FormBtn
-          onClick={() => {
-            dispatch(loginUserOperation(data));
-          }}
-          type="button"
-        >
-          Log in
-        </FormBtn>
+        <FormBtn type="submit">Log in</FormBtn>
       </form>
     </FormContainer>
   );

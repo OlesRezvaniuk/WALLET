@@ -10,9 +10,8 @@ import {
   LinkStyled,
   FormBtn,
 } from './LoginForm.styled';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { loginUserOperation } from 'redux/auth/authOperations';
-import { authSelector } from 'redux/auth/authSelector';
 
 const data = {
   email: 'rezvniuk@ukr.net',
@@ -21,7 +20,6 @@ const data = {
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
-  const user = useSelector(authSelector);
 
   return (
     <FormContainer>
@@ -45,7 +43,6 @@ export const LoginForm = () => {
         <FormBtn
           onClick={() => {
             dispatch(loginUserOperation(data));
-            console.log('click');
           }}
           type="button"
         >

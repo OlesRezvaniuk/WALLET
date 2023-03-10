@@ -15,14 +15,13 @@ import { loginUserOperation } from 'redux/auth/authOperations';
 import { authSelector } from 'redux/auth/authSelector';
 
 const data = {
-  email: 'oles3@gmail.com',
+  email: 'rezvniuk@ukr.net',
   password: 'qwerty',
 };
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
   const user = useSelector(authSelector);
-  console.log(user.auth.token);
 
   return (
     <FormContainer>

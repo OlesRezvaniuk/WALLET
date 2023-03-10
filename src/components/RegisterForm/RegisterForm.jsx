@@ -13,16 +13,18 @@ import {
 } from './RegisterForm.styled';
 import { registerUserOperation } from 'redux/auth/authOperations';
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
-import { emailValidation, correct } from './RegisterFormValidation';
-
-const data = {
-  username: 'oles3',
-  email: 'oles3@gmail.com',
-  password: 'qwerty',
-};
+import { useEffect, useState } from 'react';
+import {
+  emailValidation,
+  validationPassword,
+  confirmPassword,
+  validationUsername,
+} from './RegisterFormValidation';
 
 export const RegisterForm = () => {
+  const dispatch = useDispatch();
+
+  const [username, setUsername] = useState({ value: '', accepted: false });
   const [email, setEmail] = useState({
     value: '',
     isCorrect: false,
@@ -33,52 +35,51 @@ export const RegisterForm = () => {
     confirmValue: '',
     isCorrect: false,
     message: '',
+    confirmMessage: '',
     hidden: true,
+    accepted: false,
   });
 
-  const dispatch = useDispatch();
+  const [user, setUser] = useState({
+    username: null,
+    email: null,
+    password: null,
+  });
+
+  useEffect(() => {
+    setUser({
+      username: username.value,
+      email: email.value,
+      password: password.accepted ? password.value : '',
+    });
+    // eslint-disable-next-line
+  }, [email, password, username]);
 
   const handleEmail = e => {
-    setEmail({ value: e.target.value, isCorrect: false, message: '' });
-    // eslint-disable-next-line
-    let re = /^\w{1,}[\.-\w]*\w{1,}@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (email.value.length === 0) {
-      emailValidation({ setEmail, e, request: 'required' });
-    } else if (!re.test(String(e.target.value).toLocaleLowerCase())) {
-      emailValidation({ setEmail, e, request: 'wrong' });
-    } else if (email.value.length < 10) {
-      emailValidation({ setEmail, e, request: 'more' });
-    } else if (email.value.length > 64) {
-      emailValidation({ setEmail, e, request: 'less' });
-    } else {
-      setEmail({
-        ...email,
-        value: e.target.value,
-        isCorrect: true,
-        message: 'accepted',
-      });
-      correct(e.target);
-    }
+    emailValidation({ email, setEmail, e });
   };
 
   const handlePassword = e => {
-    let pattern = /^\w*$/;
-    if (pattern.test(e.target.value)) {
-      console.log('handle password:', e.target.value);
-      setPassword({
-        value: e.target.value,
-        confirmValue: '',
-        isCorrect: false,
-        message: '',
-        hidden: true,
-      });
-      console.log(
-        'Password must contain numbers and/or letters without spaces'
-      );
-    }
+    validationPassword({ password, setPassword, e });
   };
 
-  console.log(password.value);
+  const handleConfirmPassword = e => {
+    confirmPassword({ password, setPassword, e });
+  };
+
+  const handleUserName = e => {
+    validationUsername({ username, setUsername, e });
+  };
+
+  const handleRegistration = () => {
+    if (
+      user.username !== null &&
+      user.email !== null &&
+      user.password !== null
+    ) {
+      dispatch(registerUserOperation(user));
+    }
+  };
 
   return (
     <FormContainer>
@@ -105,7 +106,7 @@ export const RegisterForm = () => {
             <FormLabel>
               <PasswordImg />
               <FormInput
-                label="Email"
+                label="Password"
                 type={password.hidden ? 'password' : 'text'}
                 placeholder="Password"
                 minLength={7}
@@ -128,24 +129,38 @@ export const RegisterForm = () => {
           <FormInputItem>
             <FormLabel>
               <PasswordImg />
-              <FormInput type="text" placeholder="Confirm password" />
+              <FormInput
+                label="ConfirmPassword"
+                type={password.hidden ? 'password' : 'text'}
+                placeholder="Confirm password"
+                minLength={7}
+                maxLength={63}
+                name="password"
+                onChange={handleConfirmPassword}
+                value={password.confirmValue}
+                onBlur={handleConfirmPassword}
+              />
             </FormLabel>
           </FormInputItem>
           <FormInputItem>
             <FormLabel>
               <AcountImg />
-              <FormInput type="text" placeholder="First name" />
+              <FormInput
+                label="Username"
+                type="text"
+                placeholder="First name"
+                minLength={1}
+                maxLength={15}
+                name="username"
+                onChange={handleUserName}
+                value={username.value}
+                onBlur={handleUserName}
+              />
             </FormLabel>
           </FormInputItem>
         </FormInputList>
         <LinkStyled to="/">Sing In</LinkStyled>
-        <FormBtn
-          onClick={() => {
-            dispatch(registerUserOperation(data));
-            console.log('hi');
-          }}
-          type="button"
-        >
+        <FormBtn onClick={handleRegistration} type="button">
           Register
         </FormBtn>
       </form>

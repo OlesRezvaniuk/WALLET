@@ -65,7 +65,9 @@ export const LoginForm = () => {
           </FormInputItem>
         </FormInputList>
         <ErrorMessage showMessage={showMessage}>
-          Wrong email or password
+          {userData.email.length === 0 && userData.password.length === 0
+            ? 'All fields must be filled'
+            : 'Wrong email or password'}
         </ErrorMessage>
         <LinkStyled to="/Register">Register</LinkStyled>
         <FormBtn type="submit">Log in</FormBtn>

@@ -9,41 +9,64 @@ import {
   FormLabel,
   LinkStyled,
   FormBtn,
+  ErrorMessage,
 } from './LoginForm.styled';
 import { useDispatch } from 'react-redux';
 import { loginUserOperation } from 'redux/auth/authOperations';
-
-const data = {
-  email: 'rezvniuk@ukr.net',
-  password: 'qwerty',
-};
+import { useState } from 'react';
 
 export const LoginForm = () => {
+  const [showMessage, setShowMessage] = useState(false);
+  const [userData, setUserData] = useState({ email: '', password: '' });
   const dispatch = useDispatch();
+
+  const handleSubmit = e => {
+    const data = { userData, setShowMessage };
+    e.preventDefault();
+    dispatch(loginUserOperation(data));
+  };
+
+  const handleInputChange = e => {
+    if (e.target.id === 'loginEmailnput') {
+      setUserData({ ...userData, email: e.target.value });
+    } else if (e.target.id === 'loginPasswordInput') {
+      setUserData({ ...userData, password: e.target.value });
+    }
+  };
 
   return (
     <FormContainer>
       <LogoImg />
-      <form
-        onSubmit={e => {
-          e.preventDefault();
-          dispatch(loginUserOperation(data));
-        }}
-      >
+      <form onSubmit={handleSubmit}>
         <FormInputList>
           <FormInputItem>
-            <FormLabel>
+            <FormLabel id="loginEmailLabel">
               <EmailImg />
-              <FormInput type="text" placeholder="E-mail" />
+              <FormInput
+                id="loginEmailnput"
+                value={userData.email}
+                onChange={handleInputChange}
+                type="text"
+                placeholder="E-mail"
+              />
             </FormLabel>
           </FormInputItem>
           <FormInputItem>
-            <FormLabel>
+            <FormLabel id="loginPasswordLabel">
               <PasswordImg />
-              <FormInput type="text" placeholder="Password" />
+              <FormInput
+                id="loginPasswordInput"
+                value={userData.password}
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Password"
+              />
             </FormLabel>
           </FormInputItem>
         </FormInputList>
+        <ErrorMessage showMessage={showMessage}>
+          Wrong email or password
+        </ErrorMessage>
         <LinkStyled to="/Register">Register</LinkStyled>
         <FormBtn type="submit">Log in</FormBtn>
       </form>

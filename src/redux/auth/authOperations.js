@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { uncorrect, initial } from 'components/LoginForm/LoginFormValidation';
 
 export const token = {
   set(token) {
@@ -27,17 +28,25 @@ export const registerUserOperation = createAsyncThunk(
   }
 );
 
+// setShowMessage
+
 export const loginUserOperation = createAsyncThunk(
   '/api/auth/sign-in',
   async (body, thunkAPI) => {
     try {
       const response = await axios.post(
         'https://wallet.goit.ua/api/auth/sign-in',
-        body
+        body.userData
       );
       token.set(response.data.token);
       return response.data;
     } catch (error) {
+      body.setShowMessage(true);
+      uncorrect();
+      setTimeout(() => {
+        initial();
+        body.setShowMessage(false);
+      }, 3000);
       return thunkAPI.rejectWithValue(error.message);
     }
   }

@@ -23,6 +23,17 @@ export const FormContainer = styled.div`
   }
 `;
 
+export const ErrorMessage = styled.span`
+  position: absolute;
+  left: 12%;
+  bottom: 45%;
+  color: tomato;
+  font-size: 12px;
+  font-style: italic;
+  transition: 250ms;
+  opacity: ${p => (p.showMessage ? 1 : 0)};
+`;
+
 export const LogoImg = styled(LogoPrimal)`
   width: 120px;
   height: 30px;

@@ -55,20 +55,16 @@ export const RegisterForm = () => {
     // eslint-disable-next-line
   }, [email, password, username]);
 
-  const handleEmail = e => {
-    emailValidation({ email, setEmail, e });
-  };
-
-  const handlePassword = e => {
-    validationPassword({ password, setPassword, e });
-  };
-
-  const handleConfirmPassword = e => {
-    confirmPassword({ password, setPassword, e });
-  };
-
-  const handleUserName = e => {
-    validationUsername({ username, setUsername, e });
+  const handleInput = e => {
+    if (e.target.name === 'email') {
+      emailValidation({ email, setEmail, e });
+    } else if (e.target.name === 'password') {
+      validationPassword({ password, setPassword, e });
+    } else if (e.target.name === 'passwordConfirm') {
+      confirmPassword({ password, setPassword, e });
+    } else if (e.target.name === 'username') {
+      validationUsername({ username, setUsername, e });
+    }
   };
 
   const handleRegistration = e => {
@@ -81,6 +77,9 @@ export const RegisterForm = () => {
       dispatch(registerUserOperation(user));
     }
   };
+
+  console.log(username);
+  // console.log(email);
 
   return (
     <FormContainer>
@@ -97,11 +96,23 @@ export const RegisterForm = () => {
                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}"
                 required
                 name="email"
-                onChange={handleEmail}
+                onChange={handleInput}
                 value={email.value}
-                onBlur={handleEmail}
+                onBlur={handleInput}
               />
             </FormLabel>
+            {!email.isCorrect && (
+              <span
+                style={{
+                  position: 'absolute',
+                  bottom: -16,
+                  color: 'tomato',
+                  fontSize: 12,
+                }}
+              >
+                {email.message}
+              </span>
+            )}
           </FormInputItem>
           <FormInputItem>
             <FormLabel>
@@ -113,12 +124,31 @@ export const RegisterForm = () => {
                 minLength={7}
                 maxLength={63}
                 name="password"
-                onChange={handlePassword}
+                onChange={handleInput}
                 value={password.value}
-                onBlur={handlePassword}
+                onBlur={handleInput}
               />
-              <button type="submit">{password.hidden ? 'show' : 'hide'}</button>
+              <button
+                onClick={() => {
+                  setPassword({ ...password, hidden: !password.hidden });
+                }}
+                type="button"
+              >
+                {password.hidden ? 'show' : 'hide'}
+              </button>
             </FormLabel>
+            {!email.isCorrect && (
+              <span
+                style={{
+                  position: 'absolute',
+                  bottom: -16,
+                  color: 'tomato',
+                  fontSize: 12,
+                }}
+              >
+                {password.message}
+              </span>
+            )}
           </FormInputItem>
           <FormInputItem>
             <FormLabel>
@@ -129,12 +159,24 @@ export const RegisterForm = () => {
                 placeholder="Confirm password"
                 minLength={7}
                 maxLength={63}
-                name="password"
-                onChange={handleConfirmPassword}
+                name="passwordConfirm"
+                onChange={handleInput}
                 value={password.confirmValue}
-                onBlur={handleConfirmPassword}
+                onBlur={handleInput}
               />
             </FormLabel>
+            {password.value !== password.confirmValue && (
+              <span
+                style={{
+                  position: 'absolute',
+                  bottom: -16,
+                  color: 'tomato',
+                  fontSize: 12,
+                }}
+              >
+                {password.confirmMessage}
+              </span>
+            )}
           </FormInputItem>
           <FormInputItem>
             <FormLabel>
@@ -146,11 +188,23 @@ export const RegisterForm = () => {
                 minLength={1}
                 maxLength={15}
                 name="username"
-                onChange={handleUserName}
+                onChange={handleInput}
                 value={username.value}
-                onBlur={handleUserName}
+                onBlur={handleInput}
               />
             </FormLabel>
+            {!username.accepted && (
+              <span
+                style={{
+                  position: 'absolute',
+                  bottom: -16,
+                  color: 'tomato',
+                  fontSize: 12,
+                }}
+              >
+                {username.message}
+              </span>
+            )}
           </FormInputItem>
         </FormInputList>
         <LinkStyled to="/">Sing In</LinkStyled>

@@ -91,7 +91,7 @@ export const validationPassword = ({ password, setPassword, e, request }) => {
   }
 };
 
-export const confirmPassword = ({ password, setPassword, e, request }) => {
+export const confirmPassword = ({ password, setPassword, e }) => {
   setPassword({ ...password, confirmValue: e.target.value });
   if (password.value === password.confirmValue) {
     setPassword({
@@ -112,9 +112,14 @@ export const confirmPassword = ({ password, setPassword, e, request }) => {
   }
 };
 
-export const validationUsername = ({ username, setUsername, e, request }) => {
+export const validationUsername = ({ username, setUsername, e }) => {
   if (e.target.value.length === 0) {
-    setUsername({ ...username, value: e.target.value, accepted: false });
+    setUsername({
+      ...username,
+      value: e.target.value,
+      accepted: false,
+      message: 'The name must be at least one character long',
+    });
     uncorrect(e.target);
     console.log('<1');
   } else if (e.target.value.length > 0 && e.target.value.length <= 12) {
@@ -122,7 +127,12 @@ export const validationUsername = ({ username, setUsername, e, request }) => {
     console.log('1 - 12');
     correct(e.target);
   } else if (e.target.value.length > 12) {
-    setUsername({ ...username, value: e.target.value, accepted: false });
+    setUsername({
+      ...username,
+      value: e.target.value,
+      accepted: false,
+      message: 'The name must be no more than twelve characters',
+    });
     console.log('> 12');
     uncorrect(e.target);
   }

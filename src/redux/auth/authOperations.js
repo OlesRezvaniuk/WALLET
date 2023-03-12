@@ -13,22 +13,26 @@ export const token = {
 
 export const registerUserOperation = createAsyncThunk(
   'api/auth/sign-up/',
-  async (body, thunkAPI) => {
+  async (data, thunkAPI) => {
     try {
       const response = await axios.post(
         'https://wallet.goit.ua/api/auth/sign-up',
-        body
+        data.user
       );
       token.set(response.data.token);
       // console.log(response.data);
       return response.data;
     } catch (error) {
+      if (error.response.status === 409) {
+        data.setEmail({
+          ...data.email,
+          message: 'User with this email already exists',
+        });
+      }
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
-
-// setShowMessage
 
 export const loginUserOperation = createAsyncThunk(
   '/api/auth/sign-in',
@@ -83,3 +87,12 @@ export const currentUserOperation = createAsyncThunk(
     }
   }
 );
+
+export const getCurs = createAsyncThunk('/curs', async (_, thunkAPI) => {
+  try {
+    const { data } = await axios.get(`https://api.monobank.ua/bank/currency`);
+    return data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});

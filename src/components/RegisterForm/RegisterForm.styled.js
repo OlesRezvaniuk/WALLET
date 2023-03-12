@@ -4,6 +4,27 @@ import { ReactComponent as LogoPrimal } from '../../Image/Auth/logo.svg';
 import { ReactComponent as EmailPrimal } from '../../Image/Auth/baseline-email-24px 1.svg';
 import { ReactComponent as PasswordPrimal } from '../../Image/Auth/baseline-lock-24px 1.svg';
 import { ReactComponent as AcountPrimal } from '../../Image/Auth/baseline-account_box-24px 1.svg';
+import { ReactComponent as ShowPasswordPrimal } from '../../Image/show-password.svg';
+import { ReactComponent as HidePasswordPrimal } from '../../Image/hide-password.svg';
+
+export const HidePassword = styled(HidePasswordPrimal)`
+  display: block;
+  heigth: 24px;
+  width: 24px;
+`;
+export const ShowPassword = styled(ShowPasswordPrimal)`
+  display: block;
+  height: 24px;
+  width: 24px;
+`;
+
+export const PasswordShowBtn = styled.button`
+  border: none;
+  background-color: transparent;
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+`;
 
 export const FormContainer = styled.div`
   position: relative;

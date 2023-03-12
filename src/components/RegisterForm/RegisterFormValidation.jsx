@@ -9,6 +9,8 @@ export const correct = e => {
   e.parentElement.style.color = 'rgb(36, 204, 167)';
 };
 
+// document.querySelector("#registerEmailLabel")
+
 export const emailValidation = ({ email, setEmail, e, request }) => {
   setEmail({ value: e.target.value, isCorrect: false, message: '' });
   // eslint-disable-next-line
@@ -41,6 +43,8 @@ export const emailValidation = ({ email, setEmail, e, request }) => {
       message: 'Email should be less  64 characters',
     });
     uncorrect(e.target);
+  } else if (email.massage === 'User with this email already exists') {
+    uncorrect();
   } else {
     setEmail({
       ...email,

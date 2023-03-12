@@ -10,12 +10,16 @@ import {
   LinkStyled,
   FormBtn,
   ErrorMessage,
+  ShowPassword,
+  HidePassword,
+  PasswordShowBtn,
 } from './LoginForm.styled';
 import { useDispatch } from 'react-redux';
 import { loginUserOperation } from 'redux/auth/authOperations';
 import { useState } from 'react';
 
 export const LoginForm = () => {
+  const [passwordHidden, setPasswordHidden] = useState(true);
   const [showMessage, setShowMessage] = useState(false);
   const [userData, setUserData] = useState({ email: '', password: '' });
   const dispatch = useDispatch();
@@ -58,9 +62,17 @@ export const LoginForm = () => {
                 id="loginPasswordInput"
                 value={userData.password}
                 onChange={handleInputChange}
-                type="text"
+                type={passwordHidden ? 'password' : 'text'}
                 placeholder="Password"
               />
+              <PasswordShowBtn
+                onClick={() => {
+                  setPasswordHidden(!passwordHidden);
+                }}
+                type="button"
+              >
+                {passwordHidden ? <ShowPassword /> : <HidePassword />}
+              </PasswordShowBtn>
             </FormLabel>
           </FormInputItem>
         </FormInputList>

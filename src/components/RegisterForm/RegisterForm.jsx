@@ -10,6 +10,9 @@ import {
   FormLabel,
   LinkStyled,
   FormBtn,
+  ShowPassword,
+  HidePassword,
+  PasswordShowBtn,
 } from './RegisterForm.styled';
 import { registerUserOperation } from 'redux/auth/authOperations';
 import { useDispatch } from 'react-redux';
@@ -55,6 +58,20 @@ export const RegisterForm = () => {
     // eslint-disable-next-line
   }, [email, password, username]);
 
+  useEffect(() => {
+    if (email.message === 'User with this email already exists') {
+      setEmail({ ...email, isCorrect: false });
+      document.querySelector('#registerEmailLabel').style.borderBottom =
+        '1px solid tomato';
+      document.querySelector('#registerEmailLabel').style.fill =
+        'rgb(209 58 58)';
+      document.querySelector('#registerEmailLabel').style.color =
+        'rgb(209 58 58)';
+    }
+    return;
+    // eslint-disable-next-line
+  }, [email.message]);
+
   const handleInput = e => {
     if (e.target.name === 'email') {
       emailValidation({ email, setEmail, e });
@@ -68,18 +85,18 @@ export const RegisterForm = () => {
   };
 
   const handleRegistration = e => {
+    const data = { user, setEmail, email };
     e.preventDefault();
     if (
       user.username !== null &&
       user.email !== null &&
       user.password !== null
     ) {
-      dispatch(registerUserOperation(user));
+      dispatch(registerUserOperation(data));
     }
   };
 
-  console.log(username);
-  // console.log(email);
+  console.log(password);
 
   return (
     <FormContainer>
@@ -87,7 +104,7 @@ export const RegisterForm = () => {
       <form onSubmit={handleRegistration}>
         <FormInputList>
           <FormInputItem>
-            <FormLabel>
+            <FormLabel id="registerEmailLabel">
               <EmailImg />
               <FormInput
                 placeholder="E-mail"
@@ -128,16 +145,16 @@ export const RegisterForm = () => {
                 value={password.value}
                 onBlur={handleInput}
               />
-              <button
+              <PasswordShowBtn
                 onClick={() => {
                   setPassword({ ...password, hidden: !password.hidden });
                 }}
                 type="button"
               >
-                {password.hidden ? 'show' : 'hide'}
-              </button>
+                {password.hidden ? <ShowPassword /> : <HidePassword />}
+              </PasswordShowBtn>
             </FormLabel>
-            {!email.isCorrect && (
+            {!password.isCorrect && (
               <span
                 style={{
                   position: 'absolute',

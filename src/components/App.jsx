@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { currentUserOperation } from 'redux/auth/authOperations';
 import { useEffect } from 'react';
 import { authSelector } from 'redux/auth/authSelector';
+import { HomePage } from 'Pages/HomePage/HomePage';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -47,7 +48,7 @@ export const App = () => {
           </PrivateRoute>
         }
       >
-        <Route index element={<>Home Page</>} />
+        <Route index element={<HomePage />} />
         <Route path="/Statistics" element={<>Statistics Page</>} />
       </Route>
     </Routes>

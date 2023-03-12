@@ -3,6 +3,7 @@ import {
   registerUserOperation,
   logoutUserOperation,
   currentUserOperation,
+  getCurs,
 } from './authOperations';
 import { StatusForAll } from 'services/status';
 import { createSlice } from '@reduxjs/toolkit';
@@ -11,6 +12,7 @@ const initialState = {
   user: null,
   token: null,
   isLogin: false,
+  curs: null,
 };
 
 const authSlice = createSlice({
@@ -41,6 +43,9 @@ const authSlice = createSlice({
     builder.addCase(currentUserOperation.fulfilled, state => {
       state.status = StatusForAll.success;
       state.isLogin = true;
+    });
+    builder.addCase(getCurs.fulfilled, (state, { payload }) => {
+      state.curs = payload;
     });
   },
 });

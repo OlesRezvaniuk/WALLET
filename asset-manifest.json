@@ -1,12 +1,14 @@
 {
   "files": {
     "main.css": "/WALLET/static/css/main.4b0ea215.css",
-    "main.js": "/WALLET/static/js/main.0dbf917c.js",
+    "main.js": "/WALLET/static/js/main.ca739f98.js",
     "static/media/Group.svg": "/WALLET/static/media/Group.64ca2e4c6bf81d519acb6f918e3899e7.svg",
     "static/media/Frame.svg": "/WALLET/static/media/Frame.5717978088f0bcb942943cdd8713b9c8.svg",
     "static/media/logo.svg": "/WALLET/static/media/logo.12a90eb3201898cbc53f2bd79100346a.svg",
+    "static/media/hide-password.svg": "/WALLET/static/media/hide-password.584c4871d5b7e9bd7cb45c795605ed10.svg",
     "index.html": "/WALLET/index.html",
     "static/media/exitIcon.svg": "/WALLET/static/media/exitIcon.3fba9e455106f856ea40f565ce579115.svg",
+    "static/media/show-password.svg": "/WALLET/static/media/show-password.2f0188afa8f665818e4974d4a0608cf9.svg",
     "static/media/baseline-lock-24px 1.svg": "/WALLET/static/media/baseline-lock-24px 1.c96371cdb3eea2cb640f281b8d4c901e.svg",
     "static/media/baseline-account_box-24px 1.svg": "/WALLET/static/media/baseline-account_box-24px 1.af348b4c46b5fcf5f0f458df636fcfe8.svg",
     "static/media/baseline-email-24px 1.svg": "/WALLET/static/media/baseline-email-24px 1.baae6b24ed64ad75323ee71140687e36.svg",
@@ -15,10 +17,10 @@
     "static/media/Ellipse2.svg": "/WALLET/static/media/Ellipse2.07ef13244b203e866dcdec6e7633ee44.svg",
     "static/media/Ellipse2d.svg": "/WALLET/static/media/Ellipse2d.c8fb29d72ce4f8a3be02a89d77f20c28.svg",
     "main.4b0ea215.css.map": "/WALLET/static/css/main.4b0ea215.css.map",
-    "main.0dbf917c.js.map": "/WALLET/static/js/main.0dbf917c.js.map"
+    "main.ca739f98.js.map": "/WALLET/static/js/main.ca739f98.js.map"
   },
   "entrypoints": [
     "static/css/main.4b0ea215.css",
-    "static/js/main.0dbf917c.js"
+    "static/js/main.ca739f98.js"
   ]
 }

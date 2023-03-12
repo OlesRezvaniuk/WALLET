@@ -12,7 +12,12 @@ export const HomePage = () => {
     // eslint-disable-next-line
   }, [user.auth.token]);
 
-  const data = user.auth.curs.slice(0, 2);
+  const data = () => {
+    if (user.auth.curs !== null) {
+      const usEu = user.auth.curs.slice(0, 2);
+      return usEu;
+    }
+  };
   return (
     <div style={{ padding: '0px 20px' }}>
       <div>Home Page</div>
@@ -24,7 +29,7 @@ export const HomePage = () => {
             <th style={{ textAlign: 'start' }}>Sale</th>
           </tr>
 
-          {data.map(item => {
+          {data().map(item => {
             return (
               <tr>
                 <td>

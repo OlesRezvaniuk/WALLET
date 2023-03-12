@@ -16,25 +16,28 @@ export const HomePage = () => {
   return (
     <div style={{ padding: '0px 20px' }}>
       <div>Home Page</div>
-      <table style={{ width: '100%', backgroundColor: 'blue' }}>
-        <tr>
-          <th style={{ textAlign: 'start' }}>Currency</th>
-          <th style={{ textAlign: 'start' }}>Purchase</th>
-          <th style={{ textAlign: 'start' }}>Sale</th>
-        </tr>
-        {data.map(item => {
-          return (
-            <tr>
-              <td>
-                {item.currencyCodeA === 840 && 'US'}
-                {item.currencyCodeA === 978 && 'EU'}
-              </td>
-              <td>{item.rateBuy}</td>
-              <td>{item.rateSell}</td>
-            </tr>
-          );
-        })}
-      </table>
+      {user.auth.curs !== null && (
+        <table style={{ width: '100%', backgroundColor: 'blue' }}>
+          <tr>
+            <th style={{ textAlign: 'start' }}>Currency</th>
+            <th style={{ textAlign: 'start' }}>Purchase</th>
+            <th style={{ textAlign: 'start' }}>Sale</th>
+          </tr>
+
+          {data.map(item => {
+            return (
+              <tr>
+                <td>
+                  {item.currencyCodeA === 840 && 'US'}
+                  {item.currencyCodeA === 978 && 'EU'}
+                </td>
+                <td>{item.rateBuy}</td>
+                <td>{item.rateSell}</td>
+              </tr>
+            );
+          })}
+        </table>
+      )}
     </div>
   );
 };

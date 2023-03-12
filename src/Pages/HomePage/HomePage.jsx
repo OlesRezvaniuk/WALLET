@@ -13,46 +13,28 @@ export const HomePage = () => {
   }, []);
 
   const data = user.auth.curs.slice(0, 2);
-  console.log(data);
   return (
-    <>
+    <div style={{ padding: '0px 20px' }}>
       <div>Home Page</div>
-      <ul>
-        <li>
-          <ul style={{ display: 'flex', gap: 10, listStyle: 'none' }}>
-            <li>
-              <p>Currency</p>
-            </li>
-            <li>
-              <p>Purchase</p>
-            </li>
-            <li>
-              <p>Sale</p>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <ul>
-            {data.map(item => {
-              return (
-                <li
-                  style={{ display: 'flex', gap: 10 }}
-                  key={item.currencyCodeA}
-                >
-                  <p>
-                    {item.currencyCodeA === 840 && 'US'}
-                    {item.currencyCodeA === 978 && 'EU'}
-                  </p>
-
-                  <p>{item.rateBuy}</p>
-
-                  <p>{item.rateBuy}</p>
-                </li>
-              );
-            })}
-          </ul>
-        </li>
-      </ul>
-    </>
+      <table style={{ width: '100%', backgroundColor: 'blue' }}>
+        <tr>
+          <th style={{ textAlign: 'start' }}>Currency</th>
+          <th style={{ textAlign: 'start' }}>Purchase</th>
+          <th style={{ textAlign: 'start' }}>Sale</th>
+        </tr>
+        {data.map(item => {
+          return (
+            <tr>
+              <td>
+                {item.currencyCodeA === 840 && 'US'}
+                {item.currencyCodeA === 978 && 'EU'}
+              </td>
+              <td>{item.rateBuy}</td>
+              <td>{item.rateSell}</td>
+            </tr>
+          );
+        })}
+      </table>
+    </div>
   );
 };

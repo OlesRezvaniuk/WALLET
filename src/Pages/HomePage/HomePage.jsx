@@ -2,6 +2,9 @@ import { getCurs } from 'redux/auth/authOperations';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { authSelector } from 'redux/auth/authSelector';
+import { Schedule } from 'components/Schedule/Schedule';
+
+import React from 'react';
 
 export const HomePage = () => {
   const user = useSelector(authSelector);
@@ -43,6 +46,7 @@ export const HomePage = () => {
           })}
         </table>
       )}
+      <Schedule />
     </div>
   );
 };

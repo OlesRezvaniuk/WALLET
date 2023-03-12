@@ -10,7 +10,7 @@ export const HomePage = () => {
   useEffect(() => {
     dispatch(getCurs());
     // eslint-disable-next-line
-  }, []);
+  }, [user.auth.token]);
 
   const data = user.auth.curs.slice(0, 2);
   return (

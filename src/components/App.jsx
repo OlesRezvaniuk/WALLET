@@ -20,8 +20,6 @@ export const App = () => {
     // eslint-disable-next-line
   }, []);
 
-  console.log(user);
-
   return (
     <Routes>
       <Route

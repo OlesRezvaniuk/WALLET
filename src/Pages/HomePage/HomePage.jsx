@@ -2,27 +2,11 @@ import { getCurs } from 'redux/auth/authOperations';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { authSelector } from 'redux/auth/authSelector';
-import React from 'react';
-import { Chart } from 'react-google-charts';
+import { Schedule } from 'components/Schedule/Schedule';
 
-const optionsChart = {
-  title: '',
-  pieHole: 0.6,
-  is3D: false,
-  pieSliceText: 'none',
-  legend: 'none',
-};
+import React from 'react';
 
 export const HomePage = () => {
-  const dataChart = [
-    ['Task', 'Hours per Day'],
-    ['Work', 11],
-    ['Eat', 2],
-    ['Commute', 2],
-    ['Watch TV', 2],
-    ['Sleep', 7], // CSS-style declaration
-  ];
-
   const user = useSelector(authSelector);
   const dispatch = useDispatch();
 
@@ -62,13 +46,7 @@ export const HomePage = () => {
           })}
         </table>
       )}
-      <Chart
-        chartType="PieChart"
-        width="100%"
-        height="400px"
-        data={dataChart}
-        options={optionsChart}
-      />
+      <Schedule />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
 
 const data = {
@@ -25,23 +25,56 @@ export const Schedule = () => {
   }, 0);
   const [summary, setSummary] = useState(totalScore);
 
-  const firstRotate = (data.parts[0].summ / summary) * circle.deg;
+  const rotateArr = () => {
+    const arr = data.parts.map(item => (item.summ / summary) * circle.deg);
+    let previousValue = 0;
+    let index = 0;
 
-  const rotate = data.parts.reduce((total, item) => {
-    return total + (item.summ / summary) * circle.deg;
-  }, 0);
-
-  const omg = () => {
-    const map = data.parts
-      .map(item => (item.summ / summary) * circle.deg)
-      .splice(1, data.parts.length);
-    console.log(map);
-    return map;
+    const mappedArr = arr.map(currentValue => {
+      const result = previousValue + currentValue;
+      previousValue = result;
+      index += 1;
+      const data = { id: nanoid(), value: result, index };
+      return data;
+    });
+    console.log(mappedArr);
+    return mappedArr;
   };
-  omg();
+
+  rotateArr();
+
+  function draw() {
+    const canvas = document.querySelector('#canvasTutorial');
+    if (canvas.getContext) {
+      var ctx = canvas.getContext('2d');
+      ctx.beginPath();
+      ctx.moveTo(25, 25);
+      ctx.lineTo(105, 25);
+      ctx.lineTo(25, 105);
+      ctx.fill();
+
+      // Stroked triangle
+      ctx.beginPath();
+      ctx.moveTo(125, 125);
+      ctx.lineTo(125, 45);
+      ctx.lineTo(45, 125);
+      ctx.closePath();
+      ctx.stroke();
+    }
+  }
+
+  useEffect(() => {
+    draw();
+  }, []);
 
   return (
     <>
+      <canvas
+        style={{ border: '1px solid black', marginTop: 30 }}
+        id="canvasTutorial"
+        width="300"
+        height="300"
+      ></canvas>
       <button>add part + 300ua</button>
       <button>add part - 100ua</button>
       <div
@@ -92,26 +125,49 @@ export const Schedule = () => {
         ></div>
 
         {data.parts.length > 1 &&
-          data.parts.map(item => {
+          rotateArr().map(item => {
             return (
-              <div
-                key={item.id}
-                style={{
-                  position: 'absolute',
-                  width: 260,
-                  height: 130,
-                  borderTopLeftRadius: 130,
-                  borderTopRightRadius: 130,
-                  backgroundColor: `#${Math.floor(
-                    Math.random() * 16777215
-                  ).toString(16)}`,
-                  transformOrigin: 'center bottom',
-                  transform: `rotate(${(item.summ / summary) * circle.deg}deg)`,
-                  zIndex: item.zIndex,
-                }}
-              ></div>
+              <div style={{ position: 'absolute', width: 130, height: 130 }}>
+                <div
+                  key={item.id}
+                  style={{
+                    position: 'absolute',
+                    width: 260,
+                    height: 130,
+                    borderTopLeftRadius: 130,
+                    borderTopRightRadius: 130,
+                    backgroundColor: `#${Math.floor(
+                      Math.random() * 16777215
+                    ).toString(16)}`,
+                    transformOrigin: 'center bottom',
+                    transform: `rotate(${item.value}deg)`,
+                    zIndex: item.index,
+                  }}
+                ></div>
+              </div>
             );
           })}
+      </div>
+      <div
+        style={{
+          backgroundColor: 'wheat',
+          width: 300,
+          height: 300,
+          marginTop: 30,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: 10,
+        }}
+      >
+        <div
+          style={{
+            width: 220,
+            height: 220,
+            backgroundColor: 'sienna',
+            borderRadius: '50%',
+          }}
+        ></div>
       </div>
     </>
   );

@@ -86,7 +86,7 @@ export const Chart = () => {
   return (
     <>
       <canvas
-        style={{ border: '1px solid black', marginTop: 30 }}
+        style={{ marginTop: 30 }}
         id="radialChart"
         width="300"
         height="300"

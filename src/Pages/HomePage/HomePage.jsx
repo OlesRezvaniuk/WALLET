@@ -2,7 +2,7 @@ import { getCurs } from 'redux/auth/authOperations';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { authSelector } from 'redux/auth/authSelector';
-import { Schedule } from 'components/Schedule/Schedule';
+import { Chart } from 'components/Chart/Chart';
 
 import React from 'react';
 
@@ -46,7 +46,7 @@ export const HomePage = () => {
           })}
         </table>
       )}
-      <Schedule />
+      <Chart />
     </div>
   );
 };

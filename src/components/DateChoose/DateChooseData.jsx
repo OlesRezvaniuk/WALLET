@@ -32,3 +32,14 @@ export const dateChooseData = {
     '2028',
   ],
 };
+
+export function convertMounth(e) {
+  const index = dateChooseData.mounth.indexOf(e.target.innerText);
+  if (e.target.innerText === 'February') {
+    return '02';
+  }
+  if (index < 9) {
+    return `0${index + 1}`;
+  }
+  return index + 1;
+}

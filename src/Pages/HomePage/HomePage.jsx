@@ -4,6 +4,7 @@ import { AddTransactionsModal } from 'components/AddTransactionsModal/AddTransac
 
 export const HomePage = () => {
   // const [isModalOpen, SetIsModalOpen] = useState();
+
   const date = () => {
     const date = new Date();
     function day() {

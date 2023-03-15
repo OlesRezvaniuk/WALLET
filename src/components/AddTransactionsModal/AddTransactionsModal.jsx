@@ -130,6 +130,7 @@ export const AddTransactionsModal = ({ date }) => {
           </button>
           <span>EXPENSE</span>
         </div>
+        <div></div>
         <input
           value={transaction.amount}
           onChange={e => {

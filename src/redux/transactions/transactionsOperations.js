@@ -15,3 +15,17 @@ export const createTransactionsOperation = createAsyncThunk(
     }
   }
 );
+
+export const getTransactionsCategories = createAsyncThunk(
+  '/api/transaction-categories',
+  async (_, thunkAPI) => {
+    try {
+      const response = await axios.get(
+        'https://wallet.goit.ua/api/transaction-categories'
+      );
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

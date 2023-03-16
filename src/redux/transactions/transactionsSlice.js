@@ -18,9 +18,13 @@ const transactionsSlice = createSlice({
     builder.addCase(createTransactionsOperation.fulfilled, state => {
       state.status = StatusForAll.success;
     });
-    builder.addCase(getTransactionsCategories.fulfilled, state => {
-      state.status = StatusForAll.success;
-    });
+    builder.addCase(
+      getTransactionsCategories.fulfilled,
+      (state, { payload }) => {
+        state.status = StatusForAll.success;
+        state.getCategories = payload;
+      }
+    );
   },
 });
 

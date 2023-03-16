@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
 
 export const Chart = () => {
+  // eslint-disable-next-line
   const [data, setData] = useState({
     parts: [
       { id: nanoid(), summ: 900, zIndex: 99, rotate: null },
@@ -91,20 +92,6 @@ export const Chart = () => {
         width="300"
         height="300"
       ></canvas>
-      <button
-        onClick={() => {
-          setData({
-            ...data,
-            parts: [
-              ...data.parts,
-              { id: nanoid(), summ: 198, zIndex: 87, rotate: null },
-            ],
-          });
-        }}
-      >
-        add part + 300ua
-      </button>
-      <button>add part - 100ua</button>
     </>
   );
 };

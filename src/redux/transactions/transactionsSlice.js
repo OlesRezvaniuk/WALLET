@@ -1,6 +1,7 @@
 import {
   createTransactionsOperation,
   getTransactionsCategories,
+  getUserTransactions,
 } from './transactionsOperations';
 import { StatusForAll } from 'services/status';
 import { createSlice } from '@reduxjs/toolkit';
@@ -22,9 +23,13 @@ const transactionsSlice = createSlice({
       getTransactionsCategories.fulfilled,
       (state, { payload }) => {
         state.status = StatusForAll.success;
-        state.getCategories = payload;
+        state.getCategories = payload.data;
       }
     );
+    builder.addCase(getUserTransactions.fulfilled, (state, { payload }) => {
+      state.status = StatusForAll.success;
+      state.transaction = payload;
+    });
   },
 });
 

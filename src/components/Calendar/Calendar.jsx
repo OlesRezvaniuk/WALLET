@@ -14,6 +14,14 @@ export const Calendar = ({ date, transaction, setTransaction }) => {
     newDate: { day: '', mounth: '', year: '', finish: null },
   });
 
+  function reduceToYear() {
+    let year = new Date().getFullYear();
+    return Array.from(
+      { length: year - (year - 6) },
+      (_, i) => year - 6 + 1 + i
+    );
+  }
+
   function chooseDay() {
     // eslint-disable-next-line
     Date.prototype.daysInMonth = function () {
@@ -73,6 +81,7 @@ export const Calendar = ({ date, transaction, setTransaction }) => {
         },
       });
     }
+    // eslint-disable-next-line
   }, [dateChoose.newDate.finish]);
 
   const handleChooseDateModalOpen = e => {
@@ -192,7 +201,7 @@ export const Calendar = ({ date, transaction, setTransaction }) => {
             })}
           </ul>
           <ul style={{ overflow: 'auto', height: 120, width: 200 }}>
-            {dateChooseData.year.map(item => {
+            {reduceToYear().map(item => {
               return (
                 <li key={item}>
                   <button

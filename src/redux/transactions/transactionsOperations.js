@@ -29,3 +29,17 @@ export const getTransactionsCategories = createAsyncThunk(
     }
   }
 );
+
+export const getUserTransactions = createAsyncThunk(
+  '/api/user-transaction',
+  async (_, thunkAPI) => {
+    try {
+      const response = await axios.get(
+        'https://wallet.goit.ua/api/transactions'
+      );
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

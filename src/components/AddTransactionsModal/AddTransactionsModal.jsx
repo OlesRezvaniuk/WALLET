@@ -21,23 +21,26 @@ export const AddTransactionsModal = () => {
     },
     category: '',
   });
+  const { request } = transaction;
 
   useEffect(() => {
     dispatch(getTransactionsCategories());
+    // eslint-disable-next-line
   }, []);
 
   const handleChangeType = e => {
     e.preventDefault();
-    if (transaction.request.type === 'INCOME') {
+
+    if (request.type === 'INCOME') {
       setTransaction({
         ...transaction,
-        request: { ...transaction.request, type: 'EXPENSE', categoryId: '' },
+        request: { ...request, type: 'EXPENSE', categoryId: '' },
       });
     } else {
       setTransaction({
         ...transaction,
         request: {
-          ...transaction.request,
+          ...request,
           type: 'INCOME',
           categoryId: '063f1132-ba5d-42b4-951d-44011ca46262',
         },
@@ -45,42 +48,48 @@ export const AddTransactionsModal = () => {
     }
   };
 
-  const handleChangeCaterogies = item => {
+  useEffect(() => {
     setTransaction({
       ...transaction,
-      category: item.name,
+      request: { ...request, amount: '' },
+    });
+    // eslint-disable-next-line
+  }, [request.type]);
+
+  const handleChangeCaterogies = e => {
+    setTransaction({
+      ...transaction,
+      category: e.target.innerText,
       request: {
-        ...transaction.request,
-        categoryId: item.id,
+        ...request,
+        categoryId: e.target.id,
       },
     });
-    console.log(item);
   };
-
-  console.log(transaction);
 
   return (
     <>
       <form
         onSubmit={e => {
           e.preventDefault();
-          dispatch(createTransactionsOperation(transaction.request));
+
+          dispatch(createTransactionsOperation(request));
         }}
       >
         <div>
           <span
             style={{
-              fontWeight: transaction.request.type === 'INCOME' && 'bold',
+              fontWeight: request.type === 'INCOME' && 'bold',
             }}
           >
             INCOME
           </span>
           <button type="button" onClick={handleChangeType}>
-            {transaction.request.type === 'EXPENSE' ? '-' : '+'}
+            {request.type === 'EXPENSE' ? '-' : '+'}
           </button>
           <span
             style={{
-              fontWeight: transaction.request.type === 'EXPENSE' && 'bold',
+              fontWeight: request.type === 'EXPENSE' && 'bold',
             }}
           >
             EXPENSE
@@ -88,19 +97,26 @@ export const AddTransactionsModal = () => {
         </div>
         <div></div>
         <input
-          value={transaction.request.amount}
+          value={request.amount}
           onChange={e => {
             e.preventDefault();
-            setTransaction({
-              ...transaction,
-              request: { ...transaction.request, amount: e.target.value },
-            });
+            if (request.type === 'EXPENSE') {
+              setTransaction({
+                ...transaction,
+                request: { ...request, amount: -e.target.value },
+              });
+            } else {
+              setTransaction({
+                ...transaction,
+                request: { ...request, amount: e.target.value },
+              });
+            }
           }}
           type="number"
           placeholder="0.00"
         />
         <br />
-        {transaction.request.type === 'EXPENSE' && (
+        {request.type === 'EXPENSE' && (
           <div>
             <button
               onClick={() => {
@@ -118,8 +134,8 @@ export const AddTransactionsModal = () => {
                 <ul style={{ overflow: 'auto', height: 100, width: 200 }}>
                   {categories.data.map(item => {
                     return (
-                      <li key={item.id} id={item.id}>
-                        <p onClick={handleChangeCaterogies(item)}>
+                      <li key={item.id}>
+                        <p id={item.id} onClick={handleChangeCaterogies}>
                           {item.name}
                         </p>
                       </li>

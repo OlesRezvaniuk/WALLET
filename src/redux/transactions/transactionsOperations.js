@@ -43,3 +43,18 @@ export const getUserTransactions = createAsyncThunk(
     }
   }
 );
+
+export const getUserTransactionsSummary = createAsyncThunk(
+  '/api/transactions-summary',
+  async (date, thunkAPI) => {
+    try {
+      const response = await axios.get(
+        `https://wallet.goit.ua/api/transactions-summary?month=${date.month}&year=${date.year}`,
+        date
+      );
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

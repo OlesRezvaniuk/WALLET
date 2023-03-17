@@ -8,6 +8,8 @@ import { currentUserOperation } from 'redux/auth/authOperations';
 import { useEffect } from 'react';
 import { authSelector } from 'redux/auth/authSelector';
 import { HomePage } from 'Pages/HomePage/HomePage';
+import { StatisticsPage } from 'Pages/StatisticsPage/StatisticsPage';
+import { getUserTransactionsSummary } from 'redux/transactions/transactionsOperations';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -16,6 +18,12 @@ export const App = () => {
   useEffect(() => {
     if (user.auth.isLogin) {
       dispatch(currentUserOperation());
+      dispatch(
+        getUserTransactionsSummary({
+          month: new Date().getMonth() + 1,
+          year: new Date().getFullYear(),
+        })
+      );
     }
     // eslint-disable-next-line
   }, []);
@@ -47,7 +55,7 @@ export const App = () => {
         }
       >
         <Route index element={<HomePage />} />
-        <Route path="/Statistics" element={<>Statistics Page</>} />
+        <Route path="/Statistics" element={<StatisticsPage />} />
       </Route>
     </Routes>
   );

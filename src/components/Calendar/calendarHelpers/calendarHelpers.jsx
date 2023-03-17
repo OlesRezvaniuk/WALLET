@@ -33,6 +33,63 @@ export const dateChooseData = {
   ],
 };
 
+export function monthIndexToName() {
+  const month = new Date().getMonth() + 1;
+  if (month === 1) {
+    return 'January';
+  } else if (month === 2) {
+    return 'February';
+  } else if (month === 3) {
+    return 'March';
+  } else if (month === 4) {
+    return 'April';
+  } else if (month === 5) {
+    return 'May';
+  } else if (month === 6) {
+    return 'June';
+  } else if (month === 7) {
+    return 'July';
+  } else if (month === 8) {
+    return 'August';
+  } else if (month === 9) {
+    return 'September';
+  } else if (month === 10) {
+    return 'October';
+  } else if (month === 11) {
+    return 'November';
+  } else if (month === 12) {
+    return 'December';
+  }
+}
+
+export function mounthNameToIndex(e) {
+  if (e === 'January') {
+    return 0;
+  } else if (e === 'February') {
+    return 1;
+  } else if (e === 'March') {
+    return 2;
+  } else if (e === 'April') {
+    return 3;
+  } else if (e === 'May') {
+    return 4;
+  } else if (e === 'June') {
+    return 5;
+  } else if (e === 'July') {
+    return 6;
+  } else if (e === 'August') {
+    return 7;
+  } else if (e === 'September') {
+    return 8;
+  } else if (e === 'October') {
+    return 9;
+  } else if (e === 'November') {
+    return 10;
+  } else if (e === 'December') {
+    return 11;
+  }
+}
+
 export function convertMounth(e) {
   const index = dateChooseData.mounth.indexOf(e.target.innerText);
   if (e.target.innerText === 'February') {

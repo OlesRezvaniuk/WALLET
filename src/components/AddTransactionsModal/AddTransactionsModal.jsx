@@ -28,6 +28,8 @@ export const AddTransactionsModal = () => {
     // eslint-disable-next-line
   }, []);
 
+  console.log(categories);
+
   const handleChangeType = e => {
     e.preventDefault();
 
@@ -132,7 +134,7 @@ export const AddTransactionsModal = () => {
             {transaction.category === 'onChange' && (
               <div>
                 <ul style={{ overflow: 'auto', height: 100, width: 200 }}>
-                  {categories.data.map(item => {
+                  {categories.map(item => {
                     return (
                       <li key={item.id}>
                         <p id={item.id} onClick={handleChangeCaterogies}>

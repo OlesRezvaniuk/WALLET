@@ -1,5 +1,3 @@
-import { Chart } from 'components/Chart/Chart';
-import { Currency } from 'Pages/Currency/Currency';
 import { AddTransactionsModal } from 'components/AddTransactionsModal/AddTransactionsModal';
 import { useEffect, useState } from 'react';
 import { getUserTransactions } from 'redux/transactions/transactionsOperations';
@@ -16,8 +14,7 @@ export const HomePage = () => {
   return (
     <div style={{ padding: '0px 20px' }}>
       <div>Home Page</div>
-      <Currency />
-      <Chart />
+
       <button
         onClick={() => {
           SetIsModalOpen(!isModalOpen);

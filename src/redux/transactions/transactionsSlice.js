@@ -2,6 +2,7 @@ import {
   createTransactionsOperation,
   getTransactionsCategories,
   getUserTransactions,
+  getUserTransactionsSummary,
 } from './transactionsOperations';
 import { StatusForAll } from 'services/status';
 import { createSlice } from '@reduxjs/toolkit';
@@ -10,6 +11,7 @@ const initialState = {
   transaction: null,
   status: null,
   getCategories: null,
+  summaryForPeriod: null,
 };
 
 const transactionsSlice = createSlice({
@@ -30,6 +32,13 @@ const transactionsSlice = createSlice({
       state.status = StatusForAll.success;
       state.transaction = payload;
     });
+    builder.addCase(
+      getUserTransactionsSummary.fulfilled,
+      (state, { payload }) => {
+        state.status = StatusForAll.success;
+        state.summaryForPeriod = payload;
+      }
+    );
   },
 });
 

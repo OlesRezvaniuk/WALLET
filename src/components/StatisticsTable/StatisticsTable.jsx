@@ -7,12 +7,14 @@ import {
   monthIndexToName,
   mounthNameToIndex,
 } from 'components/Calendar/calendarHelpers/calendarHelpers';
+import { getUserTransactionsSummary } from 'redux/transactions/transactionsOperations';
 
 export const StatisticsTable = () => {
   const [expenseSummaryDate, setExpenseSummaryDate] = useState({
-    year: null,
-    mouth: { ismodalOpen: false, value: null },
+    month: '',
+    year: '',
   });
+  const [isModalOpen, setIsModalOpen] = useState({ month: false, year: false });
   const dispatch = useDispatch();
   const summaryResponse = useSelector(userSummaryForPeriodSelector);
 
@@ -25,7 +27,6 @@ export const StatisticsTable = () => {
       data.income = summaryResponse.data.categoriesSummary.filter(
         item => item.type === 'INCOME'
       );
-      //   console.log(data);
       return data;
     }
   }
@@ -44,45 +45,88 @@ export const StatisticsTable = () => {
   }
 
   const getStatisticForPeriod = e => {
-    //   mounthNameToIndex(e.target.innerText);
-    //   setExpenseSummaryDate({
-    //     ...expenseSummaryDate,
-    //     month: {
-    //       ...expenseSummaryDate.month,
-    //       value: mounthNameToIndex(e.target.innerText),
-    //     },
-    //   });
-  };
-
-  const handleModalOpen = e => {
-    if (e.target.id === 'changeMonthBtn') {
-      console.log('change month');
-    } else if (e.target.id === 'changeYearBtn') {
-      console.log('change year');
+    if (e.target.id === 'monthVariantSummary') {
+      setExpenseSummaryDate({
+        ...expenseSummaryDate,
+        month: e.target.innerText,
+      });
+      setIsModalOpen({ ...isModalOpen, month: false });
+    }
+    if (e.target.id === 'yearVariantSummary') {
+      setExpenseSummaryDate({
+        ...expenseSummaryDate,
+        year: e.target.innerText,
+      });
+      setIsModalOpen({ ...isModalOpen, year: false });
     }
   };
 
-  console.log(expenseSummaryDate);
+  const handleModalOpen = e => {
+    if (e.target.id === 'changeMonthBtn' && isModalOpen.year !== true) {
+      setIsModalOpen({ ...isModalOpen, month: !isModalOpen.month });
+    } else if (e.target.id === 'changeYearBtn' && isModalOpen.month !== true) {
+      setIsModalOpen({ ...isModalOpen, year: !isModalOpen.year });
+    }
+  };
+
+  function reduceToYear() {
+    let year = new Date().getFullYear();
+    return Array.from(
+      { length: year - (year - 6) },
+      (_, i) => year - 6 + 1 + i
+    );
+  }
+
+  useEffect(() => {
+    if (expenseSummaryDate.month !== '' && expenseSummaryDate.year !== '') {
+      const date = {
+        month: mounthNameToIndex(expenseSummaryDate.month),
+        year: Number(expenseSummaryDate.year),
+      };
+      dispatch(getUserTransactionsSummary(date));
+    }
+  }, [expenseSummaryDate]);
 
   return (
     <>
       <>Statistics Table</>
       <div>
         <button id="changeMonthBtn" onClick={handleModalOpen}>
-          {monthIndexToName()}
+          {expenseSummaryDate.month === ''
+            ? monthIndexToName()
+            : expenseSummaryDate.month}
         </button>
-        <ul>
-          {dateChooseData.mounth.map(item => {
-            return (
-              <li key={item}>
-                <p onClick={getStatisticForPeriod}>{item}</p>
-              </li>
-            );
-          })}
-        </ul>
+        {isModalOpen.month && (
+          <ul>
+            {dateChooseData.mounth.map(item => {
+              return (
+                <li key={item}>
+                  <p id="monthVariantSummary" onClick={getStatisticForPeriod}>
+                    {item}
+                  </p>
+                </li>
+              );
+            })}
+          </ul>
+        )}
         <button id="changeYearBtn" onClick={handleModalOpen}>
-          Year
+          {expenseSummaryDate.year !== ''
+            ? `${expenseSummaryDate.year}`
+            : new Date().getFullYear()}
         </button>
+        {isModalOpen.year && (
+          <ul>
+            {reduceToYear().map(item => {
+              return (
+                <li key={item}>
+                  <p id="yearVariantSummary" onClick={getStatisticForPeriod}>
+                    {item}
+                  </p>
+                </li>
+              );
+            })}
+          </ul>
+        )}
         <div></div>
       </div>
       {summaryResponse !== null && (

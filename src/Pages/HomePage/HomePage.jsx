@@ -2,6 +2,7 @@ import { AddTransactionsModal } from 'components/AddTransactionsModal/AddTransac
 import { useEffect, useState } from 'react';
 import { getUserTransactions } from 'redux/transactions/transactionsOperations';
 import { useDispatch } from 'react-redux';
+import { TransactionsTable } from 'components/TransactionsTable/TransactionsTable';
 
 export const HomePage = () => {
   const [isModalOpen, SetIsModalOpen] = useState(false);
@@ -14,7 +15,8 @@ export const HomePage = () => {
   return (
     <div style={{ padding: '0px 20px' }}>
       <div>Home Page</div>
-
+      <TransactionsTable />
+      <br />
       <button
         onClick={() => {
           SetIsModalOpen(!isModalOpen);

@@ -28,8 +28,6 @@ export const AddTransactionsModal = () => {
     // eslint-disable-next-line
   }, []);
 
-  console.log(categories);
-
   const handleChangeType = e => {
     e.preventDefault();
 
@@ -74,7 +72,6 @@ export const AddTransactionsModal = () => {
       <form
         onSubmit={e => {
           e.preventDefault();
-
           dispatch(createTransactionsOperation(request));
         }}
       >
@@ -100,19 +97,20 @@ export const AddTransactionsModal = () => {
         <div></div>
         <input
           value={request.amount}
-          onChange={e => {
-            e.preventDefault();
+          onBlur={e => {
             if (request.type === 'EXPENSE') {
               setTransaction({
                 ...transaction,
-                request: { ...request, amount: -e.target.value },
-              });
-            } else {
-              setTransaction({
-                ...transaction,
-                request: { ...request, amount: e.target.value },
+                request: { ...request, amount: e.target.value * -1 },
               });
             }
+          }}
+          onChange={e => {
+            e.preventDefault();
+            setTransaction({
+              ...transaction,
+              request: { ...request, amount: e.target.value },
+            });
           }}
           type="number"
           placeholder="0.00"

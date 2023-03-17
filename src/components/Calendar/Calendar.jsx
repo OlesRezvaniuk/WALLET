@@ -36,6 +36,8 @@ export const Calendar = ({ date, transaction, setTransaction }) => {
     return arr;
   }
 
+  console.log(transaction.request);
+
   useEffect(() => {
     if (
       dateChoose.day !== '' &&
@@ -54,8 +56,9 @@ export const Calendar = ({ date, transaction, setTransaction }) => {
 
   useEffect(() => {
     const { day, mounth, year } = dateChoose.newDate;
+    const repairDay = parseInt(day) + 1;
     if (day !== '' && mounth !== '' && year !== '') {
-      const newDate = new Date(`${mounth} ${day}, ${year}`);
+      const newDate = new Date(`${mounth} ${repairDay}, ${year}`);
       setDateChoose({
         ...dateChoose,
         newDate: {

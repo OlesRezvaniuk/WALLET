@@ -64,29 +64,29 @@ export function monthIndexToName() {
 
 export function mounthNameToIndex(e) {
   if (e === 'January') {
-    return 0;
-  } else if (e === 'February') {
     return 1;
-  } else if (e === 'March') {
+  } else if (e === 'February') {
     return 2;
-  } else if (e === 'April') {
+  } else if (e === 'March') {
     return 3;
-  } else if (e === 'May') {
+  } else if (e === 'April') {
     return 4;
-  } else if (e === 'June') {
+  } else if (e === 'May') {
     return 5;
-  } else if (e === 'July') {
+  } else if (e === 'June') {
     return 6;
-  } else if (e === 'August') {
+  } else if (e === 'July') {
     return 7;
-  } else if (e === 'September') {
+  } else if (e === 'August') {
     return 8;
-  } else if (e === 'October') {
+  } else if (e === 'September') {
     return 9;
-  } else if (e === 'November') {
+  } else if (e === 'October') {
     return 10;
-  } else if (e === 'December') {
+  } else if (e === 'November') {
     return 11;
+  } else if (e === 'December') {
+    return 12;
   }
 }
 

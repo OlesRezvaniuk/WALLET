@@ -10,6 +10,7 @@ import { authSelector } from 'redux/auth/authSelector';
 import { HomePage } from 'Pages/HomePage/HomePage';
 import { StatisticsPage } from 'Pages/StatisticsPage/StatisticsPage';
 import { getUserTransactionsSummary } from 'redux/transactions/transactionsOperations';
+import { getTransactionsCategories } from 'redux/transactions/transactionsOperations';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ export const App = () => {
   useEffect(() => {
     if (user.auth.isLogin) {
       dispatch(currentUserOperation());
+      dispatch(getTransactionsCategories());
       dispatch(
         getUserTransactionsSummary({
           month: new Date().getMonth() + 1,

@@ -1,5 +1,17 @@
 import { useSelector, useDispatch } from 'react-redux';
 import {
+  TransitionList,
+  TableT,
+  TransitionItemList,
+  TableHeadMobile,
+  TransitionItem,
+  TableHeadMobileList,
+  TableHeadMobileListItem,
+  TableBody,
+  TableBodyList,
+  TableBodyListItem,
+} from './TransactionsTable.styled';
+import {
   userTransactionsSelector,
   allUserTransactionsArr,
 } from 'redux/transactions/transactionsSelector';
@@ -9,8 +21,10 @@ import {
 } from 'redux/transactions/transactionsOperations';
 import { EditTransaction } from 'components/EditTransactions/EditTransaction';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 export const TransactionsTable = () => {
+  const [screen, setScreen] = useState(true);
   const [editTr, setEditTr] = useState({
     state: false,
     id: '',
@@ -21,6 +35,22 @@ export const TransactionsTable = () => {
   const transactions = useSelector(userTransactionsSelector);
   const allTr = useSelector(allUserTransactionsArr);
   const dispatch = useDispatch();
+
+  console.log(screen);
+
+  useEffect(() => {
+    function handleResize() {
+      setScreen(window.innerWidth > 597);
+    }
+
+    window.addEventListener('resize', handleResize);
+
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   function TransactionsData() {
     if (allTr !== null) {
@@ -66,7 +96,75 @@ export const TransactionsTable = () => {
       {editTr.state && (
         <EditTransaction editTr={editTr} setEditTr={setEditTr} />
       )}
-      <table style={{ width: '100%' }}>
+
+      {!screen && (
+        <TransitionList>
+          {transactions.transaction !== null &&
+            TransactionsData().map(item => {
+              return (
+                <TransitionItem key={item.id}>
+                  <TransitionItemList>
+                    <TableHeadMobile>
+                      <TableHeadMobileList>
+                        <TableHeadMobileListItem>Date</TableHeadMobileListItem>
+                        <TableHeadMobileListItem>Type</TableHeadMobileListItem>
+                        <TableHeadMobileListItem>
+                          Category
+                        </TableHeadMobileListItem>
+                        <TableHeadMobileListItem>
+                          Comment
+                        </TableHeadMobileListItem>
+                        <TableHeadMobileListItem>Summ</TableHeadMobileListItem>
+                        <TableHeadMobileListItem>
+                          <button
+                            onClick={() => {
+                              handleEditTransaction(item);
+                            }}
+                            type="button"
+                          >
+                            edit
+                          </button>
+                        </TableHeadMobileListItem>
+                      </TableHeadMobileList>
+                    </TableHeadMobile>
+                    <TableBody>
+                      <TableBodyList>
+                        <TableBodyListItem>
+                          <p>{item.transactionDate.replace(/-/g, '.')}</p>
+                        </TableBodyListItem>
+                        <TableBodyListItem>
+                          <p>
+                            {item.type === 'INCOME' && '+'}
+                            {item.type === 'EXPENSE' && '-'}
+                          </p>
+                        </TableBodyListItem>
+                        <TableBodyListItem>
+                          <p>{getCategory(item.categoryId)}</p>
+                        </TableBodyListItem>
+                        <TableBodyListItem>
+                          <p>{item.comment}</p>
+                        </TableBodyListItem>
+                        <TableBodyListItem>
+                          <p>{Math.abs(item.amount)}</p>
+                        </TableBodyListItem>
+                        <TableBodyListItem>
+                          <button
+                            id={item.id}
+                            type="button"
+                            onClick={handleDeleteTransaction}
+                          >
+                            delete
+                          </button>
+                        </TableBodyListItem>
+                      </TableBodyList>
+                    </TableBody>
+                  </TransitionItemList>
+                </TransitionItem>
+              );
+            })}
+        </TransitionList>
+      )}
+      <TableT style={{ width: '100%' }}>
         <thead>
           <tr>
             <th style={{ textAlign: 'start' }}>Date</th>
@@ -110,7 +208,7 @@ export const TransactionsTable = () => {
               );
             })}
         </tbody>
-      </table>
+      </TableT>
     </>
   );
 };

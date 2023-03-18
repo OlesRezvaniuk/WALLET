@@ -42,7 +42,7 @@ export const Layout = () => {
           Exit
         </LogoutButton>
       </LayoutBox>
-      <div>
+      <div style={{ backgroundColor: '#f5f8ff' }}>
         <div>
           Navigation
           <NavLink to="/">Home</NavLink>

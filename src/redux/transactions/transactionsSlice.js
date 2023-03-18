@@ -25,7 +25,7 @@ const transactionsSlice = createSlice({
       getTransactionsCategories.fulfilled,
       (state, { payload }) => {
         state.status = StatusForAll.success;
-        state.getCategories = payload.data;
+        state.getCategories = payload;
       }
     );
     builder.addCase(getUserTransactions.fulfilled, (state, { payload }) => {

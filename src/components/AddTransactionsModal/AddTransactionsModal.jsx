@@ -9,12 +9,10 @@ import { date } from 'components/Calendar/calendarHelpers/calendarHelpers';
 import { getTransactionsCategories } from 'redux/transactions/transactionsOperations';
 import { useSelector } from 'react-redux';
 import { categoriesSelector } from 'redux/transactions/transactionsSelector';
-import { userTransactionsSelector } from 'redux/transactions/transactionsSelector';
 
 export const AddTransactionsModal = () => {
   const dispatch = useDispatch();
   const categories = useSelector(categoriesSelector);
-  const transactions = useSelector(userTransactionsSelector);
 
   const [transaction, setTransaction] = useState({
     request: {
@@ -75,11 +73,15 @@ export const AddTransactionsModal = () => {
   return (
     <>
       <form
-        onSubmit={e => {
+        onSubmit={async e => {
           e.preventDefault();
-          dispatch(createTransactionsOperation(request));
-          dispatch(getUserTransactions());
-          console.log(transactions.transaction);
+          await dispatch(createTransactionsOperation(request));
+          await dispatch(getUserTransactions());
+          setTransaction({
+            ...transaction,
+            category: '',
+            request: { ...request, amount: '' },
+          });
         }}
       >
         <div>
@@ -110,6 +112,11 @@ export const AddTransactionsModal = () => {
                 ...transaction,
                 request: { ...request, amount: e.target.value * -1 },
               });
+            } else if (request.type === 'INCOME') {
+              setTransaction({
+                ...transaction,
+                request: { ...request, amount: e.target.value },
+              });
             }
           }}
           onChange={e => {
@@ -139,7 +146,7 @@ export const AddTransactionsModal = () => {
             {transaction.category === 'onChange' && (
               <div>
                 <ul style={{ overflow: 'auto', height: 100, width: 200 }}>
-                  {categories.map(item => {
+                  {categories.transactions.getCategories.map(item => {
                     return (
                       <li key={item.id}>
                         <p id={item.id} onClick={handleChangeCaterogies}>

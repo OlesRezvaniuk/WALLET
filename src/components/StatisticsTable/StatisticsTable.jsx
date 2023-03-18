@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { userSummaryForPeriodSelector } from 'redux/transactions/transactionsSelector';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { dateChooseData } from 'components/Calendar/calendarHelpers/calendarHelpers';
 import {
   monthIndexToName,
   mounthNameToIndex,
 } from 'components/Calendar/calendarHelpers/calendarHelpers';
 import { getUserTransactionsSummary } from 'redux/transactions/transactionsOperations';
+import { nanoid } from '@reduxjs/toolkit';
 
 export const StatisticsTable = () => {
   const [expenseSummaryDate, setExpenseSummaryDate] = useState({
@@ -21,10 +21,10 @@ export const StatisticsTable = () => {
   function expensData() {
     let data = { expense: null, income: null };
     if (summaryResponse !== null) {
-      data.expense = summaryResponse.data.categoriesSummary.filter(
+      data.expense = summaryResponse.categoriesSummary.filter(
         item => item.type === 'EXPENSE'
       );
-      data.income = summaryResponse.data.categoriesSummary.filter(
+      data.income = summaryResponse.categoriesSummary.filter(
         item => item.type === 'INCOME'
       );
       return data;
@@ -83,9 +83,21 @@ export const StatisticsTable = () => {
         month: mounthNameToIndex(expenseSummaryDate.month),
         year: Number(expenseSummaryDate.year),
       };
+      console.log(date);
       dispatch(getUserTransactionsSummary(date));
     }
+    // eslint-disable-next-line
   }, [expenseSummaryDate]);
+
+  useEffect(() => {
+    dispatch(
+      getUserTransactionsSummary({
+        month: new Date().getMonth() + 1,
+        year: new Date().getFullYear(),
+      })
+    );
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <>
@@ -132,19 +144,22 @@ export const StatisticsTable = () => {
       {summaryResponse !== null && (
         <>
           <table style={{ width: '100%' }}>
-            <tr>
-              <th style={{ textAlign: 'start' }}>Category</th>
-              <th style={{ textAlign: 'start' }}>Summ</th>
-            </tr>
-
-            {expensData().expense.map(item => {
-              return (
-                <tr>
-                  <td>{item.name}</td>
-                  {Math.abs(item.total)}
-                </tr>
-              );
-            })}
+            <thead>
+              <tr>
+                <th style={{ textAlign: 'start' }}>Category</th>
+                <th style={{ textAlign: 'start' }}>Summ</th>
+              </tr>
+            </thead>
+            <tbody>
+              {expensData().expense.map(item => {
+                return (
+                  <tr key={nanoid()}>
+                    <td>{item.name}</td>
+                    <td>{Math.abs(item.total)}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
           <div>
             <ul>

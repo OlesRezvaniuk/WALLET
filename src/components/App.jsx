@@ -9,8 +9,11 @@ import { useEffect } from 'react';
 import { authSelector } from 'redux/auth/authSelector';
 import { HomePage } from 'Pages/HomePage/HomePage';
 import { StatisticsPage } from 'Pages/StatisticsPage/StatisticsPage';
-import { getUserTransactionsSummary } from 'redux/transactions/transactionsOperations';
-import { getTransactionsCategories } from 'redux/transactions/transactionsOperations';
+import {
+  getUserTransactionsSummary,
+  getTransactionsCategories,
+  getUserTransactions,
+} from 'redux/transactions/transactionsOperations';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -26,6 +29,8 @@ export const App = () => {
           year: new Date().getFullYear(),
         })
       );
+
+      dispatch(getUserTransactions());
     }
     // eslint-disable-next-line
   }, []);

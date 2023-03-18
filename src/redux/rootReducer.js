@@ -11,7 +11,8 @@ const persistRegistrConfig = {
 };
 const persistedRegistrReducer = persistReducer(
   persistRegistrConfig,
-  authReducer
+  authReducer,
+  transactionsReducer
 );
 
 export const rootReducer = combineReducers({

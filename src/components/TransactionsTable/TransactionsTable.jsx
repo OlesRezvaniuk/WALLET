@@ -7,8 +7,17 @@ import {
   deteteUserTransactions,
   getUserTransactions,
 } from 'redux/transactions/transactionsOperations';
+import { EditTransaction } from 'components/EditTransactions/EditTransaction';
+import { useState } from 'react';
 
 export const TransactionsTable = () => {
+  const [editTr, setEditTr] = useState({
+    state: false,
+    id: '',
+    amount: '',
+    comment: '',
+    type: '',
+  });
   const transactions = useSelector(userTransactionsSelector);
   const allTr = useSelector(allUserTransactionsArr);
   const dispatch = useDispatch();
@@ -40,10 +49,23 @@ export const TransactionsTable = () => {
     dispatch(getUserTransactions());
   };
 
+  const handleEditTransaction = item => {
+    setEditTr({
+      ...editTr,
+      state: true,
+      id: item.id,
+      amount: item.amount,
+      comment: item.comment,
+      type: item.type,
+    });
+  };
+
   return (
     <>
       <>Transactions Table</>
-
+      {editTr.state && (
+        <EditTransaction editTr={editTr} setEditTr={setEditTr} />
+      )}
       <table style={{ width: '100%' }}>
         <thead>
           <tr>
@@ -68,7 +90,14 @@ export const TransactionsTable = () => {
                   <td>{item.comment}</td>
                   <td style={{ color: item.amount < 0 && 'red' }}>
                     {Math.abs(item.amount)}
-                    <button type="button">edit</button>
+                    <button
+                      onClick={() => {
+                        handleEditTransaction(item);
+                      }}
+                      type="button"
+                    >
+                      edit
+                    </button>
                     <button
                       id={item.id}
                       type="button"

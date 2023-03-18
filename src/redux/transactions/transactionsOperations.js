@@ -73,3 +73,18 @@ export const deteteUserTransactions = createAsyncThunk(
     }
   }
 );
+
+export const editUserTransactions = createAsyncThunk(
+  '/api/transactions/edit',
+  async (transaction, thunkAPI) => {
+    try {
+      const { data } = await axios.patch(
+        `https://wallet.goit.ua/api/transactions/${transaction.id}`,
+        transaction.request
+      );
+      return { data };
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

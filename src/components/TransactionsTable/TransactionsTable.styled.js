@@ -24,10 +24,14 @@ export const TableHeadMobileListItem = styled.li`
   }
 `;
 
-export const TableBody = styled.li``;
+export const TableBody = styled.li`
+  width: 100%;
+  padding-right: 20px;
+`;
 
 export const TableBodyList = styled.ul`
   list-style: none;
+  text-align: end;
 `;
 
 export const TableBodyListItem = styled.li`

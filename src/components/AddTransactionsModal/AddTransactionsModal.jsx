@@ -1,15 +1,20 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createTransactionsOperation } from 'redux/transactions/transactionsOperations';
+import {
+  createTransactionsOperation,
+  getUserTransactions,
+} from 'redux/transactions/transactionsOperations';
 import { Calendar } from 'components/Calendar/Calendar';
 import { date } from 'components/Calendar/calendarHelpers/calendarHelpers';
 import { getTransactionsCategories } from 'redux/transactions/transactionsOperations';
 import { useSelector } from 'react-redux';
 import { categoriesSelector } from 'redux/transactions/transactionsSelector';
+import { userTransactionsSelector } from 'redux/transactions/transactionsSelector';
 
 export const AddTransactionsModal = () => {
   const dispatch = useDispatch();
   const categories = useSelector(categoriesSelector);
+  const transactions = useSelector(userTransactionsSelector);
 
   const [transaction, setTransaction] = useState({
     request: {
@@ -73,6 +78,8 @@ export const AddTransactionsModal = () => {
         onSubmit={e => {
           e.preventDefault();
           dispatch(createTransactionsOperation(request));
+          dispatch(getUserTransactions());
+          console.log(transactions.transaction);
         }}
       >
         <div>

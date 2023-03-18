@@ -1,38 +1,38 @@
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { userTransactionsSelector } from 'redux/transactions/transactionsSelector';
-import { categoriesSelector } from 'redux/transactions/transactionsSelector';
+import { useDispatch } from 'react-redux';
 
 export const TransactionsTable = () => {
   const transactions = useSelector(userTransactionsSelector);
-  const categories = useSelector(categoriesSelector);
+  const dispatch = useDispatch();
 
-  // function TransactionsData() {
-  //   if (transactions !== null) {
-  //     const transactionsData = transactions.transaction.data.slice(0, 30);
-  //     transactionsData.sort(
-  //       (a, b) => new Date(b.transactionDate) - new Date(a.transactionDate)
-  //     );
-  //     return transactionsData;
-  //   }
-  // }
-  // console.log(TransactionsData());
+  function TransactionsData() {
+    if (transactions.transaction !== null) {
+      const transactionsData = transactions.transaction.data.slice(0, 30);
+      transactionsData.sort(
+        (a, b) => new Date(b.transactionDate) - new Date(a.transactionDate)
+      );
+      return transactionsData;
+    }
+  }
 
-  // function getCategory(e) {
-  //   if (categories !== null) {
-  //     const data = categories.map(item => {
-  //       if (e === item.id) {
-  //         return item.name;
-  //       }
-  //     });
-  //     return data;
-  //   }
-  // }
+  function getCategory(e) {
+    if (transactions.getCategories !== null) {
+      const data = transactions.getCategories.map(item => {
+        if (e === item.id) {
+          return item.name;
+        }
+      });
+      return data;
+    }
+  }
 
   return (
     <>
       <>Transactions Table</>
 
-      {/* <table style={{ width: '100%' }}>
+      <table style={{ width: '100%' }}>
         <tr>
           <th style={{ textAlign: 'start' }}>Date</th>
           <th style={{ textAlign: 'start' }}>Type</th>
@@ -41,11 +41,11 @@ export const TransactionsTable = () => {
           <th style={{ textAlign: 'start' }}>Summ</th>
         </tr>
 
-        {transactions !== null &&
+        {transactions.transaction !== null &&
           TransactionsData().map(item => {
             return (
               <tr>
-                <td>{item.transactionDate}</td>
+                <td>{item.transactionDate.replace(/-/g, '.')}</td>
                 <td>
                   {item.type === 'INCOME' && '+'}
                   {item.type === 'EXPENSE' && '-'}
@@ -56,7 +56,7 @@ export const TransactionsTable = () => {
               </tr>
             );
           })}
-      </table> */}
+      </table>
     </>
   );
 };

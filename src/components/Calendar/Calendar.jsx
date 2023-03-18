@@ -36,8 +36,6 @@ export const Calendar = ({ date, transaction, setTransaction }) => {
     return arr;
   }
 
-  console.log(transaction.request);
-
   useEffect(() => {
     if (
       dateChoose.day !== '' &&

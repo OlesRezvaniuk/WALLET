@@ -9,8 +9,9 @@ import { date } from 'components/Calendar/calendarHelpers/calendarHelpers';
 import { getTransactionsCategories } from 'redux/transactions/transactionsOperations';
 import { useSelector } from 'react-redux';
 import { categoriesSelector } from 'redux/transactions/transactionsSelector';
+import { Backdrop, Form, CrossIcon } from './AddTransitionsModal.styled';
 
-export const AddTransactionsModal = () => {
+export const AddTransactionsModal = ({ SetIsModalOpen }) => {
   const dispatch = useDispatch();
   const categories = useSelector(categoriesSelector);
 
@@ -71,8 +72,15 @@ export const AddTransactionsModal = () => {
   };
 
   return (
-    <>
-      <form
+    <Backdrop
+      onClick={e => {
+        if (e.target.id === 'addTransitionModalBackdrop') {
+          SetIsModalOpen(false);
+        }
+      }}
+      id="addTransitionModalBackdrop"
+    >
+      <Form
         onSubmit={async e => {
           e.preventDefault();
           await dispatch(createTransactionsOperation(request));
@@ -84,6 +92,11 @@ export const AddTransactionsModal = () => {
           });
         }}
       >
+        <CrossIcon
+          onClick={() => {
+            SetIsModalOpen(false);
+          }}
+        />
         <div>
           <span
             style={{
@@ -178,7 +191,7 @@ export const AddTransactionsModal = () => {
           placeholder="Comment"
         ></textarea>
         <button type="submit">Add</button>
-      </form>
-    </>
+      </Form>
+    </Backdrop>
   );
 };

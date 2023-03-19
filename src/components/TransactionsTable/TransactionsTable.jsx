@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import {
   TransitionList,
-  TableT,
   TransitionItemList,
   TableHeadMobile,
   TransitionItem,
@@ -10,6 +9,12 @@ import {
   TableBody,
   TableBodyList,
   TableBodyListItem,
+  TableFooterListItem,
+  TableFooterList,
+  TableFooterDeleteBtn,
+  TableFooterEditBtn,
+  EditIcon,
+  TableFooterItem,
 } from './TransactionsTable.styled';
 import {
   userTransactionsSelector,
@@ -35,8 +40,6 @@ export const TransactionsTable = () => {
   const transactions = useSelector(userTransactionsSelector);
   const allTr = useSelector(allUserTransactionsArr);
   const dispatch = useDispatch();
-
-  console.log(screen);
 
   useEffect(() => {
     function handleResize() {
@@ -102,7 +105,7 @@ export const TransactionsTable = () => {
           {transactions.transaction !== null &&
             TransactionsData().map(item => {
               return (
-                <TransitionItem key={item.id}>
+                <TransitionItem type={item.type} key={item.id}>
                   <TransitionItemList>
                     <TableHeadMobile>
                       <TableHeadMobileList>
@@ -115,16 +118,6 @@ export const TransactionsTable = () => {
                           Comment
                         </TableHeadMobileListItem>
                         <TableHeadMobileListItem>Summ</TableHeadMobileListItem>
-                        <TableHeadMobileListItem>
-                          <button
-                            onClick={() => {
-                              handleEditTransaction(item);
-                            }}
-                            type="button"
-                          >
-                            edit
-                          </button>
-                        </TableHeadMobileListItem>
                       </TableHeadMobileList>
                     </TableHeadMobile>
                     <TableBody>
@@ -147,24 +140,39 @@ export const TransactionsTable = () => {
                         <TableBodyListItem>
                           <p>{Math.abs(item.amount)}</p>
                         </TableBodyListItem>
-                        <TableBodyListItem>
-                          <button
+                      </TableBodyList>
+                    </TableBody>
+                    <TableFooterItem>
+                      <TableFooterList>
+                        <TableFooterListItem>
+                          <TableFooterDeleteBtn
                             id={item.id}
                             type="button"
                             onClick={handleDeleteTransaction}
                           >
                             delete
-                          </button>
-                        </TableBodyListItem>
-                      </TableBodyList>
-                    </TableBody>
+                          </TableFooterDeleteBtn>
+                        </TableFooterListItem>
+                        <TableFooterListItem>
+                          <TableFooterEditBtn
+                            onClick={() => {
+                              handleEditTransaction(item);
+                            }}
+                            type="button"
+                          >
+                            <EditIcon />
+                            edit
+                          </TableFooterEditBtn>
+                        </TableFooterListItem>
+                      </TableFooterList>
+                    </TableFooterItem>
                   </TransitionItemList>
                 </TransitionItem>
               );
             })}
         </TransitionList>
       )}
-      <TableT style={{ width: '100%' }}>
+      {/* <TableT style={{ width: '100%' }}>
         <thead>
           <tr>
             <th style={{ textAlign: 'start' }}>Date</th>
@@ -208,7 +216,7 @@ export const TransactionsTable = () => {
               );
             })}
         </tbody>
-      </TableT>
+      </TableT> */}
     </>
   );
 };

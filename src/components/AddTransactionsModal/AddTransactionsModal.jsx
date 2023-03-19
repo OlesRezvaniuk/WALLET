@@ -76,6 +76,7 @@ export const AddTransactionsModal = ({ SetIsModalOpen }) => {
       onClick={e => {
         if (e.target.id === 'addTransitionModalBackdrop') {
           SetIsModalOpen(false);
+          document.querySelector('body').classList.remove('modal');
         }
       }}
       id="addTransitionModalBackdrop"
@@ -95,6 +96,7 @@ export const AddTransactionsModal = ({ SetIsModalOpen }) => {
         <CrossIcon
           onClick={() => {
             SetIsModalOpen(false);
+            document.querySelector('body').classList.remove('modal');
           }}
         />
         <div>

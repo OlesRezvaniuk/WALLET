@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/WALLET/static/css/main.ef17d517.css",
-    "main.js": "/WALLET/static/js/main.a80b6284.js",
+    "main.js": "/WALLET/static/js/main.c38af8cb.js",
     "static/media/Group.svg": "/WALLET/static/media/Group.64ca2e4c6bf81d519acb6f918e3899e7.svg",
     "static/media/Frame.svg": "/WALLET/static/media/Frame.5717978088f0bcb942943cdd8713b9c8.svg",
     "static/media/logo.svg": "/WALLET/static/media/logo.12a90eb3201898cbc53f2bd79100346a.svg",
@@ -12,17 +12,20 @@
     "static/media/show-password.svg": "/WALLET/static/media/show-password.2f0188afa8f665818e4974d4a0608cf9.svg",
     "static/media/baseline-lock-24px 1.svg": "/WALLET/static/media/baseline-lock-24px 1.c96371cdb3eea2cb640f281b8d4c901e.svg",
     "static/media/baseline-account_box-24px 1.svg": "/WALLET/static/media/baseline-account_box-24px 1.af348b4c46b5fcf5f0f458df636fcfe8.svg",
+    "static/media/calendar.svg": "/WALLET/static/media/calendar.f54e9ba40429141f3ad8576bcba64d5e.svg",
     "static/media/baseline-email-24px 1.svg": "/WALLET/static/media/baseline-email-24px 1.baae6b24ed64ad75323ee71140687e36.svg",
     "static/media/Ellipse1T.svg": "/WALLET/static/media/Ellipse1T.a36288d5d3c3363f769bb1b334cd06ee.svg",
     "static/media/Ellipse1d.svg": "/WALLET/static/media/Ellipse1d.dee322133bc32763d7238dd126f8f023.svg",
     "static/media/Ellipse2.svg": "/WALLET/static/media/Ellipse2.07ef13244b203e866dcdec6e7633ee44.svg",
     "static/media/Ellipse2d.svg": "/WALLET/static/media/Ellipse2d.c8fb29d72ce4f8a3be02a89d77f20c28.svg",
+    "static/media/minus.svg": "/WALLET/static/media/minus.c1930871236002c803c7b6a6c0b99024.svg",
     "static/media/plus.svg": "/WALLET/static/media/plus.243fe8352e685998e19b95bd64832d94.svg",
+    "static/media/arrowBottom.svg": "/WALLET/static/media/arrowBottom.80e5ec3993faf38da594750d5851c637.svg",
     "main.ef17d517.css.map": "/WALLET/static/css/main.ef17d517.css.map",
-    "main.a80b6284.js.map": "/WALLET/static/js/main.a80b6284.js.map"
+    "main.c38af8cb.js.map": "/WALLET/static/js/main.c38af8cb.js.map"
   },
   "entrypoints": [
     "static/css/main.ef17d517.css",
-    "static/js/main.a80b6284.js"
+    "static/js/main.c38af8cb.js"
   ]
 }

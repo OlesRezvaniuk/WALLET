@@ -9,9 +9,18 @@ import {
   CalendarIcon,
   CalendarBtn,
   ChooseDateBox,
+  ChooseDateBoxList,
+  ChooseDateBoxListHiddenElement,
+  ChooseDateBoxListItem,
 } from './Calendar.styled';
 
-export const Calendar = ({ date, transaction, setTransaction }) => {
+export const Calendar = ({
+  date,
+  transaction,
+  setTransaction,
+  request,
+  setIsCalendarModalOpen,
+}) => {
   const [dateChoose, setDateChoose] = useState({
     day: date().render.day,
     mounth: date().render.mounth,
@@ -101,7 +110,10 @@ export const Calendar = ({ date, transaction, setTransaction }) => {
       year: '',
       isModalOpen: !dateChoose.isModalOpen,
     });
+    setIsCalendarModalOpen(true);
   };
+
+  console.log(transaction.category);
 
   return (
     <DateBox
@@ -120,6 +132,10 @@ export const Calendar = ({ date, transaction, setTransaction }) => {
       {dateChoose.isModalOpen ? (
         <CalendarBtn
           onClick={e => {
+            if (transaction.category === 'onChange') {
+              return;
+            }
+            setIsCalendarModalOpen(false);
             e.preventDefault();
             setTransaction({
               ...transaction,
@@ -147,95 +163,103 @@ export const Calendar = ({ date, transaction, setTransaction }) => {
 
       {dateChoose.isModalOpen && (
         <ChooseDateBox>
-          <ul style={{ overflow: 'auto', height: 120, width: 200 }}>
-            {chooseDay().map(item => {
-              return (
-                <li key={item}>
-                  <p
-                    onClick={e => {
-                      e.preventDefault();
-                      if (Number(e.target.innerText) < 10) {
-                        setDateChoose({
-                          ...dateChoose,
-                          day: `0${e.target.innerText}`,
-                          newDate: {
-                            ...dateChoose.newDate,
+          <div style={{ position: 'relative', width: '100%' }}>
+            <ChooseDateBoxList>
+              {chooseDay().map(item => {
+                return (
+                  <ChooseDateBoxListItem key={item}>
+                    <p
+                      onClick={e => {
+                        e.preventDefault();
+                        if (Number(e.target.innerText) < 10) {
+                          setDateChoose({
+                            ...dateChoose,
                             day: `0${e.target.innerText}`,
-                          },
-                        });
-                      } else {
-                        setDateChoose({
-                          ...dateChoose,
-                          day: e.target.innerText,
-                          newDate: {
-                            ...dateChoose.newDate,
+                            newDate: {
+                              ...dateChoose.newDate,
+                              day: `0${e.target.innerText}`,
+                            },
+                          });
+                        } else {
+                          setDateChoose({
+                            ...dateChoose,
                             day: e.target.innerText,
-                          },
-                        });
-                      }
+                            newDate: {
+                              ...dateChoose.newDate,
+                              day: e.target.innerText,
+                            },
+                          });
+                        }
 
-                      console.log(e.target.innerText);
-                    }}
-                  >
-                    {item}
-                  </p>
-                </li>
-              );
-            })}
-          </ul>
-          <ul style={{ overflow: 'auto', height: 120, width: 200 }}>
-            {dateChooseData.mounth.map(item => {
-              return (
-                <li key={item}>
-                  <p
-                    onClick={e => {
-                      e.preventDefault();
-                      convertMounth(e);
-                      setDateChoose({
-                        ...dateChoose,
-                        mounth: convertMounth(e),
-                        newDate: {
-                          ...dateChoose.newDate,
-                          mounth: e.target.innerText,
-                        },
-                      });
-                    }}
-                  >
-                    {item}
-                  </p>
-                </li>
-              );
-            })}
-          </ul>
-          <ul style={{ overflow: 'auto', height: 120, width: 200 }}>
-            {reduceToYear().map(item => {
-              return (
-                <li key={item}>
-                  <p
-                    onClick={e => {
-                      e.preventDefault();
-                      const year = new Date();
-                      if (e.target.innerText > year.getFullYear()) {
-                        console.log('year in features');
-                        return;
-                      } else {
+                        console.log(e.target.innerText);
+                      }}
+                    >
+                      {item}
+                    </p>
+                  </ChooseDateBoxListItem>
+                );
+              })}
+            </ChooseDateBoxList>
+            <ChooseDateBoxListHiddenElement></ChooseDateBoxListHiddenElement>
+          </div>
+          <div style={{ position: 'relative', width: '100%' }}>
+            <ChooseDateBoxList>
+              {dateChooseData.mounth.map(item => {
+                return (
+                  <ChooseDateBoxListItem key={item}>
+                    <p
+                      onClick={e => {
+                        e.preventDefault();
+                        convertMounth(e);
                         setDateChoose({
                           ...dateChoose,
-                          year: Number(e.target.innerText),
+                          mounth: convertMounth(e),
                           newDate: {
                             ...dateChoose.newDate,
-                            year: e.target.innerText,
+                            mounth: e.target.innerText,
                           },
                         });
-                      }
-                    }}
-                  >
-                    {item}
-                  </p>
-                </li>
-              );
-            })}
-          </ul>
+                      }}
+                    >
+                      {item}
+                    </p>
+                  </ChooseDateBoxListItem>
+                );
+              })}
+            </ChooseDateBoxList>
+            <ChooseDateBoxListHiddenElement></ChooseDateBoxListHiddenElement>
+          </div>
+          <div style={{ position: 'relative', width: '100%' }}>
+            <ChooseDateBoxList>
+              {reduceToYear().map(item => {
+                return (
+                  <ChooseDateBoxListItem key={item}>
+                    <p
+                      onClick={e => {
+                        e.preventDefault();
+                        const year = new Date();
+                        if (e.target.innerText > year.getFullYear()) {
+                          console.log('year in features');
+                          return;
+                        } else {
+                          setDateChoose({
+                            ...dateChoose,
+                            year: Number(e.target.innerText),
+                            newDate: {
+                              ...dateChoose.newDate,
+                              year: e.target.innerText,
+                            },
+                          });
+                        }
+                      }}
+                    >
+                      {item}
+                    </p>
+                  </ChooseDateBoxListItem>
+                );
+              })}
+            </ChooseDateBoxList>
+          </div>
         </ChooseDateBox>
       )}
     </DateBox>

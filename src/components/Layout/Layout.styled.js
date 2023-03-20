@@ -5,6 +5,12 @@ import { ReactComponent as ExitIconPrimal } from '../../Image/exitIcon.svg';
 export const LayoutBox = styled.div`
   padding: 15px 20px;
   display: flex;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 100;
+  ox-shadow: 0px 0px 2px grey;
+}
   @media screen and (min-width: 597px) {
     padding: 20px 32px;
   }

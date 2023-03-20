@@ -20,10 +20,22 @@ import {
   ChangeTypeBtnIconBox,
   ChangeTypeBtnText,
   Input,
-  CalendarIcon,
+  // CalendarIcon,
+  HiddenInputControlls,
+  AdaptiveList,
+  SelectCategoryBtn,
+  ArrowBottom,
+  CategoryListBox,
+  CategoryList,
+  CategoryListHiddenControlls,
+  CategoryListItem,
+  CommentTextArea,
+  ModalButtonsBox,
+  ModalButton,
 } from './AddTransitionsModal.styled';
 
 export const AddTransactionsModal = ({ SetIsModalOpen }) => {
+  const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
   const dispatch = useDispatch();
   const categories = useSelector(categoriesSelector);
 
@@ -83,6 +95,8 @@ export const AddTransactionsModal = ({ SetIsModalOpen }) => {
     });
   };
 
+  console.log(isCalendarModalOpen);
+
   return (
     <Backdrop
       onClick={e => {
@@ -106,6 +120,7 @@ export const AddTransactionsModal = ({ SetIsModalOpen }) => {
         }}
       >
         <CrossIcon
+          color={request.type}
           onClick={() => {
             SetIsModalOpen(false);
             document.querySelector('body').classList.remove('modal');
@@ -119,7 +134,11 @@ export const AddTransactionsModal = ({ SetIsModalOpen }) => {
           >
             Income
           </ChangeTypeBtnText>
-          <ChangeTypeBtn type="button" onClick={handleChangeType}>
+          <ChangeTypeBtn
+            color={request.type}
+            type="button"
+            onClick={handleChangeType}
+          >
             <ChangeTypeBtnIconBox type={request.type}>
               <MinusIcon />
               <MinusIcon type={request.type} />
@@ -131,72 +150,89 @@ export const AddTransactionsModal = ({ SetIsModalOpen }) => {
             Expense
           </ChangeTypeBtnText>
         </ChangeTypeBtnBox>
-
-        <div></div>
-        <Input
-          value={request.amount}
-          onBlur={e => {
-            if (request.type === 'EXPENSE') {
-              setTransaction({
-                ...transaction,
-                request: { ...request, amount: e.target.value * -1 },
-              });
-            } else if (request.type === 'INCOME') {
-              setTransaction({
-                ...transaction,
-                request: { ...request, amount: e.target.value },
-              });
-            }
-          }}
-          onChange={e => {
-            e.preventDefault();
-            setTransaction({
-              ...transaction,
-              request: { ...request, amount: e.target.value },
-            });
-          }}
-          type="number"
-          placeholder="0.00"
-        />
-        <br />
         {request.type === 'EXPENSE' && (
-          <div>
-            <button
+          <div style={{ position: 'relative' }}>
+            <SelectCategoryBtn
               onClick={() => {
-                setTransaction({ ...transaction, category: 'onChange' });
+                if (transaction.category === 'onChange') {
+                  setTransaction({ ...transaction, category: '' });
+                } else if (isCalendarModalOpen) {
+                  return;
+                } else {
+                  setTransaction({ ...transaction, category: 'onChange' });
+                }
               }}
+              color={request.type}
               type="button"
             >
               {transaction.category !== '' &&
               transaction.category !== 'onChange'
                 ? `${transaction.category}`
                 : 'Select a category'}
-            </button>
+              <ArrowBottom />
+            </SelectCategoryBtn>
             {transaction.category === 'onChange' && (
-              <div>
-                <div></div>
-                <ul style={{ overflow: 'auto', height: 100, width: 200 }}>
+              <CategoryListBox>
+                <CategoryListHiddenControlls />
+                <CategoryList>
                   {categories.transactions.getCategories.map(item => {
                     return (
-                      <li key={item.id}>
+                      <CategoryListItem key={item.id}>
                         <p id={item.id} onClick={handleChangeCaterogies}>
                           {item.name}
                         </p>
-                      </li>
+                      </CategoryListItem>
                     );
                   })}
-                </ul>
-              </div>
+                </CategoryList>
+              </CategoryListBox>
             )}
           </div>
         )}
-
-        <Calendar
-          date={date}
-          transaction={transaction}
-          setTransaction={setTransaction}
-        />
-        <textarea
+        <AdaptiveList>
+          <li>
+            <div style={{ position: 'relative' }}>
+              <HiddenInputControlls />
+              <Input
+                color={request.type}
+                value={request.amount}
+                onBlur={e => {
+                  if (request.type === 'EXPENSE') {
+                    setTransaction({
+                      ...transaction,
+                      request: { ...request, amount: e.target.value * -1 },
+                    });
+                  } else if (request.type === 'INCOME') {
+                    setTransaction({
+                      ...transaction,
+                      request: { ...request, amount: e.target.value },
+                    });
+                  }
+                }}
+                onChange={e => {
+                  e.preventDefault();
+                  setTransaction({
+                    ...transaction,
+                    request: { ...request, amount: e.target.value },
+                  });
+                }}
+                type="number"
+                placeholder="0.00"
+              />
+            </div>
+          </li>
+          <li>
+            <Calendar
+              setIsCalendarModalOpen={setIsCalendarModalOpen}
+              request={request}
+              date={date}
+              transaction={transaction}
+              setTransaction={setTransaction}
+            />
+          </li>
+        </AdaptiveList>
+        <CommentTextArea
+          color={request.type}
           value={transaction.request.comment}
           onChange={e => {
             setTransaction({
@@ -206,8 +242,19 @@ export const AddTransactionsModal = ({ SetIsModalOpen }) => {
           }}
           style={{ resize: 'none' }}
           placeholder="Comment"
-        ></textarea>
-        <button type="submit">Add</button>
+        ></CommentTextArea>
+        <ModalButtonsBox>
+          <ModalButton type="submit">Add</ModalButton>
+          <ModalButton
+            onClick={() => {
+              SetIsModalOpen(false);
+              document.querySelector('body').classList.remove('modal');
+            }}
+            type="button"
+          >
+            Cancel
+          </ModalButton>
+        </ModalButtonsBox>
       </Form>
     </Backdrop>
   );

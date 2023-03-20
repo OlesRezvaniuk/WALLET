@@ -9,7 +9,19 @@ import { date } from 'components/Calendar/calendarHelpers/calendarHelpers';
 import { getTransactionsCategories } from 'redux/transactions/transactionsOperations';
 import { useSelector } from 'react-redux';
 import { categoriesSelector } from 'redux/transactions/transactionsSelector';
-import { Backdrop, Form, CrossIcon } from './AddTransitionsModal.styled';
+import {
+  Backdrop,
+  Form,
+  CrossIcon,
+  Title,
+  MinusIcon,
+  ChangeTypeBtnBox,
+  ChangeTypeBtn,
+  ChangeTypeBtnIconBox,
+  ChangeTypeBtnText,
+  Input,
+  CalendarIcon,
+} from './AddTransitionsModal.styled';
 
 export const AddTransactionsModal = ({ SetIsModalOpen }) => {
   const dispatch = useDispatch();
@@ -99,27 +111,29 @@ export const AddTransactionsModal = ({ SetIsModalOpen }) => {
             document.querySelector('body').classList.remove('modal');
           }}
         />
-        <div>
-          <span
-            style={{
-              fontWeight: request.type === 'INCOME' && 'bold',
-            }}
+
+        <Title>Add transaction</Title>
+        <ChangeTypeBtnBox>
+          <ChangeTypeBtnText
+            style={{ color: request.type === 'INCOME' && '#24CCA7' }}
           >
-            INCOME
-          </span>
-          <button type="button" onClick={handleChangeType}>
-            {request.type === 'EXPENSE' ? '-' : '+'}
-          </button>
-          <span
-            style={{
-              fontWeight: request.type === 'EXPENSE' && 'bold',
-            }}
+            Income
+          </ChangeTypeBtnText>
+          <ChangeTypeBtn type="button" onClick={handleChangeType}>
+            <ChangeTypeBtnIconBox type={request.type}>
+              <MinusIcon />
+              <MinusIcon type={request.type} />
+            </ChangeTypeBtnIconBox>
+          </ChangeTypeBtn>
+          <ChangeTypeBtnText
+            style={{ color: request.type === 'EXPENSE' && '#FF6596' }}
           >
-            EXPENSE
-          </span>
-        </div>
+            Expense
+          </ChangeTypeBtnText>
+        </ChangeTypeBtnBox>
+
         <div></div>
-        <input
+        <Input
           value={request.amount}
           onBlur={e => {
             if (request.type === 'EXPENSE') {
@@ -160,6 +174,7 @@ export const AddTransactionsModal = ({ SetIsModalOpen }) => {
             </button>
             {transaction.category === 'onChange' && (
               <div>
+                <div></div>
                 <ul style={{ overflow: 'auto', height: 100, width: 200 }}>
                   {categories.transactions.getCategories.map(item => {
                     return (

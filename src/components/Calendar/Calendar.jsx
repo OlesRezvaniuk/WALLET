@@ -3,6 +3,13 @@ import {
   dateChooseData,
   convertMounth,
 } from 'components/Calendar/calendarHelpers/calendarHelpers';
+import {
+  DateBox,
+  DateValue,
+  CalendarIcon,
+  CalendarBtn,
+  ChooseDateBox,
+} from './Calendar.styled';
 
 export const Calendar = ({ date, transaction, setTransaction }) => {
   const [dateChoose, setDateChoose] = useState({
@@ -97,7 +104,7 @@ export const Calendar = ({ date, transaction, setTransaction }) => {
   };
 
   return (
-    <div
+    <DateBox
       onMouseLeave={() => {
         if (
           (dateChoose.day !== '',
@@ -106,46 +113,45 @@ export const Calendar = ({ date, transaction, setTransaction }) => {
           setDateChoose({ ...dateChoose, isModalOpen: false });
         }
       }}
-      style={{ backgroundColor: 'lightblue' }}
     >
-      <span>
+      <DateValue>
         {dateChoose.day}.{dateChoose.mounth}.{dateChoose.year}
-      </span>
-      <button onClick={handleChooseDateModalOpen}>date</button>
-      <button
-        onClick={e => {
-          e.preventDefault();
-          setTransaction({
-            ...transaction,
-            request: {
-              ...transaction.request,
-              transactionDate: date().response,
-            },
-          });
-          setDateChoose({
-            ...dateChoose,
-            day: date().render.day,
-            mounth: date().render.mounth,
-            year: date().render.year,
-            newDate: { ...dateChoose.newDate, finish: null },
-          });
-        }}
-      >
-        reload
-      </button>
-      {dateChoose.isModalOpen && (
-        <div
-          style={{
-            backgroundColor: 'lightcoral',
-            width: 'max-content',
-            display: 'flex',
+      </DateValue>
+      {dateChoose.isModalOpen ? (
+        <CalendarBtn
+          onClick={e => {
+            e.preventDefault();
+            setTransaction({
+              ...transaction,
+              request: {
+                ...transaction.request,
+                transactionDate: date().response,
+              },
+            });
+            setDateChoose({
+              ...dateChoose,
+              day: date().render.day,
+              mounth: date().render.mounth,
+              year: date().render.year,
+              newDate: { ...dateChoose.newDate, finish: null },
+            });
           }}
         >
+          <CalendarIcon />
+        </CalendarBtn>
+      ) : (
+        <CalendarBtn onClick={handleChooseDateModalOpen}>
+          <CalendarIcon />
+        </CalendarBtn>
+      )}
+
+      {dateChoose.isModalOpen && (
+        <ChooseDateBox>
           <ul style={{ overflow: 'auto', height: 120, width: 200 }}>
             {chooseDay().map(item => {
               return (
                 <li key={item}>
-                  <button
+                  <p
                     onClick={e => {
                       e.preventDefault();
                       if (Number(e.target.innerText) < 10) {
@@ -172,7 +178,7 @@ export const Calendar = ({ date, transaction, setTransaction }) => {
                     }}
                   >
                     {item}
-                  </button>
+                  </p>
                 </li>
               );
             })}
@@ -181,7 +187,7 @@ export const Calendar = ({ date, transaction, setTransaction }) => {
             {dateChooseData.mounth.map(item => {
               return (
                 <li key={item}>
-                  <button
+                  <p
                     onClick={e => {
                       e.preventDefault();
                       convertMounth(e);
@@ -196,7 +202,7 @@ export const Calendar = ({ date, transaction, setTransaction }) => {
                     }}
                   >
                     {item}
-                  </button>
+                  </p>
                 </li>
               );
             })}
@@ -205,7 +211,7 @@ export const Calendar = ({ date, transaction, setTransaction }) => {
             {reduceToYear().map(item => {
               return (
                 <li key={item}>
-                  <button
+                  <p
                     onClick={e => {
                       e.preventDefault();
                       const year = new Date();
@@ -225,13 +231,13 @@ export const Calendar = ({ date, transaction, setTransaction }) => {
                     }}
                   >
                     {item}
-                  </button>
+                  </p>
                 </li>
               );
             })}
           </ul>
-        </div>
+        </ChooseDateBox>
       )}
-    </div>
+    </DateBox>
   );
 };

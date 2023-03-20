@@ -82,7 +82,6 @@ export const TransitionItem = styled.li`
   background-color: #fff;
 
   border-left: 5px solid ${p => (p.type === 'EXPENSE' ? '#FF6596' : '#24CCA7')};
-  // border-left: 5px solid #4a56e2;
   border-radius: 10px;
 `;
 

@@ -17,7 +17,7 @@ export const Currency = () => {
     }
   };
   return (
-    <>
+    <div>
       {user.auth.curs !== null && (
         <table style={{ width: '100%', backgroundColor: 'burlywood' }}>
           <thead>
@@ -43,6 +43,6 @@ export const Currency = () => {
           </tbody>
         </table>
       )}
-    </>
+    </div>
   );
 };

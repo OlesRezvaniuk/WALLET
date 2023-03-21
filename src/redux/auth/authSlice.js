@@ -40,9 +40,10 @@ const authSlice = createSlice({
       state.token = null;
       state.isLogin = false;
     });
-    builder.addCase(currentUserOperation.fulfilled, state => {
+    builder.addCase(currentUserOperation.fulfilled, (state, { payload }) => {
       state.status = StatusForAll.success;
       state.isLogin = true;
+      state.user = payload;
     });
     builder.addCase(getCurs.fulfilled, (state, { payload }) => {
       state.curs = payload;

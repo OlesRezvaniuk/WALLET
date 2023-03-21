@@ -27,7 +27,6 @@ export const StatisticsTable = () => {
       data.income = summaryResponse.categoriesSummary.filter(
         item => item.type === 'INCOME'
       );
-      console.log(data);
       return data;
     }
   }
@@ -36,14 +35,12 @@ export const StatisticsTable = () => {
     let total = { expense: null, income: null };
     if (summaryResponse !== null) {
       total.expense = expensData().expense.reduce((acc, curr) => {
-        console.log(acc);
         return acc + Math.abs(curr.total);
       }, 0);
 
       total.income = expensData().income.reduce((acc, curr) => {
         return acc + curr.total;
       }, 0);
-      console.log(total);
       return total;
     }
   }

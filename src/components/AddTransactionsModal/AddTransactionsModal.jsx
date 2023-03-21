@@ -117,6 +117,8 @@ export const AddTransactionsModal = ({ SetIsModalOpen }) => {
             category: '',
             request: { ...request, amount: '' },
           });
+          SetIsModalOpen(false);
+          document.querySelector('body').classList.remove('modal');
         }}
       >
         <CrossIcon

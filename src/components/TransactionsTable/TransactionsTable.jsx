@@ -15,6 +15,12 @@ import {
   TableFooterEditBtn,
   EditIcon,
   TableFooterItem,
+  TableTablet,
+  TransitionTableTabletThead,
+  TransitionTableTabletTheadItem,
+  TransitionTableTabletTbody,
+  TransitionTableTabletTbodyTd,
+  TransitionTableTabletTbodyTr,
 } from './TransactionsTable.styled';
 import {
   userTransactionsSelector,
@@ -95,11 +101,9 @@ export const TransactionsTable = () => {
 
   return (
     <>
-      <>Transactions Table</>
       {editTr.state && (
         <EditTransaction editTr={editTr} setEditTr={setEditTr} />
       )}
-
       {!screen && (
         <TransitionList>
           {transactions.transaction !== null &&
@@ -107,19 +111,25 @@ export const TransactionsTable = () => {
               return (
                 <TransitionItem type={item.type} key={item.id}>
                   <TransitionItemList>
-                    <TableHeadMobile>
-                      <TableHeadMobileList>
-                        <TableHeadMobileListItem>Date</TableHeadMobileListItem>
-                        <TableHeadMobileListItem>Type</TableHeadMobileListItem>
-                        <TableHeadMobileListItem>
-                          Category
-                        </TableHeadMobileListItem>
-                        <TableHeadMobileListItem>
-                          Comment
-                        </TableHeadMobileListItem>
-                        <TableHeadMobileListItem>Summ</TableHeadMobileListItem>
-                      </TableHeadMobileList>
-                    </TableHeadMobile>
+                    {!screen && (
+                      <TableHeadMobile>
+                        <TableHeadMobileList>
+                          <TableHeadMobileListItem>
+                            Date
+                          </TableHeadMobileListItem>
+                          <TableHeadMobileListItem>
+                            Type
+                          </TableHeadMobileListItem>
+                          <TableHeadMobileListItem>
+                            Category
+                          </TableHeadMobileListItem>
+                          <TableHeadMobileListItem>
+                            Comment
+                          </TableHeadMobileListItem>
+                          <TableHeadMobileListItem>Sum</TableHeadMobileListItem>
+                        </TableHeadMobileList>
+                      </TableHeadMobile>
+                    )}
                     <TableBody>
                       <TableBodyList>
                         <TableBodyListItem>
@@ -172,51 +182,97 @@ export const TransactionsTable = () => {
             })}
         </TransitionList>
       )}
-      {/* <TableT style={{ width: '100%' }}>
-        <thead>
-          <tr>
-            <th style={{ textAlign: 'start' }}>Date</th>
-            <th style={{ textAlign: 'start' }}>Type</th>
-            <th style={{ textAlign: 'start' }}>Category</th>
-            <th style={{ textAlign: 'start' }}>Comment</th>
-            <th style={{ textAlign: 'start' }}>Summ</th>
-          </tr>
-        </thead>
-        <tbody>
-          {transactions.transaction !== null &&
-            TransactionsData().map(item => {
-              return (
-                <tr key={item.id}>
-                  <td>{item.transactionDate.replace(/-/g, '.')}</td>
-                  <td>
-                    {item.type === 'INCOME' && '+'}
-                    {item.type === 'EXPENSE' && '-'}
-                  </td>
-                  <td>{getCategory(item.categoryId)}</td>
-                  <td>{item.comment}</td>
-                  <td style={{ color: item.amount < 0 && 'red' }}>
-                    {Math.abs(item.amount)}
-                    <button
-                      onClick={() => {
-                        handleEditTransaction(item);
+      {screen && (
+        <TableTablet>
+          <TransitionTableTabletThead>
+            <tr>
+              <TransitionTableTabletTheadItem>
+                Date
+              </TransitionTableTabletTheadItem>
+              <TransitionTableTabletTheadItem>
+                Type
+              </TransitionTableTabletTheadItem>
+              <TransitionTableTabletTheadItem style={{ textAlign: 'start' }}>
+                Category
+              </TransitionTableTabletTheadItem>
+              <TransitionTableTabletTheadItem style={{ textAlign: 'start' }}>
+                Comment
+              </TransitionTableTabletTheadItem>
+              <TransitionTableTabletTheadItem style={{ textAlign: 'start' }}>
+                Sum
+              </TransitionTableTabletTheadItem>
+            </tr>
+          </TransitionTableTabletThead>
+          <TransitionTableTabletTbody>
+            {transactions.transaction !== null &&
+              TransactionsData().map(item => {
+                return (
+                  <TransitionTableTabletTbodyTr key={item.id}>
+                    <TransitionTableTabletTbodyTd>
+                      {item.transactionDate
+                        .replace(/-/g, '.')
+                        .slice(
+                          2,
+                          item.transactionDate.replace(/-/g, '.').length
+                        )}
+                    </TransitionTableTabletTbodyTd>
+                    <TransitionTableTabletTbodyTd>
+                      {item.type === 'INCOME' && '+'}
+                      {item.type === 'EXPENSE' && '-'}
+                    </TransitionTableTabletTbodyTd>
+                    <TransitionTableTabletTbodyTd>
+                      {getCategory(item.categoryId)}
+                    </TransitionTableTabletTbodyTd>
+                    <TransitionTableTabletTbodyTd>
+                      {item.comment}
+                    </TransitionTableTabletTbodyTd>
+                    <TransitionTableTabletTbodyTd
+                      style={{
+                        color: item.amount < 0 && 'red',
                       }}
-                      type="button"
                     >
-                      edit
-                    </button>
-                    <button
-                      id={item.id}
-                      type="button"
-                      onClick={handleDeleteTransaction}
-                    >
-                      delete
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-        </tbody>
-      </TableT> */}
+                      <div
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                        }}
+                      >
+                        <span>{Math.abs(item.amount)}</span>
+                        <TableFooterList
+                          style={{
+                            padding: 0,
+                            flexDirection: 'row-reverse',
+                            marginRight: 20,
+                          }}
+                        >
+                          <TableFooterListItem>
+                            <TableFooterDeleteBtn
+                              id={item.id}
+                              type="button"
+                              onClick={handleDeleteTransaction}
+                            >
+                              delete
+                            </TableFooterDeleteBtn>
+                          </TableFooterListItem>
+                          <TableFooterListItem>
+                            <TableFooterEditBtn
+                              onClick={() => {
+                                handleEditTransaction(item);
+                              }}
+                              type="button"
+                            >
+                              <EditIcon />
+                            </TableFooterEditBtn>
+                          </TableFooterListItem>
+                        </TableFooterList>
+                      </div>
+                    </TransitionTableTabletTbodyTd>
+                  </TransitionTableTabletTbodyTr>
+                );
+              })}
+          </TransitionTableTabletTbody>
+        </TableTablet>
+      )}
     </>
   );
 };

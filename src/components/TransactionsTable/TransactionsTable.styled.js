@@ -35,7 +35,6 @@ export const TableHeadMobileListItem = styled.li`
   line-height: 27px;
   padding-bottom: 8px;
   /* identical to box height */
-
   color: #000000;
 `;
 
@@ -58,6 +57,8 @@ export const TableBodyList = styled.ul`
 `;
 
 export const TableBodyListItem = styled.li`
+  height: 48px;
+  overflow: hidden;
   border-bottom: 1px solid #dcdcdf;
   padding: 12px 20px 0px 0px;
   font-weight: 400;
@@ -85,10 +86,73 @@ export const TransitionItem = styled.li`
   border-radius: 10px;
 `;
 
-export const TableT = styled.table`
-  display: none;
-  display: block @media screen and(max-width: 597px) {
-    display: block;
+export const TableTablet = styled.table`
+  border-collapse: collapse;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+  @media screen and (min-width: 768px) {
+    width: 704px;
+  }
+`;
+
+export const TransitionTableTabletThead = styled.thead`
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 27px;
+  color: #000000;
+`;
+
+export const TransitionTableTabletTheadItem = styled.th`
+  padding: 15px 0px;
+  background-color: white;
+  &:first-child {
+    width: 38px;
+    padding-left: 20px;
+    padding-right: 30px;
+    border-top-left-radius: 29px;
+    border-bottom-left-radius: 29px;
+  }
+  &:nth-child(2) {
+    width: 37px;
+    padding-right: 18px;
+  }
+  &:nth-child(3) {
+    width: 71px;
+    padding-right: 68px;
+  }
+  &:nth-child(4) {
+    max-width: 110px;
+    width: 110px;
+    overflow: hidden;
+  }
+  &:last-child {
+    border-top-right-radius: 29px;
+    border-bottom-right-radius: 29px;
+    width: 34px;
+    padding-right: 120px;
+  }
+`;
+
+export const TransitionTableTabletTbody = styled.tbody`
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #000000;
+`;
+export const TransitionTableTabletTbodyTr = styled.tr`
+    border-bottom: 1px solid #DCDCDF;
+    box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.6);
+}
+`;
+
+export const TransitionTableTabletTbodyTd = styled.td`
+  padding: 15px 0px;
+  &:nth-child(1) {
+    padding-left: 20px;
+  }
+  &:nth-child(2) {
+    padding-left: 18px;
   }
 `;
 

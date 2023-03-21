@@ -4,6 +4,9 @@ import { ReactComponent as PlusIconPrimal } from '../../Image/plus.svg';
 export const HomePageContainer = styled.div`
   pisition: relative;
   padding: 0px 20px;
+  @media screen and (min-width: 768px) {
+    padding: 0px 32px;
+  }
 `;
 
 export const AddTransactionBtn = styled.button`
@@ -22,6 +25,10 @@ export const AddTransactionBtn = styled.button`
   cursor: pointer;
   box-shadow: 0px 3px 5px rgba(36, 204, 167, 0.5);
   transition: 250ms;
+  @media screen and (min-width: 597px) {
+    right: 40px;
+    bottom: 40px;
+  }
   &:hover,
   &:focus {
     border: 1px solid rgb(36, 204, 167);

@@ -35,13 +35,33 @@ export const LogoImg = styled(LogoPrimal)`
 
 export const NavBox = styled.div`
   display: flex;
+  flex-direction: row;
   justify-content: center;
   gap: 40px;
-  padding: 15px 0px;
+  padding: 15px 20px;
+  @media screen and (min-width: 597px) {
+    padding: 40px 32px 28px 32px;
+    flex-direction: column;
+    gap: 12px;
+  }
+  @media screen and (min-width: 597px) {
+    padding: 40px 16px 28px 16px;
+  }
 `;
 
 export const LinkStyled = styled(Link)`
   opacity: 0.75;
+  @media screen and (min-width: 597px) {
+    display: flex;
+    gap: 23px;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 27px;
+    /* identical to box height */
+    display: flex;
+    align-items: center;
+    color: #000000;
+  }
 `;
 
 export const HomeIcon = styled(HomeIconPrimal)`
@@ -49,12 +69,20 @@ export const HomeIcon = styled(HomeIconPrimal)`
   width: 44px;
   display: flex;
   fill: #4a56e2;
+  @media screen and (min-width: 597px) {
+    width: 18px;
+    height: 18px;
+  }
 `;
 export const StatisticIcon = styled(StatisticIconPrimal)`
   height: 44px;
   width: 44px;
   display: flex;
   fill: #4a56e2;
+  @media screen and (min-width: 597px) {
+    width: 18px;
+    height: 18px;
+  }
 `;
 export const CurrencyIcon = styled(CurrencyIconPrimal)`
   height: 44px;

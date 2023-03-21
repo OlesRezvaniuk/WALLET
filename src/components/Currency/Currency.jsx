@@ -2,6 +2,14 @@ import { getCurs } from 'redux/auth/authOperations';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { authSelector } from 'redux/auth/authSelector';
+import {
+  CurrencyBox,
+  CurrencyTable,
+  CurrencyTableThead,
+  CurrencyTableTheadTh,
+  CurrencyTableTbody,
+  CurrencyTableTbodyTd,
+} from './Currency.styled';
 
 export const Currency = () => {
   const user = useSelector(authSelector);
@@ -17,32 +25,33 @@ export const Currency = () => {
     }
   };
   return (
-    <div>
+    <CurrencyBox>
       {user.auth.curs !== null && (
-        <table style={{ width: '100%', backgroundColor: 'burlywood' }}>
-          <thead>
+        <CurrencyTable>
+          <CurrencyTableThead>
             <tr>
-              <th style={{ textAlign: 'start' }}>Currency</th>
-              <th style={{ textAlign: 'start' }}>Purchase</th>
-              <th style={{ textAlign: 'start' }}>Sale</th>
+              <CurrencyTableTheadTh>Currency</CurrencyTableTheadTh>
+              <CurrencyTableTheadTh>Purchase</CurrencyTableTheadTh>
+              <CurrencyTableTheadTh>Sale</CurrencyTableTheadTh>
             </tr>
-          </thead>
-          <tbody>
+          </CurrencyTableThead>
+          <CurrencyTableTbody>
             {data().map(item => {
               return (
                 <tr key={item.currencyCodeA}>
-                  <td>
+                  <CurrencyTableTbodyTd>
                     {item.currencyCodeA === 840 && 'US'}
                     {item.currencyCodeA === 978 && 'EU'}
-                  </td>
-                  <td>{item.rateBuy}</td>
-                  <td>{item.rateSell}</td>
+                  </CurrencyTableTbodyTd>
+                  <CurrencyTableTbodyTd>{item.rateBuy}</CurrencyTableTbodyTd>
+                  <CurrencyTableTbodyTd>{item.rateSell}</CurrencyTableTbodyTd>
                 </tr>
               );
             })}
-          </tbody>
-        </table>
+            <tr style={{ height: 50 }}></tr>
+          </CurrencyTableTbody>
+        </CurrencyTable>
       )}
-    </div>
+    </CurrencyBox>
   );
 };

@@ -1,15 +1,18 @@
 import { useSelector } from 'react-redux';
 import { authSelector } from 'redux/auth/authSelector';
-import { BalanceTitle } from './Balance.styled';
+import { BalanceTitle, BalanceBox, BalanceValue } from './Balance.styled';
 
 export const Balance = () => {
   const user = useSelector(authSelector);
   return (
-    <div>
+    <BalanceBox>
       <BalanceTitle>
         YOUR BALANCE
-        <span>₴ {user.auth.user.balance}</span>
+        <BalanceValue>
+          <span style={{ fontWeight: 400, marginRight: 5 }}>₴</span>
+          {user.auth.user.balance.toLocaleString().replace(/,/g, ' ')}.00
+        </BalanceValue>
       </BalanceTitle>
-    </div>
+    </BalanceBox>
   );
 };

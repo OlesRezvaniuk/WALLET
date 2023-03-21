@@ -92,6 +92,9 @@ export const TableTablet = styled.table`
     width: 100%;
   }
   @media screen and (min-width: 768px) {
+    width: 100%;
+  }
+  @media screen and (min-width: 990px) {
     width: 704px;
   }
 `;

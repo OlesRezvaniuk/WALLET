@@ -42,7 +42,7 @@ export const Layout = () => {
 
   useEffect(() => {
     function handleResize() {
-      setScreen(window.innerWidth > 597);
+      setScreen(window.innerWidth >= 597);
     }
 
     window.addEventListener('resize', handleResize);
@@ -68,10 +68,19 @@ export const Layout = () => {
           Exit
         </LogoutButton>
       </LayoutBox>
-      <div style={{ backgroundColor: '#f5f8ff' }}>
+      <div
+        style={{
+          backgroundColor: '#f5f8ff',
+          position: 'relative',
+          // padding: '0px 20px',
+        }}
+      >
         <NavBox>
           <LinkStyled
-            style={{ opacity: currentLink.home ? '1' : '0.75' }}
+            style={{
+              opacity: currentLink.home ? '1' : '0.75',
+              fontWeight: currentLink.home ? '700' : '400',
+            }}
             onClick={() => {
               setCurrentLink({
                 home: true,
@@ -82,9 +91,13 @@ export const Layout = () => {
             to="/"
           >
             <HomeIcon />
+            {screen && <p>Home</p>}
           </LinkStyled>
           <LinkStyled
-            style={{ opacity: currentLink.statistics ? '1' : '0.75' }}
+            style={{
+              opacity: currentLink.statistics ? '1' : '0.75',
+              fontWeight: currentLink.statistics ? '700' : '400',
+            }}
             onClick={() => {
               setCurrentLink({
                 home: false,
@@ -95,6 +108,7 @@ export const Layout = () => {
             to="/Statistics"
           >
             <StatisticIcon />
+            {screen && <p>Statistics</p>}
           </LinkStyled>
           {!screen && (
             <button

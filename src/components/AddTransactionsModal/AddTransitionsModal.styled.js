@@ -10,6 +10,9 @@ export const MinusIcon = styled(MinusIconPrimal)`
 `;
 
 export const Backdrop = styled.div`
+  @media screen and (max-width: 596px) {
+    background-color: #fff;
+  }
   overflow: auto;
   position: fixed;
   top: 0;

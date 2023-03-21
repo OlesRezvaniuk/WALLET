@@ -29,7 +29,6 @@ export const HomePage = () => {
 
   return (
     <HomePageContainer>
-      <div>Home Page</div>
       <TransactionsTable />
       <br />
       <AddTransactionBtn

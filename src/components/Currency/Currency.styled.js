@@ -21,13 +21,18 @@ export const CurrencyBox = styled.div`
   @media screen and (min-width: 990px) {
     position: static;
     margin-left: 16px;
-    max-width: 393px;
+    width: 330px;
+    padding: 0px;
+    height: 330px;
   }
 `;
 
 export const CurrencyTable = styled.table`
   width: 100%;
   border-collapse: collapse;
+  @media screen and (min-width: 990px) {
+    height: 182px;
+  }
 `;
 
 export const CurrencyTableThead = styled.thead`
@@ -42,16 +47,10 @@ export const CurrencyTableTheadTh = styled.th`
   &:first-child {
     padding: 12px 0px 12px 20px;
     text-align: start;
-    @media screen and (min-width: 900px) {
-      padding: 12px 0px 12px 40px;
-    }
   }
   &:last-child {
     padding: 12px 20px 12px 0px;
     text-align: end;
-    @media screen and (min-width: 900px) {
-      padding: 12px 40px 12px 0px;
-    }
   }
   &:nth-child(2) {
     padding: 12px 0px 12px 0px;
@@ -72,18 +71,13 @@ export const CurrencyTableTbodyTd = styled.td`
   &:first-child {
     padding: 12px 0px 0px 20px;
     text-align: start;
-    @media screen and (min-width: 900px) {
-      padding: 12px 0px 0px 40px;
-    }
   }
   &:nth-child(2) {
     text-align: center;
+    padding: 12px 0px 0px 0px;
   }
   &:last-child {
     padding: 12px 20px 0px 0px;
     text-align: end;
-    @media screen and (min-width: 900px) {
-      padding: 12px 40px 0px 0px;
-    }
   }
 `;

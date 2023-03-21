@@ -11,8 +11,10 @@ export const BalanceBox = styled.div`
     padding: 0px 0px 0px 32px;
   }
   @media screen and (min-width: 990px) {
-    padding: 0px 0px 0px 16px;
+    padding: 0px 0px 0px 0px;
     margin-bottom: 32px;
+    margin-left: 16px;
+    width: 330px;
   }
 `;
 

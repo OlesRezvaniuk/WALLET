@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import {
   LayoutBox,
+  ContentContainer,
   LogoImg,
   ExitIcon,
   LogoutButton,
@@ -11,6 +12,7 @@ import {
   HomeIcon,
   StatisticIcon,
   CurrencyIcon,
+  ContentTopContainer,
 } from './Layout.styled';
 import { authSelector } from 'redux/auth/authSelector';
 import { useSelector, useDispatch } from 'react-redux';
@@ -68,79 +70,81 @@ export const Layout = () => {
           Exit
         </LogoutButton>
       </LayoutBox>
-      <div
+      <ContentContainer
         style={{
           backgroundColor: '#f5f8ff',
           position: 'relative',
           // padding: '0px 20px',
         }}
       >
-        <NavBox>
-          <LinkStyled
-            style={{
-              opacity: currentLink.home ? '1' : '0.75',
-              fontWeight: currentLink.home ? '700' : '400',
-            }}
-            onClick={() => {
-              setCurrentLink({
-                home: true,
-                statistics: false,
-                currency: false,
-              });
-            }}
-            to="/"
-          >
-            <HomeIcon />
-            {screen && <p>Home</p>}
-          </LinkStyled>
-          <LinkStyled
-            style={{
-              opacity: currentLink.statistics ? '1' : '0.75',
-              fontWeight: currentLink.statistics ? '700' : '400',
-            }}
-            onClick={() => {
-              setCurrentLink({
-                home: false,
-                statistics: true,
-                currency: false,
-              });
-            }}
-            to="/Statistics"
-          >
-            <StatisticIcon />
-            {screen && <p>Statistics</p>}
-          </LinkStyled>
-          {!screen && (
-            <button
+        <ContentTopContainer>
+          <NavBox>
+            <LinkStyled
               style={{
-                border: 'none',
-                background: 'transparent',
-                opacity: currentLink.currency ? '1' : '0.75',
-                cursor: 'pointer',
+                opacity: currentLink.home ? '1' : '0.75',
+                fontWeight: currentLink.home ? '700' : '400',
               }}
-              type="button"
+              onClick={() => {
+                setCurrentLink({
+                  home: true,
+                  statistics: false,
+                  currency: false,
+                });
+              }}
+              to="/"
+            >
+              <HomeIcon />
+              {screen && <p>Home</p>}
+            </LinkStyled>
+            <LinkStyled
+              style={{
+                opacity: currentLink.statistics ? '1' : '0.75',
+                fontWeight: currentLink.statistics ? '700' : '400',
+              }}
               onClick={() => {
                 setCurrentLink({
                   home: false,
-                  statistics: false,
-                  currency: true,
+                  statistics: true,
+                  currency: false,
                 });
               }}
+              to="/Statistics"
             >
-              <CurrencyIcon />
-            </button>
+              <StatisticIcon />
+              {screen && <p>Statistics</p>}
+            </LinkStyled>
+            {!screen && (
+              <button
+                style={{
+                  border: 'none',
+                  background: 'transparent',
+                  opacity: currentLink.currency ? '1' : '0.75',
+                  cursor: 'pointer',
+                }}
+                type="button"
+                onClick={() => {
+                  setCurrentLink({
+                    home: false,
+                    statistics: false,
+                    currency: true,
+                  });
+                }}
+              >
+                <CurrencyIcon />
+              </button>
+            )}
+          </NavBox>
+          {currentLink.currency ? (
+            <Currency />
+          ) : (
+            <>
+              <Balance />
+              {screen && <Currency />}
+            </>
           )}
-        </NavBox>
-        {currentLink.currency ? (
-          <Currency />
-        ) : (
-          <>
-            <Balance />
-            {screen && <Currency />}
-            <Outlet />
-          </>
-        )}
-      </div>
+        </ContentTopContainer>
+        {!currentLink.currency && <Outlet />}
+      </ContentContainer>
     </>
   );
 };

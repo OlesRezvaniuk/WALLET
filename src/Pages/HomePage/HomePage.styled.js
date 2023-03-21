@@ -4,8 +4,20 @@ import { ReactComponent as PlusIconPrimal } from '../../Image/plus.svg';
 export const HomePageContainer = styled.div`
   pisition: relative;
   padding: 0px 20px;
+  background-color: rgb(245, 248, 255);
   @media screen and (min-width: 768px) {
     padding: 0px 32px;
+  }
+  @media screen and (min-width: 990px) {
+    padding: 45px 16px 0px 16px;
+    width: 100%;
+  }
+  @media screen and (min-width: 1280px) {
+    border-left: 1px solid #e7e5f2;
+    box-shadow: -1px 0px 0px rgba(0, 0, 0, 0.05),
+      1px 0px 0px rgba(255, 255, 255, 0.6);
+    padding: 45px 16px 0px 16px;
+    width: 100%;
   }
 `;
 

@@ -23,6 +23,29 @@ export const LayoutBox = styled.div`
   }
 `;
 
+export const ContentContainer = styled.div`
+  background-color: rgb(245, 248, 255);
+  position: relative;
+  padding-bottom: 32px;
+  @media screen and (min-width: 597px) {
+    padding-bottom: 16px;
+  }
+  @media screen and (min-width: 990px) {
+    display: flex;
+  }
+`;
+
+export const ContentTopContainer = styled.div`
+  padding-bottom: 32px;
+  @media screen and (min-width: 597px) {
+    padding-bottom: 16px;
+  }
+  @media screen and (min-width: 990px) {
+    padding-bottom: none;
+    padding-right: 16px;
+  }
+`;
+
 export const LogoImg = styled(LogoPrimal)`
   width: 120px;
   height: 30px;

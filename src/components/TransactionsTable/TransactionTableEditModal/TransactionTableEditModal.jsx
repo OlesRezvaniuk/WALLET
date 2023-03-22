@@ -48,27 +48,18 @@ export const TransactionTableEditModal = ({ editTr, setEditTr }) => {
       }}
     >
       <Form>
-        <CloseButton type="button">
+        <CloseButton
+          type="button"
+          onClick={() => {
+            setEditTr({
+              ...editTr,
+              state: false,
+            });
+          }}
+        >
           <CloseIcon />
         </CloseButton>
         <Title>Edit Transaction</Title>
-        <Label>
-          <Input
-            value={editTr.comment}
-            onChange={e => {
-              setEditTr({ ...editTr, comment: e.target.value });
-            }}
-            placeholder="Comment"
-          />
-          <button
-            type="button"
-            onClick={() => {
-              setEditTr({ ...editTr, comment: '' });
-            }}
-          >
-            X
-          </button>
-        </Label>
         <Label>
           <Input
             value={editTr.amount}
@@ -88,6 +79,23 @@ export const TransactionTableEditModal = ({ editTr, setEditTr }) => {
             type="button"
             onClick={() => {
               setEditTr({ ...editTr, amount: '' });
+            }}
+          >
+            X
+          </button>
+        </Label>
+        <Label>
+          <Input
+            value={editTr.comment}
+            onChange={e => {
+              setEditTr({ ...editTr, comment: e.target.value });
+            }}
+            placeholder="Comment"
+          />
+          <button
+            type="button"
+            onClick={() => {
+              setEditTr({ ...editTr, comment: '' });
             }}
           >
             X

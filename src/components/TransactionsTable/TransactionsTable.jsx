@@ -21,8 +21,8 @@ import {
   TransitionTableTabletTbody,
   TransitionTableTabletTbodyTd,
   TransitionTableTabletTbodyTr,
-  CheckmarkIcon,
-  CrossIcon,
+  // CheckmarkIcon,
+  // CrossIcon,
 } from './TransactionsTable.styled';
 import {
   userTransactionsSelector,
@@ -34,7 +34,7 @@ import {
   deteteUserTransactions,
   getUserTransactions,
 } from 'redux/transactions/transactionsOperations';
-import { EditTransaction } from 'components/EditTransactions/EditTransaction';
+// import { EditTransaction } from 'components/EditTransactions/EditTransaction';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { TransactionTableEditModal } from './TransactionTableEditModal/TransactionTableEditModal';

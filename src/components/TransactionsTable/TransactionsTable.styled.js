@@ -45,7 +45,9 @@ export const TableFooterList = styled.ul`
   justify-content: space-between;
 `;
 
-export const TableFooterListItem = styled.li``;
+export const TableFooterListItem = styled.li`
+  display: flex;
+`;
 
 export const TableBody = styled.li`
   width: 100%;

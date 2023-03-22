@@ -96,8 +96,6 @@ export const AddTransactionsModal = ({ SetIsModalOpen }) => {
     });
   };
 
-  console.log(isCalendarModalOpen);
-
   return (
     <Backdrop
       onClick={e => {

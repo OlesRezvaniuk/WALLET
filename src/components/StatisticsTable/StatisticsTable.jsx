@@ -100,7 +100,6 @@ export const StatisticsTable = () => {
     // eslint-disable-next-line
   }, []);
 
-  console.log(summaryResponse.categoriesSummary);
   return (
     <>
       <>Statistics Table</>

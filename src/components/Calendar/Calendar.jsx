@@ -113,8 +113,6 @@ export const Calendar = ({
     setIsCalendarModalOpen(true);
   };
 
-  console.log(transaction.category);
-
   return (
     <DateBox
       onMouseLeave={() => {

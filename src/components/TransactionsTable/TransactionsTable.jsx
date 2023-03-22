@@ -21,12 +21,15 @@ import {
   TransitionTableTabletTbody,
   TransitionTableTabletTbodyTd,
   TransitionTableTabletTbodyTr,
+  CheckmarkIcon,
+  CrossIcon,
 } from './TransactionsTable.styled';
 import {
   userTransactionsSelector,
   allUserTransactionsArr,
 } from 'redux/transactions/transactionsSelector';
 import { getUserTransactionsSummary } from 'redux/transactions/transactionsOperations';
+import { TransitionTableDeleteModal } from './TransitionTableDeleteModal/TransitionTableDeleteModal';
 import {
   deteteUserTransactions,
   getUserTransactions,
@@ -34,6 +37,7 @@ import {
 import { EditTransaction } from 'components/EditTransactions/EditTransaction';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { TransactionTableEditModal } from './TransactionTableEditModal/TransactionTableEditModal';
 
 export const TransactionsTable = () => {
   const [screen, setScreen] = useState(true);
@@ -43,6 +47,7 @@ export const TransactionsTable = () => {
     amount: '',
     comment: '',
     type: '',
+    deleteModal: { state: false, id: '' },
   });
   const transactions = useSelector(userTransactionsSelector);
   const allTr = useSelector(allUserTransactionsArr);
@@ -52,11 +57,8 @@ export const TransactionsTable = () => {
     function handleResize() {
       setScreen(window.innerWidth > 597);
     }
-
     window.addEventListener('resize', handleResize);
-
     handleResize();
-
     return () => {
       window.removeEventListener('resize', handleResize);
     };
@@ -85,14 +87,25 @@ export const TransactionsTable = () => {
   }
 
   const handleDeleteTransaction = async e => {
-    await dispatch(deteteUserTransactions(e.target.id));
-    dispatch(getUserTransactions());
-    dispatch(
-      getUserTransactionsSummary({
-        month: new Date().getMonth() + 1,
-        year: new Date().getFullYear(),
-      })
-    );
+    if (!editTr.deleteModal.state) {
+      setEditTr({ ...editTr, deleteModal: { state: true, id: e.target.id } });
+    }
+    if (e.target.id === 'deleteTransitionBtn') {
+      await dispatch(deteteUserTransactions(editTr.deleteModal.id));
+      dispatch(getUserTransactions());
+      dispatch(
+        getUserTransactionsSummary({
+          month: new Date().getMonth() + 1,
+          year: new Date().getFullYear(),
+        })
+      );
+      setEditTr({
+        ...editTr,
+        deleteModal: { state: false, id: '' },
+      });
+    } else if (e.target.id === 'cancelDeleteTransitionBtn') {
+      setEditTr({ ...editTr, deleteModal: { state: false, id: '' } });
+    }
   };
 
   const handleEditTransaction = item => {
@@ -109,7 +122,7 @@ export const TransactionsTable = () => {
   return (
     <>
       {editTr.state && (
-        <EditTransaction editTr={editTr} setEditTr={setEditTr} />
+        <TransactionTableEditModal editTr={editTr} setEditTr={setEditTr} />
       )}
       {!screen && (
         <TransitionList>
@@ -189,6 +202,14 @@ export const TransactionsTable = () => {
             })}
         </TransitionList>
       )}
+      {editTr.deleteModal.state && (
+        <TransitionTableDeleteModal
+          editTr={editTr}
+          setEditTr={setEditTr}
+          handleDeleteTransaction={handleDeleteTransaction}
+        />
+      )}
+
       {screen && (
         <TableTablet>
           <TransitionTableTabletThead>

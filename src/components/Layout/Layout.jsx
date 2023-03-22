@@ -20,6 +20,7 @@ import { logoutUserOperation } from 'redux/auth/authOperations';
 import { loginUserOperation } from 'redux/auth/authOperations';
 import { Currency } from 'components/Currency/Currency';
 import { Balance } from 'components/Balance/Balance';
+import { getUserTransactionsSummary } from 'redux/transactions/transactionsOperations';
 
 const data = {
   email: 'oles3@gmail.com',
@@ -67,7 +68,6 @@ export const Layout = () => {
         <UserName>{user.auth.user.username}</UserName>
         <LogoutButton onClick={handleLogout}>
           <ExitIcon />
-          Exit
         </LogoutButton>
       </LayoutBox>
       <ContentContainer
@@ -107,6 +107,12 @@ export const Layout = () => {
                   statistics: true,
                   currency: false,
                 });
+                dispatch(
+                  getUserTransactionsSummary({
+                    month: new Date().getMonth() + 1,
+                    year: new Date().getFullYear(),
+                  })
+                );
               }}
               to="/Statistics"
             >

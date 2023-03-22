@@ -8,6 +8,7 @@ import {
 } from 'components/Calendar/calendarHelpers/calendarHelpers';
 import { getUserTransactionsSummary } from 'redux/transactions/transactionsOperations';
 import { nanoid } from '@reduxjs/toolkit';
+import { authUserTransactions } from 'redux/auth/authSelector';
 
 export const StatisticsTable = () => {
   const [expenseSummaryDate, setExpenseSummaryDate] = useState({
@@ -17,6 +18,7 @@ export const StatisticsTable = () => {
   const [isModalOpen, setIsModalOpen] = useState({ month: false, year: false });
   const dispatch = useDispatch();
   const summaryResponse = useSelector(userSummaryForPeriodSelector);
+  const user = useSelector(authUserTransactions);
 
   function expensData() {
     let data = { expense: null, income: null };
@@ -91,12 +93,14 @@ export const StatisticsTable = () => {
   }, [expenseSummaryDate]);
 
   useEffect(() => {
-    dispatch(
-      getUserTransactionsSummary({
-        month: new Date().getMonth() + 1,
-        year: new Date().getFullYear(),
-      })
-    );
+    if (user) {
+      dispatch(
+        getUserTransactionsSummary({
+          month: new Date().getMonth() + 1,
+          year: new Date().getFullYear(),
+        })
+      );
+    }
     // eslint-disable-next-line
   }, []);
 

@@ -29,7 +29,6 @@ export const App = () => {
           year: new Date().getFullYear(),
         })
       );
-
       dispatch(getUserTransactions());
     }
     // eslint-disable-next-line

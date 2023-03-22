@@ -25,9 +25,6 @@ const authSlice = createSlice({
       state.user = payload.user;
       state.isLogin = true;
     });
-    builder.addCase(loginUserOperation.rejected, (state, { payload }) => {
-      state.status = StatusForAll.error;
-    });
     builder.addCase(loginUserOperation.fulfilled, (state, { payload }) => {
       state.status = StatusForAll.success;
       state.token = payload.token;

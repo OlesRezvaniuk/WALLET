@@ -123,4 +123,10 @@ export const ExitIcon = styled(ExitIconPrimal)``;
 
 export const UserName = styled.span`
   margin-left: auto;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+  text-align: right;
+  color: #bdbdbd;
+  margin-right: 8px;
 `;

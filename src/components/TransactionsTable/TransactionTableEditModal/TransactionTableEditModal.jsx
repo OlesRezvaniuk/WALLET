@@ -13,6 +13,9 @@ import {
   CloseButton,
   Label,
   Input,
+  ClearIcon,
+  ClearButton,
+  ControllsButton,
 } from './TransactionTableEditModal.styled';
 
 export const TransactionTableEditModal = ({ editTr, setEditTr }) => {
@@ -75,14 +78,14 @@ export const TransactionTableEditModal = ({ editTr, setEditTr }) => {
             }}
             placeholder="Sum"
           />
-          <button
+          <ClearButton
             type="button"
             onClick={() => {
               setEditTr({ ...editTr, amount: '' });
             }}
           >
-            X
-          </button>
+            <ClearIcon />
+          </ClearButton>
         </Label>
         <Label>
           <Input
@@ -92,17 +95,17 @@ export const TransactionTableEditModal = ({ editTr, setEditTr }) => {
             }}
             placeholder="Comment"
           />
-          <button
+          <ClearButton
             type="button"
             onClick={() => {
               setEditTr({ ...editTr, comment: '' });
             }}
           >
-            X
-          </button>
+            <ClearIcon />
+          </ClearButton>
         </Label>
         <ButtonsBox>
-          <button
+          <ControllsButton
             type="button"
             onClick={async () => {
               const transaction = {
@@ -115,15 +118,15 @@ export const TransactionTableEditModal = ({ editTr, setEditTr }) => {
             }}
           >
             ok
-          </button>
+          </ControllsButton>
 
-          <button
+          <ControllsButton
             onClick={() => {
               setEditTr({ ...editTr, state: false });
             }}
           >
             cancel
-          </button>
+          </ControllsButton>
         </ButtonsBox>
       </Form>
     </Backdrop>

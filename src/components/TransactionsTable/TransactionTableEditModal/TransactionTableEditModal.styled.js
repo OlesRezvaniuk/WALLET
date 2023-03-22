@@ -46,6 +46,7 @@ export const ButtonsBox = styled.div`
   flex-direction: column;
   /* width: 100%; */
   max-width: 300px;
+  gap: 20px;
 `;
 
 export const CloseButton = styled.button`
@@ -68,6 +69,13 @@ export const CloseIcon = styled(CrossIconPrimal)`
   transform: rotate(45deg);
   width: 18px;
   display: block;
+`;
+export const ClearIcon = styled(CrossIconPrimal)`
+  stroke: black;
+  width: 12px;
+  height: 12px;
+  display: block;
+  transform: rotate(45deg);
 `;
 
 export const Label = styled.label`
@@ -92,4 +100,64 @@ export const Input = styled.input`
   cursor: pointer;
   transition: all 250ms ease 0s;
   border: none;
+`;
+
+export const ClearButton = styled.button`
+  height: max-content;
+  padding: 4px;
+  border-radius: 50%;
+  outline: none;
+  border: 1px solid rgb(224, 224, 224);
+  background-color: transparent;
+  transition: 250ms;
+  cursor: pointer;
+  &:hover,
+  &:focus {
+    background-color: rgba(189, 189, 189, 0.5);
+  }
+`;
+
+export const ControllsButton = styled.button`
+  width: 100%;
+  border: none;
+  outline: none;
+  max-width: 300px;
+  height: 50px;
+  border-radius: 20px;
+  background-color: #24cca7;
+  margin: auto;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+  text-align: center;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ffffff;
+  transition: 250ms;
+  &:hover,
+  &:focus {
+    color: #24cca7;
+    background-color: #fff;
+    outline: 1px solid #24cca7;
+  }
+  &:last-child {
+    outline: none;
+    background: #ffffff;
+    border: 1px solid #4a56e2;
+    border-radius: 20px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 27px;
+    text-align: center;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #4a56e2;
+    transition: 250ms;
+    &:hover,
+    &:focus {
+      color: #fff;
+      background-color: #4a56e2;
+    }
+  }
 `;

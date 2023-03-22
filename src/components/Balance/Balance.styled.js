@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const BalanceBox = styled.div`
+  pointer-events: none;
   padding: 0px 20px;
   width: 100%;
   @media screen and (min-width: 597px) {

@@ -10,6 +10,7 @@ import { getTransactionsCategories } from 'redux/transactions/transactionsOperat
 import { getUserTransactionsSummary } from 'redux/transactions/transactionsOperations';
 import { useSelector } from 'react-redux';
 import { categoriesSelector } from 'redux/transactions/transactionsSelector';
+import { currentUserOperation } from 'redux/auth/authOperations';
 import {
   Backdrop,
   Form,
@@ -116,14 +117,15 @@ export const AddTransactionsModal = ({ SetIsModalOpen }) => {
             category: '',
             request: { ...request, amount: '' },
           });
-          SetIsModalOpen(false);
-          document.querySelector('body').classList.remove('modal');
-          dispatch(
+          await dispatch(
             getUserTransactionsSummary({
               month: new Date().getMonth() + 1,
               year: new Date().getFullYear(),
             })
           );
+          await dispatch(currentUserOperation());
+          SetIsModalOpen(false);
+          document.querySelector('body').classList.remove('modal');
         }}
       >
         <CrossIcon

@@ -28,6 +28,7 @@ export const CurrencyBox = styled.div`
 `;
 
 export const CurrencyTable = styled.table`
+  pointer-events: none;
   width: 100%;
   border-collapse: collapse;
   @media screen and (min-width: 990px) {

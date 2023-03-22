@@ -1,23 +1,6 @@
-import { useEffect, useState } from 'react';
-import { nanoid } from '@reduxjs/toolkit';
+import { useEffect } from 'react';
 
-export const Chart = () => {
-  // eslint-disable-next-line
-  const [data, setData] = useState({
-    parts: [
-      { id: nanoid(), summ: 900, zIndex: 99, rotate: null },
-      { id: nanoid(), summ: 460, zIndex: 98, rotate: null },
-      { id: nanoid(), summ: 355, zIndex: 97, rotate: null },
-      { id: nanoid(), summ: 3522, zIndex: 97, rotate: null },
-    ],
-  });
-  // eslint-disable-next-line
-  const [summary, setSummary] = useState(
-    data.parts.reduce((total, item) => {
-      return total + item.summ;
-    }, 0)
-  );
-
+export const Chart = ({ data }) => {
   function drawPieSlice(
     ctx,
     centerX,
@@ -53,29 +36,31 @@ export const Chart = () => {
   }
 
   function draw() {
-    const canvas = document.querySelector('#radialChart');
-    if (canvas.getContext) {
-      const ctx = canvas.getContext('2d');
+    if (data) {
+      const canvas = document.querySelector('#radialChart');
+      if (canvas.getContext) {
+        const ctx = canvas.getContext('2d');
 
-      let startR = 0;
-      // eslint-disable-next-line
-      data.parts.map(item => {
-        let endR = (2 * Math.PI * item.summ) / summary;
-        drawPieSlice(
-          ctx,
-          150,
-          150,
-          150,
-          startR,
-          endR + startR,
-          `#${Math.floor(Math.random() * 16777215).toString(16)}`
-        );
-        startR += (Math.PI * 2 * item.summ) / summary;
-        endR += startR;
-      });
-      drawCircle(ctx, 150, 150, 100, 0, Math.PI * 2, '#fff');
-      // drawLine(ctx, 100, 100, 200, 200);
-      // drawLine(ctx, 100, 200, 200, 100);
+        let startR = 0;
+        // eslint-disable-next-line
+        data.items.map(item => {
+          let endR = (2 * Math.PI * Math.abs(item.total)) / data.summary;
+          drawPieSlice(
+            ctx,
+            150,
+            150,
+            150,
+            startR,
+            endR + startR,
+            `${item.color}`
+          );
+          startR += (Math.PI * 2 * Math.abs(item.total)) / data.summary;
+          endR += startR;
+        });
+        drawCircle(ctx, 150, 150, 100, 0, Math.PI * 2, '#fff');
+        // drawLine(ctx, 100, 100, 200, 200);
+        // drawLine(ctx, 100, 200, 200, 100);
+      }
     }
   }
 

@@ -1,12 +1,13 @@
 {
   "files": {
     "main.css": "/WALLET/static/css/main.259aaa3f.css",
-    "main.js": "/WALLET/static/js/main.af44d8b7.js",
+    "main.js": "/WALLET/static/js/main.1ee01de7.js",
     "static/media/Group.svg": "/WALLET/static/media/Group.64ca2e4c6bf81d519acb6f918e3899e7.svg",
     "static/media/Frame.svg": "/WALLET/static/media/Frame.5717978088f0bcb942943cdd8713b9c8.svg",
     "static/media/logo.svg": "/WALLET/static/media/logo.12a90eb3201898cbc53f2bd79100346a.svg",
     "static/media/hide-password.svg": "/WALLET/static/media/hide-password.584c4871d5b7e9bd7cb45c795605ed10.svg",
     "static/media/StatisticIcon.svg": "/WALLET/static/media/StatisticIcon.6ed982650e936e398f29ff76e94d023f.svg",
+    "static/media/cross.svg": "/WALLET/static/media/cross.d5ab96da0d54fcdcdcde3e1f38b2c478.svg",
     "index.html": "/WALLET/index.html",
     "static/media/CurrencyIcon.svg": "/WALLET/static/media/CurrencyIcon.f8cf0bd9b83ea1d3c621b84792d5b309.svg",
     "static/media/exitIcon.svg": "/WALLET/static/media/exitIcon.3fba9e455106f856ea40f565ce579115.svg",
@@ -21,14 +22,15 @@
     "static/media/Ellipse2.svg": "/WALLET/static/media/Ellipse2.07ef13244b203e866dcdec6e7633ee44.svg",
     "static/media/Ellipse2d.svg": "/WALLET/static/media/Ellipse2d.c8fb29d72ce4f8a3be02a89d77f20c28.svg",
     "static/media/HomeIcon.svg": "/WALLET/static/media/HomeIcon.37863448dc3c2821b9ce6e14773dd93d.svg",
+    "static/media/checkmark.svg": "/WALLET/static/media/checkmark.2f4b8fdae8d0f856637f73e76118ded2.svg",
     "static/media/minus.svg": "/WALLET/static/media/minus.c1930871236002c803c7b6a6c0b99024.svg",
     "static/media/plus.svg": "/WALLET/static/media/plus.243fe8352e685998e19b95bd64832d94.svg",
     "static/media/arrowBottom.svg": "/WALLET/static/media/arrowBottom.80e5ec3993faf38da594750d5851c637.svg",
     "main.259aaa3f.css.map": "/WALLET/static/css/main.259aaa3f.css.map",
-    "main.af44d8b7.js.map": "/WALLET/static/js/main.af44d8b7.js.map"
+    "main.1ee01de7.js.map": "/WALLET/static/js/main.1ee01de7.js.map"
   },
   "entrypoints": [
     "static/css/main.259aaa3f.css",
-    "static/js/main.af44d8b7.js"
+    "static/js/main.1ee01de7.js"
   ]
 }

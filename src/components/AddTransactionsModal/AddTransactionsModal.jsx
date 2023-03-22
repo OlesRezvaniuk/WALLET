@@ -7,6 +7,7 @@ import {
 import { Calendar } from 'components/Calendar/Calendar';
 import { date } from 'components/Calendar/calendarHelpers/calendarHelpers';
 import { getTransactionsCategories } from 'redux/transactions/transactionsOperations';
+import { getUserTransactionsSummary } from 'redux/transactions/transactionsOperations';
 import { useSelector } from 'react-redux';
 import { categoriesSelector } from 'redux/transactions/transactionsSelector';
 import {
@@ -119,6 +120,12 @@ export const AddTransactionsModal = ({ SetIsModalOpen }) => {
           });
           SetIsModalOpen(false);
           document.querySelector('body').classList.remove('modal');
+          dispatch(
+            getUserTransactionsSummary({
+              month: new Date().getMonth() + 1,
+              year: new Date().getFullYear(),
+            })
+          );
         }}
       >
         <CrossIcon

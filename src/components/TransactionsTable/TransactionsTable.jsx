@@ -26,6 +26,7 @@ import {
   userTransactionsSelector,
   allUserTransactionsArr,
 } from 'redux/transactions/transactionsSelector';
+import { getUserTransactionsSummary } from 'redux/transactions/transactionsOperations';
 import {
   deteteUserTransactions,
   getUserTransactions,
@@ -86,6 +87,12 @@ export const TransactionsTable = () => {
   const handleDeleteTransaction = async e => {
     await dispatch(deteteUserTransactions(e.target.id));
     dispatch(getUserTransactions());
+    dispatch(
+      getUserTransactionsSummary({
+        month: new Date().getMonth() + 1,
+        year: new Date().getFullYear(),
+      })
+    );
   };
 
   const handleEditTransaction = item => {

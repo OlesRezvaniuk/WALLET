@@ -20,7 +20,7 @@ export const StatisticsTable = () => {
 
   function expensData() {
     let data = { expense: null, income: null };
-    if (summaryResponse !== null) {
+    if (summaryResponse) {
       data.expense = summaryResponse.categoriesSummary.filter(
         item => item.type === 'EXPENSE'
       );
@@ -100,6 +100,7 @@ export const StatisticsTable = () => {
     // eslint-disable-next-line
   }, []);
 
+  console.log(summaryResponse.categoriesSummary);
   return (
     <>
       <>Statistics Table</>

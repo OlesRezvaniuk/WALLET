@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Canvas } from './Chart.styled';
 
 export const Chart = ({ data }) => {
   function drawPieSlice(
@@ -71,12 +72,7 @@ export const Chart = ({ data }) => {
 
   return (
     <>
-      <canvas
-        style={{ marginTop: 30 }}
-        id="radialChart"
-        width="300"
-        height="300"
-      ></canvas>
+      <Canvas id="radialChart" width="300" height="300"></Canvas>
     </>
   );
 };

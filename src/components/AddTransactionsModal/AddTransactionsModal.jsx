@@ -35,9 +35,15 @@ import {
   ModalButtonsBox,
   ModalButton,
 } from './AddTransitionsModal.styled';
+import { AddTransitionValidation } from './AddTransitionValidation';
 
 export const AddTransactionsModal = ({ SetIsModalOpen }) => {
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState({
+    amount: false,
+    category: false,
+    message: '',
+  });
   const dispatch = useDispatch();
   const categories = useSelector(categoriesSelector);
 
@@ -97,6 +103,36 @@ export const AddTransactionsModal = ({ SetIsModalOpen }) => {
     });
   };
 
+  const handleCreateTransaction = e => {
+    e.preventDefault();
+    async function send() {
+      await dispatch(createTransactionsOperation(request));
+      await dispatch(getUserTransactions());
+      setTransaction({
+        ...transaction,
+        category: '',
+        request: { ...request, amount: '' },
+      });
+      await dispatch(
+        getUserTransactionsSummary({
+          month: new Date().getMonth() + 1,
+          year: new Date().getFullYear(),
+        })
+      );
+      await dispatch(currentUserOperation());
+      SetIsModalOpen(false);
+      document.querySelector('body').classList.remove('modal');
+    }
+    if (request.type === 'INCOME' && request.amount !== '') {
+      AddTransitionValidation({ request, setErrorMessage, errorMessage });
+      send();
+    } else {
+      AddTransitionValidation({ request, setErrorMessage, errorMessage });
+      console.log(errorMessage.message);
+      return;
+    }
+  };
+
   return (
     <Backdrop
       onClick={e => {
@@ -107,27 +143,7 @@ export const AddTransactionsModal = ({ SetIsModalOpen }) => {
       }}
       id="addTransitionModalBackdrop"
     >
-      <Form
-        onSubmit={async e => {
-          e.preventDefault();
-          await dispatch(createTransactionsOperation(request));
-          await dispatch(getUserTransactions());
-          setTransaction({
-            ...transaction,
-            category: '',
-            request: { ...request, amount: '' },
-          });
-          await dispatch(
-            getUserTransactionsSummary({
-              month: new Date().getMonth() + 1,
-              year: new Date().getFullYear(),
-            })
-          );
-          await dispatch(currentUserOperation());
-          SetIsModalOpen(false);
-          document.querySelector('body').classList.remove('modal');
-        }}
-      >
+      <Form onSubmit={handleCreateTransaction}>
         <CrossIcon
           color={request.type}
           onClick={() => {
@@ -162,6 +178,7 @@ export const AddTransactionsModal = ({ SetIsModalOpen }) => {
         {request.type === 'EXPENSE' && (
           <div style={{ position: 'relative' }}>
             <SelectCategoryBtn
+              id="changeTransitionTypeButton"
               onClick={() => {
                 if (transaction.category === 'onChange') {
                   setTransaction({ ...transaction, category: '' });
@@ -178,7 +195,12 @@ export const AddTransactionsModal = ({ SetIsModalOpen }) => {
               transaction.category !== 'onChange'
                 ? `${transaction.category}`
                 : 'Select a category'}
-              <ArrowBottom />
+              <ArrowBottom
+                style={{
+                  transform:
+                    transaction.category === 'onChange' && 'rotate(180deg)',
+                }}
+              />
             </SelectCategoryBtn>
             {transaction.category === 'onChange' && (
               <CategoryListBox>
@@ -228,6 +250,21 @@ export const AddTransactionsModal = ({ SetIsModalOpen }) => {
                 type="number"
                 placeholder="0.00"
               />
+              {errorMessage.amount && (
+                <span
+                  style={{
+                    position: 'absolute',
+                    bottom: 22,
+                    left: 0,
+                    width: '100%',
+                    color: 'tomato',
+                    fontSize: 12,
+                    textAlign: 'start',
+                  }}
+                >
+                  {errorMessage.message}
+                </span>
+              )}
             </div>
           </li>
           <li>

@@ -213,6 +213,7 @@ export const SelectCategoryBtn = styled.button`
 export const ArrowBottom = styled(ArrowBottomIconPrimal)`
   margin-left: auto;
   stroke: inherit;
+  transition: 250ms;
   * {
     stroke: inherit;
   }
@@ -315,7 +316,7 @@ export const ModalButton = styled.button`
   text-transform: uppercase;
   color: #ffffff;
   transition: 250ms;
-  &:hover,
+  F &:hover,
   &:focus {
     color: #24cca7;
     background-color: #fff;

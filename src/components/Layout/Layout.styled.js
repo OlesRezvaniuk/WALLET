@@ -26,7 +26,7 @@ export const LayoutBox = styled.div`
 export const ContentContainer = styled.div`
   background-color: rgb(245, 248, 255);
   position: relative;
-  padding-bottom: 32px;
+  // padding-bottom: 32px;
   @media screen and (min-width: 597px) {
     padding-bottom: 16px;
   }

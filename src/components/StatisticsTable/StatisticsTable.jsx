@@ -9,13 +9,40 @@ import {
 import { getUserTransactionsSummary } from 'redux/transactions/transactionsOperations';
 import { nanoid } from '@reduxjs/toolkit';
 import { authUserTransactions } from 'redux/auth/authSelector';
+import {
+  StatisticsTableBox,
+  ColorBox,
+  TableTd,
+  TableHeadTh,
+  TableHeadTr,
+  Table,
+  ControllsBoxList,
+  ControllsButton,
+  ArrowIcon,
+  ControllsList,
+  ControllsListItem,
+  ControllsListBox,
+  IndexesList,
+  IndexesListItem,
+  ControllsBoxItem,
+} from './StatisticsTable.styled';
 
-export const StatisticsTable = () => {
+export const StatisticsTable = ({ data }) => {
   const [expenseSummaryDate, setExpenseSummaryDate] = useState({
     month: '',
     year: '',
   });
   const [isModalOpen, setIsModalOpen] = useState({ month: false, year: false });
+  const [date, setDate] = useState({
+    static: {
+      month: new Date().getMonth() + 1,
+      year: new Date().getFullYear(),
+    },
+    dinamic: {
+      month: null,
+      year: null,
+    },
+  });
   const dispatch = useDispatch();
   const summaryResponse = useSelector(userSummaryForPeriodSelector);
   const user = useSelector(authUserTransactions);
@@ -86,7 +113,18 @@ export const StatisticsTable = () => {
         month: mounthNameToIndex(expenseSummaryDate.month),
         year: Number(expenseSummaryDate.year),
       };
-      console.log(date);
+      dispatch(getUserTransactionsSummary(date));
+    } else if (expenseSummaryDate.month !== '') {
+      const date = {
+        month: mounthNameToIndex(expenseSummaryDate.month),
+        year: new Date().getFullYear(),
+      };
+      dispatch(getUserTransactionsSummary(date));
+    } else if (expenseSummaryDate.year !== '') {
+      const date = {
+        month: new Date().getMonth() + 1,
+        year: Number(expenseSummaryDate.year),
+      };
       dispatch(getUserTransactionsSummary(date));
     }
     // eslint-disable-next-line
@@ -105,86 +143,109 @@ export const StatisticsTable = () => {
   }, []);
 
   return (
-    <>
-      <>Statistics Table</>
-      <div>
-        <button id="changeMonthBtn" onClick={handleModalOpen}>
-          {expenseSummaryDate.month === ''
-            ? monthIndexToName()
-            : expenseSummaryDate.month}
-        </button>
-        {isModalOpen.month && (
-          <ul>
-            {dateChooseData.mounth.map(item => {
-              return (
-                <li key={item}>
-                  <p id="monthVariantSummary" onClick={getStatisticForPeriod}>
-                    {item}
-                  </p>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-        <button id="changeYearBtn" onClick={handleModalOpen}>
-          {expenseSummaryDate.year !== ''
-            ? `${expenseSummaryDate.year}`
-            : new Date().getFullYear()}
-        </button>
-        {isModalOpen.year && (
-          <ul>
-            {reduceToYear().map(item => {
-              return (
-                <li key={item}>
-                  <p id="yearVariantSummary" onClick={getStatisticForPeriod}>
-                    {item}
-                  </p>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-        <div></div>
-      </div>
+    <StatisticsTableBox>
+      <ControllsBoxList>
+        <ControllsBoxItem>
+          <ControllsButton
+            color="rgb(74, 86, 226)"
+            id="changeMonthBtn"
+            onClick={handleModalOpen}
+          >
+            {expenseSummaryDate.month === ''
+              ? monthIndexToName()
+              : expenseSummaryDate.month}
+            <ArrowIcon
+              style={{
+                transform: isModalOpen.month && 'rotate(180deg)',
+              }}
+            />
+          </ControllsButton>
+          {isModalOpen.month && (
+            <ControllsListBox>
+              <ControllsList>
+                {dateChooseData.mounth.map(item => {
+                  return (
+                    <ControllsListItem color="rgb(74, 86, 226)" key={item}>
+                      <p
+                        id="monthVariantSummary"
+                        onClick={getStatisticForPeriod}
+                      >
+                        {item}
+                      </p>
+                    </ControllsListItem>
+                  );
+                })}
+              </ControllsList>
+            </ControllsListBox>
+          )}
+        </ControllsBoxItem>
+        <ControllsBoxItem>
+          <ControllsButton
+            color="rgb(36, 204, 167)"
+            id="changeYearBtn"
+            onClick={handleModalOpen}
+          >
+            {expenseSummaryDate.year !== ''
+              ? `${expenseSummaryDate.year}`
+              : new Date().getFullYear()}
+            <ArrowIcon
+              style={{
+                transform: isModalOpen.year && 'rotate(180deg)',
+              }}
+            />
+          </ControllsButton>
+          {isModalOpen.year && (
+            <ControllsList>
+              {reduceToYear().map(item => {
+                return (
+                  <ControllsListItem color="rgb(36, 204, 167)" key={item}>
+                    <p id="yearVariantSummary" onClick={getStatisticForPeriod}>
+                      {item}
+                    </p>
+                  </ControllsListItem>
+                );
+              })}
+            </ControllsList>
+          )}
+        </ControllsBoxItem>
+      </ControllsBoxList>
       {summaryResponse !== null && (
         <>
-          <table style={{ width: '100%' }}>
+          <Table>
             <thead>
-              <tr>
-                <th style={{ textAlign: 'start' }}>Category</th>
-                <th style={{ textAlign: 'start' }}>Summ</th>
-              </tr>
+              <TableHeadTr>
+                <TableHeadTh>Category</TableHeadTh>
+                <TableHeadTh>Summ</TableHeadTh>
+              </TableHeadTr>
             </thead>
             <tbody>
-              {expensData().expense.map(item => {
+              {data.items.map(item => {
                 return (
                   <tr key={nanoid()}>
-                    <td>{item.name}</td>
-                    <td>{Math.abs(item.total)}</td>
+                    <TableTd style={{ display: 'flex' }}>
+                      <ColorBox color={item.color}></ColorBox>
+                      {item.name}
+                    </TableTd>
+                    <TableTd>{Math.abs(item.total)}</TableTd>
                   </tr>
                 );
               })}
             </tbody>
-          </table>
-          <div>
-            <ul>
-              <li>
-                <p>
-                  Expenses:{' '}
-                  <span style={{ color: 'tomato' }}>
-                    {Math.abs(allSumm().expense)}
-                  </span>
-                </p>
-              </li>
-              <li>
-                <p>
-                  Income: <span>{Math.abs(allSumm().income)}</span>
-                </p>
-              </li>
-            </ul>
-          </div>
+          </Table>
+          <IndexesList>
+            <IndexesListItem>
+              <p>Expenses: </p>
+              <span style={{ color: 'tomato' }}>
+                {Math.abs(allSumm().expense)}
+              </span>
+            </IndexesListItem>
+            <IndexesListItem>
+              <p>Income:</p>
+              <span>{Math.abs(allSumm().income)}</span>
+            </IndexesListItem>
+          </IndexesList>
         </>
       )}
-    </>
+    </StatisticsTableBox>
   );
 };

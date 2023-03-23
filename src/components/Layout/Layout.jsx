@@ -21,6 +21,7 @@ import { loginUserOperation } from 'redux/auth/authOperations';
 import { Currency } from 'components/Currency/Currency';
 import { Balance } from 'components/Balance/Balance';
 import { getUserTransactionsSummary } from 'redux/transactions/transactionsOperations';
+import { useLocation } from 'react-router-dom';
 
 const data = {
   email: 'oles3@gmail.com',
@@ -35,6 +36,7 @@ export const Layout = () => {
     currency: false,
   });
   const user = useSelector(authSelector);
+  const location = useLocation();
   const dispatch = useDispatch();
 
   const token = user.auth.token;
@@ -47,11 +49,8 @@ export const Layout = () => {
     function handleResize() {
       setScreen(window.innerWidth >= 597);
     }
-
     window.addEventListener('resize', handleResize);
-
     handleResize();
-
     return () => {
       window.removeEventListener('resize', handleResize);
     };
@@ -144,7 +143,8 @@ export const Layout = () => {
             <Currency />
           ) : (
             <>
-              <Balance />
+              {location.pathname !== '/Statistics' || (screen && <Balance />)}
+              {location.pathname !== '/Statistics' && <Balance />}
               {screen && <Currency />}
             </>
           )}

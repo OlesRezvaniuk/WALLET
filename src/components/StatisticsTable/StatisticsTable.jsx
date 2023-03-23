@@ -33,16 +33,6 @@ export const StatisticsTable = ({ data }) => {
     year: '',
   });
   const [isModalOpen, setIsModalOpen] = useState({ month: false, year: false });
-  const [date, setDate] = useState({
-    static: {
-      month: new Date().getMonth() + 1,
-      year: new Date().getFullYear(),
-    },
-    dinamic: {
-      month: null,
-      year: null,
-    },
-  });
   const dispatch = useDispatch();
   const summaryResponse = useSelector(userSummaryForPeriodSelector);
   const user = useSelector(authUserTransactions);

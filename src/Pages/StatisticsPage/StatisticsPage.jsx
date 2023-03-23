@@ -4,7 +4,6 @@ import { Container } from './StatisticsPage.styled';
 import { colorsHelper } from 'components/Chart/helpers/helpers';
 import { userSummaryForPeriodSelector } from 'redux/transactions/transactionsSelector';
 import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 import { Title, ContentBox } from './StatisticsPage.styled';
 
 export const StatisticsPage = () => {

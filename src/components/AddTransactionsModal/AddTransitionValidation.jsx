@@ -1,21 +1,13 @@
-export const AddTransitionValidation = ({
-  request,
-  setErrorMessage,
-  errorMessage,
-}) => {
-  if (request.type === 'INCOME' && request.amount === '') {
-    setErrorMessage({
-      ...errorMessage,
-      message: 'You must enter the amount',
-      amount: true,
-    });
-    return 'You must enter the amount';
-  } else {
-    setErrorMessage({
-      ...errorMessage,
-      message: '',
-      amount: false,
-      category: false,
-    });
+export const AddTransitionValidation = ({ request, setErrorMessage, send }) => {
+  if (request.type === 'INCOME') {
+    if (request.amount !== '') {
+      setErrorMessage(false);
+      send();
+    }
+  } else if (request.type === 'EXPENSE') {
+    if (request.amount !== '' && request.categoryId !== '') {
+      setErrorMessage(false);
+      send();
+    }
   }
 };

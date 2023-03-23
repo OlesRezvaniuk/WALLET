@@ -122,6 +122,8 @@ export const LogoutButton = styled.button`
 export const ExitIcon = styled(ExitIconPrimal)``;
 
 export const UserName = styled.span`
+  display: flex;
+  align-items: center;
   margin-left: auto;
   font-weight: 400;
   font-size: 18px;

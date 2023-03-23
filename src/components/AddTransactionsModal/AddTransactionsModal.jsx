@@ -39,11 +39,7 @@ import { AddTransitionValidation } from './AddTransitionValidation';
 
 export const AddTransactionsModal = ({ SetIsModalOpen }) => {
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState({
-    amount: false,
-    category: false,
-    message: '',
-  });
+  const [errorMessage, setErrorMessage] = useState(true);
   const dispatch = useDispatch();
   const categories = useSelector(categoriesSelector);
 
@@ -103,35 +99,59 @@ export const AddTransactionsModal = ({ SetIsModalOpen }) => {
     });
   };
 
+  async function send() {
+    await dispatch(createTransactionsOperation(request));
+    await dispatch(getUserTransactions());
+    setTransaction({
+      ...transaction,
+      category: '',
+      request: { ...request, amount: '' },
+    });
+    await dispatch(
+      getUserTransactionsSummary({
+        month: new Date().getMonth() + 1,
+        year: new Date().getFullYear(),
+      })
+    );
+    await dispatch(currentUserOperation());
+    SetIsModalOpen(false);
+    document.querySelector('body').classList.remove('modal');
+  }
+
   const handleCreateTransaction = e => {
     e.preventDefault();
-    async function send() {
-      await dispatch(createTransactionsOperation(request));
-      await dispatch(getUserTransactions());
-      setTransaction({
-        ...transaction,
-        category: '',
-        request: { ...request, amount: '' },
-      });
-      await dispatch(
-        getUserTransactionsSummary({
-          month: new Date().getMonth() + 1,
-          year: new Date().getFullYear(),
-        })
-      );
-      await dispatch(currentUserOperation());
-      SetIsModalOpen(false);
-      document.querySelector('body').classList.remove('modal');
-    }
-    if (request.type === 'INCOME' && request.amount !== '') {
-      AddTransitionValidation({ request, setErrorMessage, errorMessage });
-      send();
-    } else {
-      AddTransitionValidation({ request, setErrorMessage, errorMessage });
-      console.log(errorMessage.message);
-      return;
-    }
+
+    AddTransitionValidation({
+      request,
+      setErrorMessage,
+      errorMessage,
+      send,
+    });
   };
+
+  useEffect(() => {
+    if (request.type === 'INCOME') {
+      if (request.amount === '' || request.amount === 0) {
+        setErrorMessage(true);
+        console.log('change');
+      } else {
+        setErrorMessage(false);
+      }
+    }
+    if (request.type === 'EXPENSE') {
+      if (
+        request.amount === '' ||
+        request.amount === 0 ||
+        request.categoryId === ''
+      ) {
+        setErrorMessage(true);
+        console.log('change');
+      } else {
+        setErrorMessage(false);
+      }
+    }
+    // eslint-disable-next-line
+  }, [request.amount]);
 
   return (
     <Backdrop
@@ -225,6 +245,12 @@ export const AddTransactionsModal = ({ SetIsModalOpen }) => {
             <div style={{ position: 'relative' }}>
               <HiddenInputControlls />
               <Input
+                style={{
+                  pointerEvents:
+                    request.type === 'EXPENSE' &&
+                    request.categoryId === '' &&
+                    'none',
+                }}
                 color={request.type}
                 value={request.amount}
                 onBlur={e => {
@@ -250,7 +276,7 @@ export const AddTransactionsModal = ({ SetIsModalOpen }) => {
                 type="number"
                 placeholder="0.00"
               />
-              {errorMessage.amount && (
+              {errorMessage && (
                 <span
                   style={{
                     position: 'absolute',
@@ -260,9 +286,12 @@ export const AddTransactionsModal = ({ SetIsModalOpen }) => {
                     color: 'tomato',
                     fontSize: 12,
                     textAlign: 'start',
+                    fontStyle: 'italic',
                   }}
                 >
-                  {errorMessage.message}
+                  {request.type === 'EXPENSE' && request.categoryId === ''
+                    ? 'First you must select a category'
+                    : 'You must enter a quantity'}
                 </span>
               )}
             </div>

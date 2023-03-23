@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/WALLET/static/css/main.259aaa3f.css",
-    "main.js": "/WALLET/static/js/main.1ee01de7.js",
+    "main.js": "/WALLET/static/js/main.d80e0335.js",
     "static/media/Group.svg": "/WALLET/static/media/Group.64ca2e4c6bf81d519acb6f918e3899e7.svg",
     "static/media/Frame.svg": "/WALLET/static/media/Frame.5717978088f0bcb942943cdd8713b9c8.svg",
     "static/media/logo.svg": "/WALLET/static/media/logo.12a90eb3201898cbc53f2bd79100346a.svg",
@@ -27,10 +27,10 @@
     "static/media/plus.svg": "/WALLET/static/media/plus.243fe8352e685998e19b95bd64832d94.svg",
     "static/media/arrowBottom.svg": "/WALLET/static/media/arrowBottom.80e5ec3993faf38da594750d5851c637.svg",
     "main.259aaa3f.css.map": "/WALLET/static/css/main.259aaa3f.css.map",
-    "main.1ee01de7.js.map": "/WALLET/static/js/main.1ee01de7.js.map"
+    "main.d80e0335.js.map": "/WALLET/static/js/main.d80e0335.js.map"
   },
   "entrypoints": [
     "static/css/main.259aaa3f.css",
-    "static/js/main.1ee01de7.js"
+    "static/js/main.d80e0335.js"
   ]
 }

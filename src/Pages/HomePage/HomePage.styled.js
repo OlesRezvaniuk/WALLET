@@ -5,12 +5,16 @@ export const HomePageContainer = styled.div`
   pisition: relative;
   padding: 0px 20px;
   z-index: 1;
+  @media screen and (min-width: 597px) {
+    height: 620px;
+  }
   @media screen and (min-width: 768px) {
     padding: 0px 32px;
   }
   @media screen and (min-width: 990px) {
     padding: 45px 16px 0px 16px;
     width: 100%;
+    height: 660px;
   }
   @media screen and (min-width: 1280px) {
     border-left: 1px solid #e7e5f2;
@@ -39,10 +43,11 @@ export const AddTransactionBtn = styled.button`
   @media screen and (min-width: 597px) {
     right: 40px;
     bottom: 40px;
-    position: sticky;
+    position: absolute;
     margin-left: auto;
-    margin-right: 20px;
+    margin-right: auto;
   }
+
   &:hover,
   &:focus {
     border: 1px solid rgb(74, 86, 226);

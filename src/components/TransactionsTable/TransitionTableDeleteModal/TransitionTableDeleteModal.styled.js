@@ -13,7 +13,7 @@ export const Backdrop = styled.div`
   display: flex;
   backdrop-filter: blur(2px);
   overflow: hidden;
-  z-index: 1;
+  z-index: 101;
   background-color: #b2b2b214;
 `;
 

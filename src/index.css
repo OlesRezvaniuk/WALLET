@@ -33,8 +33,13 @@ code {
   }
 }
 
+#root {
+  overflow: auto;
+}
+
 @media screen and (min-width: 597px) {
   #root {
+    overflow: hidden;
     background-image: url(./Image/Auth/Ellipse2.svg),
       url(./Image/Auth/Ellipse1T.svg);
     background-repeat: no-repeat;

@@ -120,7 +120,6 @@ export const AddTransactionsModal = ({ SetIsModalOpen }) => {
 
   const handleCreateTransaction = e => {
     e.preventDefault();
-
     AddTransitionValidation({
       request,
       setErrorMessage,
@@ -133,7 +132,6 @@ export const AddTransactionsModal = ({ SetIsModalOpen }) => {
     if (request.type === 'INCOME') {
       if (request.amount === '' || request.amount === 0) {
         setErrorMessage(true);
-        console.log('change');
       } else {
         setErrorMessage(false);
       }
@@ -145,7 +143,6 @@ export const AddTransactionsModal = ({ SetIsModalOpen }) => {
         request.categoryId === ''
       ) {
         setErrorMessage(true);
-        console.log('change');
       } else {
         setErrorMessage(false);
       }
@@ -226,15 +223,17 @@ export const AddTransactionsModal = ({ SetIsModalOpen }) => {
               <CategoryListBox>
                 <CategoryListHiddenControlls />
                 <CategoryList>
-                  {categories.transactions.getCategories.map(item => {
-                    return (
-                      <CategoryListItem key={item.id}>
-                        <p id={item.id} onClick={handleChangeCaterogies}>
-                          {item.name}
-                        </p>
-                      </CategoryListItem>
-                    );
-                  })}
+                  {categories.transactions.getCategories
+                    .slice(0, categories.transactions.getCategories.length - 1)
+                    .map(item => {
+                      return (
+                        <CategoryListItem key={item.id}>
+                          <p id={item.id} onClick={handleChangeCaterogies}>
+                            {item.name}
+                          </p>
+                        </CategoryListItem>
+                      );
+                    })}
                 </CategoryList>
               </CategoryListBox>
             )}
@@ -287,6 +286,7 @@ export const AddTransactionsModal = ({ SetIsModalOpen }) => {
                     fontSize: 12,
                     textAlign: 'start',
                     fontStyle: 'italic',
+                    pointerEvents: 'none',
                   }}
                 >
                   {request.type === 'EXPENSE' && request.categoryId === ''

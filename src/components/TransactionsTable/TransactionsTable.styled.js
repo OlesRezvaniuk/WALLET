@@ -206,7 +206,6 @@ export const TableFooterEditBtn = styled.button`
   &:hover {
     stroke: #24cca7;
     color: #24cca7;
-    background-color: #fff;
   }
 `;
 

@@ -5,15 +5,28 @@ import { ReactComponent as HomeIconPrimal } from '../../Image/HomeIcon.svg';
 import { ReactComponent as StatisticIconPrimal } from '../../Image/StatisticIcon.svg';
 import { ReactComponent as CurrencyIconPrimal } from '../../Image/CurrencyIcon.svg';
 import { Link } from 'react-router-dom';
+// import EllipseTopT from 'Image/Auth/Ellipse2.svg';
+// import EllipseTopD from 'Image/Auth/Ellipse2d.svg';
+// import EllipseBottomT from 'Image/Auth/Ellipse1T.svg';
+// import EllipseBottomD from 'Image/Auth/Ellipse1d.svg';
+
+export const Container = styled.div`
+  background-color: white;
+  display: flex;
+  z-index: 100;
+  position: relative;
+  width: 100%;
+`;
 
 export const LayoutBox = styled.div`
+margin: auto;
+width: 100%;
+max-width: 1280px;
   padding: 15px 20px;
   display: flex;
   position: sticky;
   top: 0;
-  background-color: white;
   z-index: 100;
-  ox-shadow: 0px 0px 2px grey;
 }
   @media screen and (min-width: 597px) {
     padding: 20px 32px;
@@ -24,8 +37,10 @@ export const LayoutBox = styled.div`
 `;
 
 export const ContentContainer = styled.div`
-  background-color: rgb(245, 248, 255);
   position: relative;
+  width: 100%;
+  max-width: 1280px;
+  margin: auto;
   // padding-bottom: 32px;
   @media screen and (min-width: 597px) {
     padding-bottom: 16px;
@@ -34,9 +49,23 @@ export const ContentContainer = styled.div`
     display: flex;
   }
 `;
+// @media screen and (min-width: 597px) {
+//   background-image: url(), url(${EllipseTopT}), url(${EllipseBottomT});
+//   background-repeat: no-repeat;
+//   background-position: left 114px top 60px, right top, left bottom;
+//   background-size: 260px, auto, auto;
+//   background-color: #e7eaf2;
+// }
+// @media screen and (min-width: 1280px) {
+//   background-image: url(), url(${EllipseTopD}), url(${EllipseBottomD});
+//   background-position: left 76px top 150px, right top, left bottom;
+//   background-size: 435px, auto, auto;
+// }
 
 export const ContentTopContainer = styled.div`
   padding-bottom: 32px;
+  z-index: 1;
+  position: relative;
   @media screen and (min-width: 597px) {
     padding-bottom: 16px;
   }
@@ -117,6 +146,7 @@ export const CurrencyIcon = styled(CurrencyIconPrimal)`
 export const LogoutButton = styled.button`
   border: none;
   background-color: transparent;
+  cursor: pointer;
 `;
 
 export const ExitIcon = styled(ExitIconPrimal)``;
@@ -131,4 +161,15 @@ export const UserName = styled.span`
   text-align: right;
   color: #bdbdbd;
   margin-right: 8px;
+`;
+
+export const Blur = styled.div`
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.4);
 `;

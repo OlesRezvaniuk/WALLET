@@ -26,3 +26,36 @@ code {
 .modal {
   overflow: hidden;
 }
+
+@media screen and (min-width: 597px) {
+  body {
+    overflow: hidden;
+  }
+}
+
+@media screen and (min-width: 597px) {
+  #root {
+    background-image: url(), url(Image/Auth/Ellipse2.svg),
+      url(Image/Auth/Ellipse1T.svg);
+    background-repeat: no-repeat;
+    background-position: left 114px top 60px, right top, left bottom;
+    background-size: 260px, auto, auto;
+    background-color: #e7eaf2;
+  }
+}
+@media screen and (min-width: 1280px) {
+  #root {
+    background-image: url(), url(Image/Auth/Ellipse2d.svg),
+      url(Image/Auth/Ellipse1d.svg);
+    background-position: left 76px top 150px, right top, left bottom;
+    background-size: 435px, auto, auto;
+  }
+}
+
+#root {
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}

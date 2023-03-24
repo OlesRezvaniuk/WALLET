@@ -2,7 +2,7 @@ export const colorsHelper = arr => {
   const data = arr.map(item => {
     function color() {
       if (item.name === 'Main expenses') {
-        return '##FED057';
+        return '#FED057';
       } else if (item.name === 'Products') {
         return '#FFD8D0';
       } else if (item.name === 'Car') {

@@ -18,9 +18,10 @@ import {
 export const App = () => {
   const dispatch = useDispatch();
   const user = useSelector(authSelector);
+  const { token } = user.auth;
 
   useEffect(() => {
-    if (user.auth.isLogin) {
+    if (token) {
       dispatch(currentUserOperation());
       dispatch(getTransactionsCategories());
       dispatch(
@@ -32,7 +33,7 @@ export const App = () => {
       dispatch(getUserTransactions());
     }
     // eslint-disable-next-line
-  }, []);
+  }, [token]);
 
   return (
     <Routes>

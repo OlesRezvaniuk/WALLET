@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import {
+  Container,
   LayoutBox,
   ContentContainer,
   LogoImg,
@@ -13,6 +14,7 @@ import {
   StatisticIcon,
   CurrencyIcon,
   ContentTopContainer,
+  Blur,
 } from './Layout.styled';
 import { authSelector } from 'redux/auth/authSelector';
 import { useSelector, useDispatch } from 'react-redux';
@@ -58,24 +60,20 @@ export const Layout = () => {
 
   return (
     <>
-      <LayoutBox>
-        <LogoImg
-          onClick={() => {
-            dispatch(loginUserOperation(data));
-          }}
-        />
-        <UserName>{user.auth.user.username}</UserName>
-        <LogoutButton onClick={handleLogout}>
-          <ExitIcon />
-        </LogoutButton>
-      </LayoutBox>
-      <ContentContainer
-        style={{
-          backgroundColor: '#f5f8ff',
-          position: 'relative',
-          // padding: '0px 20px',
-        }}
-      >
+      <Container style={{ backgroundColor: '#fff' }}>
+        <LayoutBox>
+          <LogoImg
+            onClick={() => {
+              dispatch(loginUserOperation(data));
+            }}
+          />
+          <UserName>{user.auth.user.username}</UserName>
+          <LogoutButton onClick={handleLogout}>
+            <ExitIcon />
+          </LogoutButton>
+        </LayoutBox>
+      </Container>
+      <ContentContainer>
         <ContentTopContainer>
           <NavBox>
             <LinkStyled
@@ -151,6 +149,7 @@ export const Layout = () => {
         </ContentTopContainer>
         {!currentLink.currency && <Outlet />}
       </ContentContainer>
+      {screen && <Blur />}
     </>
   );
 };

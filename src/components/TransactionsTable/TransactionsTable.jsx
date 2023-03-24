@@ -38,9 +38,11 @@ import {
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { TransactionTableEditModal } from './TransactionTableEditModal/TransactionTableEditModal';
+import { PaginationController } from 'components/PaginationController/PaginationController';
 
 export const TransactionsTable = () => {
   const [screen, setScreen] = useState(true);
+  const [page, setPage] = useState({ state: { is: 0, to: 8 }, step: 8 });
   const [editTr, setEditTr] = useState({
     state: false,
     id: '',
@@ -127,79 +129,83 @@ export const TransactionsTable = () => {
       {!screen && (
         <TransitionList>
           {transactions.transaction !== null &&
-            TransactionsData().map(item => {
-              return (
-                <TransitionItem type={item.type} key={item.id}>
-                  <TransitionItemList>
-                    {!screen && (
-                      <TableHeadMobile>
-                        <TableHeadMobileList>
-                          <TableHeadMobileListItem>
-                            Date
-                          </TableHeadMobileListItem>
-                          <TableHeadMobileListItem>
-                            Type
-                          </TableHeadMobileListItem>
-                          <TableHeadMobileListItem>
-                            Category
-                          </TableHeadMobileListItem>
-                          <TableHeadMobileListItem>
-                            Comment
-                          </TableHeadMobileListItem>
-                          <TableHeadMobileListItem>Sum</TableHeadMobileListItem>
-                        </TableHeadMobileList>
-                      </TableHeadMobile>
-                    )}
-                    <TableBody>
-                      <TableBodyList>
-                        <TableBodyListItem>
-                          <p>{item.transactionDate.replace(/-/g, '.')}</p>
-                        </TableBodyListItem>
-                        <TableBodyListItem>
-                          <p>
-                            {item.type === 'INCOME' && '+'}
-                            {item.type === 'EXPENSE' && '-'}
-                          </p>
-                        </TableBodyListItem>
-                        <TableBodyListItem>
-                          <p>{getCategory(item.categoryId)}</p>
-                        </TableBodyListItem>
-                        <TableBodyListItem>
-                          <p>{item.comment}</p>
-                        </TableBodyListItem>
-                        <TableBodyListItem>
-                          <p>{Math.abs(item.amount)}</p>
-                        </TableBodyListItem>
-                      </TableBodyList>
-                    </TableBody>
-                    <TableFooterItem>
-                      <TableFooterList>
-                        <TableFooterListItem>
-                          <TableFooterDeleteBtn
-                            id={item.id}
-                            type="button"
-                            onClick={handleDeleteTransaction}
-                          >
-                            delete
-                          </TableFooterDeleteBtn>
-                        </TableFooterListItem>
-                        <TableFooterListItem>
-                          <TableFooterEditBtn
-                            onClick={() => {
-                              handleEditTransaction(item);
-                            }}
-                            type="button"
-                          >
-                            <EditIcon />
-                            edit
-                          </TableFooterEditBtn>
-                        </TableFooterListItem>
-                      </TableFooterList>
-                    </TableFooterItem>
-                  </TransitionItemList>
-                </TransitionItem>
-              );
-            })}
+            TransactionsData()
+              .slice(page.state.is, page.state.to)
+              .map(item => {
+                return (
+                  <TransitionItem type={item.type} key={item.id}>
+                    <TransitionItemList>
+                      {!screen && (
+                        <TableHeadMobile>
+                          <TableHeadMobileList>
+                            <TableHeadMobileListItem>
+                              Date
+                            </TableHeadMobileListItem>
+                            <TableHeadMobileListItem>
+                              Type
+                            </TableHeadMobileListItem>
+                            <TableHeadMobileListItem>
+                              Category
+                            </TableHeadMobileListItem>
+                            <TableHeadMobileListItem>
+                              Comment
+                            </TableHeadMobileListItem>
+                            <TableHeadMobileListItem>
+                              Sum
+                            </TableHeadMobileListItem>
+                          </TableHeadMobileList>
+                        </TableHeadMobile>
+                      )}
+                      <TableBody>
+                        <TableBodyList>
+                          <TableBodyListItem>
+                            <p>{item.transactionDate.replace(/-/g, '.')}</p>
+                          </TableBodyListItem>
+                          <TableBodyListItem>
+                            <p>
+                              {item.type === 'INCOME' && '+'}
+                              {item.type === 'EXPENSE' && '-'}
+                            </p>
+                          </TableBodyListItem>
+                          <TableBodyListItem>
+                            <p>{getCategory(item.categoryId)}</p>
+                          </TableBodyListItem>
+                          <TableBodyListItem>
+                            <p>{item.comment}</p>
+                          </TableBodyListItem>
+                          <TableBodyListItem>
+                            <p>{Math.abs(item.amount)}</p>
+                          </TableBodyListItem>
+                        </TableBodyList>
+                      </TableBody>
+                      <TableFooterItem>
+                        <TableFooterList>
+                          <TableFooterListItem>
+                            <TableFooterDeleteBtn
+                              id={item.id}
+                              type="button"
+                              onClick={handleDeleteTransaction}
+                            >
+                              delete
+                            </TableFooterDeleteBtn>
+                          </TableFooterListItem>
+                          <TableFooterListItem>
+                            <TableFooterEditBtn
+                              onClick={() => {
+                                handleEditTransaction(item);
+                              }}
+                              type="button"
+                            >
+                              <EditIcon />
+                              edit
+                            </TableFooterEditBtn>
+                          </TableFooterListItem>
+                        </TableFooterList>
+                      </TableFooterItem>
+                    </TransitionItemList>
+                  </TransitionItem>
+                );
+              })}
         </TransitionList>
       )}
       {editTr.deleteModal.state && (
@@ -233,74 +239,81 @@ export const TransactionsTable = () => {
           </TransitionTableTabletThead>
           <TransitionTableTabletTbody>
             {transactions.transaction !== null &&
-              TransactionsData().map(item => {
-                return (
-                  <TransitionTableTabletTbodyTr key={item.id}>
-                    <TransitionTableTabletTbodyTd>
-                      {item.transactionDate
-                        .replace(/-/g, '.')
-                        .slice(
-                          2,
-                          item.transactionDate.replace(/-/g, '.').length
-                        )}
-                    </TransitionTableTabletTbodyTd>
-                    <TransitionTableTabletTbodyTd>
-                      {item.type === 'INCOME' && '+'}
-                      {item.type === 'EXPENSE' && '-'}
-                    </TransitionTableTabletTbodyTd>
-                    <TransitionTableTabletTbodyTd>
-                      {getCategory(item.categoryId)}
-                    </TransitionTableTabletTbodyTd>
-                    <TransitionTableTabletTbodyTd>
-                      {item.comment}
-                    </TransitionTableTabletTbodyTd>
-                    <TransitionTableTabletTbodyTd
-                      style={{
-                        color: item.amount < 0 && 'red',
-                      }}
-                    >
-                      <div
+              TransactionsData()
+                .slice(page.state.is, page.state.to)
+                .map(item => {
+                  return (
+                    <TransitionTableTabletTbodyTr key={item.id}>
+                      <TransitionTableTabletTbodyTd>
+                        {item.transactionDate
+                          .replace(/-/g, '.')
+                          .slice(
+                            2,
+                            item.transactionDate.replace(/-/g, '.').length
+                          )}
+                      </TransitionTableTabletTbodyTd>
+                      <TransitionTableTabletTbodyTd>
+                        {item.type === 'INCOME' && '+'}
+                        {item.type === 'EXPENSE' && '-'}
+                      </TransitionTableTabletTbodyTd>
+                      <TransitionTableTabletTbodyTd>
+                        {getCategory(item.categoryId)}
+                      </TransitionTableTabletTbodyTd>
+                      <TransitionTableTabletTbodyTd>
+                        {item.comment}
+                      </TransitionTableTabletTbodyTd>
+                      <TransitionTableTabletTbodyTd
                         style={{
-                          display: 'flex',
-                          justifyContent: 'space-between',
+                          color: item.amount < 0 && 'red',
                         }}
                       >
-                        <span>{Math.abs(item.amount)}</span>
-                        <TableFooterList
+                        <div
                           style={{
-                            padding: 0,
-                            flexDirection: 'row-reverse',
-                            marginRight: 20,
+                            display: 'flex',
+                            justifyContent: 'space-between',
                           }}
                         >
-                          <TableFooterListItem>
-                            <TableFooterDeleteBtn
-                              id={item.id}
-                              type="button"
-                              onClick={handleDeleteTransaction}
-                            >
-                              delete
-                            </TableFooterDeleteBtn>
-                          </TableFooterListItem>
-                          <TableFooterListItem>
-                            <TableFooterEditBtn
-                              onClick={() => {
-                                handleEditTransaction(item);
-                              }}
-                              type="button"
-                            >
-                              <EditIcon />
-                            </TableFooterEditBtn>
-                          </TableFooterListItem>
-                        </TableFooterList>
-                      </div>
-                    </TransitionTableTabletTbodyTd>
-                  </TransitionTableTabletTbodyTr>
-                );
-              })}
+                          <span>{Math.abs(item.amount)}</span>
+                          <TableFooterList
+                            style={{
+                              padding: 0,
+                              flexDirection: 'row-reverse',
+                              marginRight: 20,
+                            }}
+                          >
+                            <TableFooterListItem>
+                              <TableFooterDeleteBtn
+                                id={item.id}
+                                type="button"
+                                onClick={handleDeleteTransaction}
+                              >
+                                delete
+                              </TableFooterDeleteBtn>
+                            </TableFooterListItem>
+                            <TableFooterListItem>
+                              <TableFooterEditBtn
+                                onClick={() => {
+                                  handleEditTransaction(item);
+                                }}
+                                type="button"
+                              >
+                                <EditIcon />
+                              </TableFooterEditBtn>
+                            </TableFooterListItem>
+                          </TableFooterList>
+                        </div>
+                      </TransitionTableTabletTbodyTd>
+                    </TransitionTableTabletTbodyTr>
+                  );
+                })}
           </TransitionTableTabletTbody>
         </TableTablet>
       )}
+      <PaginationController
+        page={page}
+        setPage={setPage}
+        TransactionsData={TransactionsData}
+      />
     </>
   );
 };

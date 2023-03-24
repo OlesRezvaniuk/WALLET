@@ -4,7 +4,7 @@ import { ReactComponent as PlusIconPrimal } from '../../Image/plus.svg';
 export const HomePageContainer = styled.div`
   pisition: relative;
   padding: 0px 20px;
-  background-color: rgb(245, 248, 255);
+  z-index: 1;
   @media screen and (min-width: 768px) {
     padding: 0px 32px;
   }
@@ -22,11 +22,12 @@ export const HomePageContainer = styled.div`
 `;
 
 export const AddTransactionBtn = styled.button`
+  z-index: 100;
   position: fixed;
   bottom: 20px;
   right: 20px;
   stroke: white;
-  background-color: rgb(36, 204, 167);
+  background-color: rgb(74, 86, 226);
   border: 1px solid transparent;
   width: 44px;
   height: 44px;
@@ -35,18 +36,21 @@ export const AddTransactionBtn = styled.button`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  box-shadow: 0px 3px 5px rgba(36, 204, 167, 0.5);
+  box-shadow: 0px 3px 5px rgba(74, 86, 226, 0.5);
   transition: 250ms;
   @media screen and (min-width: 597px) {
     right: 40px;
     bottom: 40px;
+    position: sticky;
+    margin-left: auto;
+    margin-right: 20px;
   }
   &:hover,
   &:focus {
-    border: 1px solid rgb(36, 204, 167);
-    stroke: rgb(36, 204, 167);
+    border: 1px solid rgb(74, 86, 226);
+    stroke: rgb(74, 86, 226);
     background-color: white;
-    box-shadow: 0px 6px 15px rgba(36, 204, 167, 0.5);
+    box-shadow: 0px 6px 15px rgba(74, 86, 226, 0.5);
   }
 `;
 

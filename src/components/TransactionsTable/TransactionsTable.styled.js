@@ -15,7 +15,9 @@ export const TransitionList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  list-style: none;
+  list-style: none;z
+  z-index: 1;
+  position: relative;
 
   display: block @media screen and(min-width: 597px) {
     display: none;
@@ -90,6 +92,8 @@ export const TransitionItem = styled.li`
 
 export const TableTablet = styled.table`
   border-collapse: collapse;
+  z-index: 1;
+  position: relative;
   @media screen and (max-width: 768px) {
     width: 100%;
   }

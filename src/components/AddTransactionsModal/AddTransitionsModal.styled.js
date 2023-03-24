@@ -10,9 +10,7 @@ export const MinusIcon = styled(MinusIconPrimal)`
 `;
 
 export const Backdrop = styled.div`
-  @media screen and (max-width: 596px) {
-    background-color: #fff;
-  }
+  z-index: 2;
   overflow: auto;
   position: fixed;
   top: 0;
@@ -20,12 +18,16 @@ export const Backdrop = styled.div`
   width: 100%;
   height: 100%;
   background-color: transparent;
+  @media screen and (max-width: 596px) {
+    background-color: #fff;
+  }
   @media screen and (min-width: 597px) {
-    overflow: hidden;
+    padding-top: 110px;
+    padding-bottom: 30px;
     background: rgba(0, 0, 0, 0.25);
     display: flex;
     justify-content: center;
-    align-items: center;
+    // align-items: center;
   }
 `;
 
@@ -37,7 +39,8 @@ export const Form = styled.form`
   text-align: center;
 }
   @media screen and (min-width: 597px) {
-    top: 80px;
+        position: relative;
+  top: auto;
     width: 540px;
     height: max-content;
     border-radius: 20px;

@@ -3,6 +3,7 @@ import { ReactComponent as ArrowIconPrimal } from '../../Image/arrowBottom.svg';
 
 export const StatisticsTableBox = styled.div`
   width: 100%;
+  position: relative;
 `;
 
 export const TableTd = styled.td`

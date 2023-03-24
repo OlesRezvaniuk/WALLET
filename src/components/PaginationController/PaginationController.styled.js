@@ -11,7 +11,7 @@ export const Box = styled.div`
 `;
 
 export const ArrowIcon = styled(ArrowIconPrimal)`
-  width: 16px;
+  width: 12px;
   stroke: inherit;
   transform: ${prop =>
     prop.position === 'left' ? 'rotate(90deg)' : 'rotate(-90deg)'};

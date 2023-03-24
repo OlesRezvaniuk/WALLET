@@ -10,7 +10,7 @@ export const MinusIcon = styled(MinusIconPrimal)`
 `;
 
 export const Backdrop = styled.div`
-  z-index: 2;
+  z-index: 101;
   overflow: auto;
   position: fixed;
   top: 0;

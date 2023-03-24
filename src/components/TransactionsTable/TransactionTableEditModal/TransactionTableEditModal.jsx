@@ -17,6 +17,7 @@ import {
   ClearButton,
   ControllsButton,
 } from './TransactionTableEditModal.styled';
+import { currentUserOperation } from 'redux/auth/authOperations';
 
 export const TransactionTableEditModal = ({ editTr, setEditTr }) => {
   const dispatch = useDispatch();
@@ -114,6 +115,7 @@ export const TransactionTableEditModal = ({ editTr, setEditTr }) => {
               };
               await dispatch(editUserTransactions(transaction));
               await dispatch(getUserTransactions());
+              await dispatch(currentUserOperation());
               setEditTr({ ...editTr, state: false });
             }}
           >

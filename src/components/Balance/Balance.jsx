@@ -1,9 +1,13 @@
 import { useSelector } from 'react-redux';
 import { authSelector } from 'redux/auth/authSelector';
 import { BalanceTitle, BalanceBox, BalanceValue } from './Balance.styled';
+import { useEffect } from 'react';
 
 export const Balance = () => {
   const user = useSelector(authSelector);
+
+  useEffect(() => {}, []);
+
   return (
     <BalanceBox>
       <BalanceTitle>

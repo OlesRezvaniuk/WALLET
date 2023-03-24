@@ -63,6 +63,7 @@ export const logoutUserOperation = createAsyncThunk(
       const response = await axios.delete(
         'https://wallet.goit.ua/api/auth/sign-out'
       );
+      token.unset();
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

@@ -116,6 +116,7 @@ export const TransitionTableTabletTheadItem = styled.th`
   padding: 15px 0px;
   background-color: white;
   &:first-child {
+    text-align: start;
     width: 38px;
     padding-left: 20px;
     padding-right: 30px;
